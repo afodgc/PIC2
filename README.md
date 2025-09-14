@@ -1,6 +1,6 @@
 # LaTeX Document Template
 
-This is a LaTeX document template designed for technical reports, academic papers, and project documentation. It is suposed to be cloned to other directory and changed.
+This repo used a github latex repo and a latex template made by Rui Santos Cruz. The both template were edit as i preferred. Folowing is explain how to comp
 
 
 ## 🚀 Quick Start
@@ -53,7 +53,7 @@ This template includes GitLab CI/CD that automatically builds and releases your 
 
 ### How to Use CI/CD
 
-1. **Push your changes** to GitLab repository
+1. **Push your changes** to GitLab/GitHub repository
 2. **Create and push a tag** for releases:
    ```bash
    git tag v1.0.0
