@@ -31,24 +31,24 @@
 % #############################################################################
 % !TEX root = ./main.tex
 % -----------------------------------------------------------------------------
-%
+
 \documentclass[defaultstyle,10pt,Helvetica]{istulthesis}
-%
+
 % -----------------------------------------------------------------------------
 % The Preamble document contains all the necessary Packages for typesetting
 % Modify it to suit your needs
 % -----------------------------------------------------------------------------
 \input{Preamble_commands.tex}
-%
+
 % #############################################################################
 % #############################################################################
 \begin{document}
-%
+
 % Add PDF bookmark
 \pdfbookmark[0]{Titlepage}{Title}
 \input{Front_Cover.tex}
 \cleardoublepage
-%
+
 % -----------------------------------------------------------------------------
 % PAGE NUMBERING FOR INDEXING MATTER in ROMAN
 \setcounter{page}{1} \pagenumbering{roman}
@@ -63,36 +63,12 @@
    \input{./Chapters/Abstract/EN-Abstract}
 \end{abstract}
 \clearpage
-%\begin{keywords}
-%   \input{./Chapters/Thesis-MSc-Abstract-EN-KeyWords.tex}
-%\end{keywords}
-%\clearpage
-%\thispagestyle{empty}
-%% If Printing on DOUBLE SIDED pages, the second page should be white.
-%% Otherwise, comment the following command:
-%\cleardoublepage
-%
-% -----------------------------------------------------------------------------
-% O RESUMO
-%\pdfbookmark[0]{Resumo}{Resumo}
-%\begin{resumo}
-%   \input{./Chapters/Thesis-MSc-Abstract-PT-Resumo.tex}
-%\end{resumo}
-%\begin{palavraschave}
-%   \input{./Chapters/Thesis-MSc-Abstract-PT-PalavrasChave.tex}
-%\end{palavraschave}
-%\clearpage
-%\thispagestyle{empty}
-%% If Printing on DOUBLE SIDED pages, the second page should be white.
-%% Otherwise, comment the following command:
-%\cleardoublepage
-%
+
 % -----------------------------------------------------------------------------
 % This is required for the Fancy Chapters with minitoc
 \dominitoc
 %\dominilof
 %\dominilot
-
 
 % -----------------------------------------------------------------------------
 %                                   Lists of Contents
@@ -106,23 +82,18 @@
 % reposition baseline
 \renewcommand{\baselinestretch}{1.5}
 % -----------------------------------------------------------------------------
-
-
-
-
-
-
-
-% List of Figures
+%                                List of Figures
 %\pdfbookmark[1]{List of Figures}{lof}
 %\listoffigures
 %\cleardoublepage
+
 % -----------------------------------------------------------------------------
 %\begingroup
 %    \let\clearpage\relax
 %    \let\cleardoublepage\relax
 %    \let\cleardoublepage\relax
-% List of Tables
+%
+%                               List of Tables
 %\pdfbookmark[1]{List of Tables}{lot}
 %\listoftables
 % If Printing on DOUBLE SIDED pages, the second page should be white.
@@ -131,7 +102,7 @@
 %\cleardoublepage
 %\clearpage
 % -----------------------------------------------------------------------------
-% List of Algorithms
+%                             List of Algorithms
 % If not used, comments the lines!
 % Requires packages algorithmic, algorithm
 %\pdfbookmark[1]{List of Algorithms}{loa}
@@ -141,14 +112,14 @@
 % Otherwise, comment the following command:
 %\cleardoublepage
 % -----------------------------------------------------------------------------
-% Listings
+%                                Listings
 % If not used, comments the lines!
 % Requires packages listings
 %\pdfbookmark[1]{Listings}{lol}
 %\lstlistoflistings
 %\cleardoublepage
 % -----------------------------------------------------------------------------
-% % List of acronyms
+%                             List of acronyms
 \pdfbookmark[1]{Acronyms}{loac}
 \chapter*{\tlangAcronyms}
 \input{Acronyms/Acronyms.tex}
@@ -163,63 +134,49 @@
 
 
 
-% -----------------------------------------------------------------------------
+
+% #############################################################################
+% #############################################################################
 %                                   CHAPTERS
 
-
-
-%Chapter 1
+% Chapter 1
 \acresetall
 \input{Chapters/Introduction/main.tex}
 \cleardoublepage
 % -----------------------------------------------------------------------------
 
 
-%Chapter 2
+% Chapter 2
 \acresetall
 \input{Chapters/SoA/main.tex}
 \cleardoublepage
 % -----------------------------------------------------------------------------
 
-%Chapter 3
+% Chapter 3
 \acresetall
 \input{Chapters/Solucion Proposal/main.tex}
 \cleardoublepage
 % -----------------------------------------------------------------------------
 
-%Chapter 4
+% Chapter 4
 \acresetall
 \input{Chapters/Preliminary Work/main.tex}
 \cleardoublepage
 % -----------------------------------------------------------------------------
 
-%Chapter 4
+% Chapter 5
 \acresetall
 \input{Chapters/Planning and scheduling/main.tex}
 \cleardoublepage
 % -----------------------------------------------------------------------------
 
-%Chapter 5
-%\acresetall
-%\input{Chapters/}
-%\cleardoublepage
-% -----------------------------------------------------------------------------
 
 
 
+% #############################################################################
+% #############################################################################
+%                          BIBLIOGRAPHY
 
-
-
-
-
-
-
-
-
-
-
-
-% BIBLIOGRAPHY
 % Add the Bibliography to the PDF table of contents (not the document table of contents)
 \pdfbookmark[0]{Bibliography}{bib}
 % The bibliography style sheet
@@ -250,8 +207,10 @@
 % If Printing on DOUBLE SIDED pages, the second page should be white.
 % Otherwise, comment the following command:
 %\cleardoublepage
-%
+
+
 % -----------------------------------------------------------------------------
+%                          APPENDIXES
 % HERE GO THE APPENDIXES IF REQUIRED
 % If not required just comment the blocks
 \appendix
@@ -260,19 +219,6 @@
 \pdfbookmark[1]{Appendix A}{appendix}
 \input{./Appendix/Thesis-MSc-AppendixA}
 
-
-%% If Printing on DOUBLE SIDED pages, the second page should be white.
-%% Otherwise, comment the following command:
-%\cleardoublepage
-%% Second Appendix
-
-
-%\pdfbookmark[1]{Appendix B}{appendix}
-%\input{./Chapters/Thesis-MSc-AppendixB.tex}
-
-%% If Printing on DOUBLE SIDED pages, the second page should be white.
-%% Otherwise, comment the following command:
-%\cleardoublepage
 
 % -----------------------------------------------------------------------------
 % And this is THE END of the IST Thesis Document
