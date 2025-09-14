@@ -1,6 +1,9 @@
-# LaTeX Document Template
+# Afonso Coelho PIC2
 
-This repo used a github latex repo and a latex template made by Rui Santos Cruz. The both template were edit as i preferred. Folowing is explain how to comp
+Irei fazer um pequeno resumo do PIC qwaqui
+
+## LaTeX Document Template
+This repo used a github latex repo and a latex template made by Rui Santos Cruz. The both template were edit as i preferred. Following is explain how to setup vscode for latex
 
 
 ## 🚀 Quick Start
@@ -47,39 +50,7 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-## 🚀 CI/CD Automation
 
-This template includes GitLab CI/CD that automatically builds and releases your PDF documents.
-
-### How to Use CI/CD
-
-1. **Push your changes** to GitLab/GitHub repository
-2. **Create and push a tag** for releases:
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
-3. **Download the PDF** from GitLab releases
-
-### What the CI/CD Does
-
-- **Builds PDF automatically** on every push and merge request
-- **Creates versioned releases** when you push a tag (e.g., `Report-v1.0.0.pdf`)
-- **Uploads to Package Registry** for easy distribution
-- **Creates GitLab releases** with direct download links
-
-### CI/CD Configuration
-
-To customize the CI/CD in `.gitlab-ci.yml`, update these variables:
-
-```yaml
-variables:
-  FILE_PREFIX: "Report"          # Change this to your desired filename prefix
-  FILE_SEPARATOR: "-"            # Separator between prefix and version
-  PACKAGE_NAME: "${CI_PROJECT_NAME}-pdf"  # Package registry folder name
-```
-
-**Example**: With `FILE_PREFIX: "MyDocument"` and tag `v2.1.0`, you'll get `MyDocument-v2.1.0.pdf`
 
 ## 🎨 Tips for Usage
 
@@ -116,3 +87,16 @@ variables:
   }
 }
 ```
+
+## Good VScode extensions for latex
+1. Latex Workshop
+2. Code Spell Checker
+4. vscode-pdf (pdf visualizer)
+3. vscode-icons (just for bather icons)
+
+
+
+## How to ignore trash files when using git (ADDed by Afonso)
+
+1. Create a .gitignore file
+2. Copy my gitignore (basically ignores all files except pdf and latex files)
