@@ -92,3 +92,33 @@ variables:
 ---
 
 *Happy LaTeX writing! 📝*
+
+## How to hide trash files in vscode (ADDed by Afonso)
+
+1. Open the command palette (Ctrl+Shift+P) and type Preferences: Open Settings (JSON).
+2. Add or edit the files.exclude section like this:
+```yaml
+{
+  "files.exclude": {
+    "**/*.log": true,
+    "**/*.aux": true,
+    "**/*.out": true,
+    "**/*.maf": true,
+    "**/*.mtc": true,
+    "**/*.mtc0": true,
+    "**/*.mtc1": true,
+    "**/*.mtc2": true,
+    "**/*.mtc3": true,
+    "**/*.mtc4": true,
+    "**/*.mtc5": true,
+    "**/*.fls": true,
+    "**/*.loc": true,
+    "**/*.blg": true,
+    "**/*.soc": true,
+    "**/*.gz": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.bbl": true,
+    "**/*.toc": true
+  }
+}
+```
