@@ -100,3 +100,6 @@ pdflatex main.tex
 
 1. Create a .gitignore file
 2. Copy my gitignore (basically ignores all files except pdf and latex files)
+
+## Wrap text
+1. Alt+Z : this comand lets you see a all line without scroling
