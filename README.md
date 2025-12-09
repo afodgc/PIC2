@@ -1,6 +1,6 @@
 # Afonso Coelho PIC2
 
-Irei fazer um pequeno resumo do PIC qwaqui
+Irei fazer um pequeno resumo do PIC aqui
 
 ## LaTeX Document Template
 This repo used a github latex repo and a latex template made by Rui Santos Cruz. The both template were edit as i preferred. Following is explain how to setup vscode for latex
