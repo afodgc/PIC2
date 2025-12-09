@@ -3,7 +3,7 @@
 Irei fazer um pequeno resumo do PIC aqui
 
 ## LaTeX Document Template
-This repo used a github latex repo and a latex template made by Rui Santos Cruz. The both template were edit as i preferred. Following is explain how to setup vscode for latex
+This repo used a github latex repo and a latex template made by Rui Santos Cruz. Both template were combine as like. Following is explain how to setup vscode for latex
 
 
 ## 🚀 Quick Start
