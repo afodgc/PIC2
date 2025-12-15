@@ -1,9 +1,9 @@
 # Afonso Coelho PIC2
 
-Irei fazer um pequeno resumo do PIC aqui
+In future a small summary of the PIC can be placed here
 
 ## LaTeX Document Template
-This repo used a github latex repo and a latex template made by Rui Santos Cruz. Both template were combine as like. Following is explain how to setup vscode for latex
+This repo used a GitHub latex repo and a latex template made by Rui Santos Cruz. Both templates were combined as like. Following is explained how to set up vs code for latex
 
 
 ## 🚀 Quick Start
@@ -92,14 +92,15 @@ pdflatex main.tex
 1. Latex Workshop
 2. Code Spell Checker
 4. vscode-pdf (pdf visualizer)
-3. vscode-icons (just for bather icons)
+3. vscode-icons (just for better icons)
+5. LTeX (grammar and spell check)
 
 
 
 ## How to ignore trash files when using git (ADDed by Afonso)
 
 1. Create a .gitignore file
-2. Copy my gitignore (basically ignores all files except pdf and latex files)
+2. Copy my gitignore (basically ignores all files except PDF and latex files)
 
 ## Wrap text
-1. Alt+Z : this comand lets you see a all line without scroling
+1. Alt+Z : this command lets you see one full line without scrolling
