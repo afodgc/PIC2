@@ -397,7 +397,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
         All of this functions can be implemented in a variety of ways. The most professional way is to use an \ac{ic}. This chips are usually design and manufactured by a team of professional engineers that dedicated their time and knowledge to develop an efficient product. But as we will discussed later in section \ref{sec:ICs}, this \acp{ic} are design and produced with a specific application in mind and depending on the application, they can be useful or not.
 
-        Assuming that there is no IC perfect for this application, what are the options? The main options are \acp{mcu} or \acp{fpga}. There is also some less powerful options like \acp{cpld} and \acs{dsp} but usually they are to complex to work with and not powerful enough. Lets focused in \acs{fpga} for now. 
+        Assuming that there is no IC perfect for this application, what are the options? The main options are \acp{mcu} or \acp{fpga}. There is also some less powerful options like \acp{cpld} and \ac{dsp} but usually they are to complex to work with and not powerful enough. Lets focused in \acs{fpga} for now. 
         
         In a industrial design, if a company needs an \acs{ic} with a specific specs that there is't in the market, they can design one. 
         
@@ -488,10 +488,11 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
     Overcome the problems of the GVB-8-Li-CV will mean success so it will used as a reference to this project.
 
-    \textcolor{red}{To be continued..}
+    The Smart Solar MPPT 100/20 is one of Victron Energy solar chargers (\acs{mppt}). This brand is weal known in the motorhome community for its high efficiency, fast \acs{mpp} tracking and low cost. Their \acp{mppt} have \acs{can} and Bluetooth communication with an mobile app for data visualization. The only down side of this converter is the need of a relative large solar panel since it uses a buck converter. In \acs{tsb} application the solar panels are small and organized in groups of 2 to 3 solar panels in the same array to minimize the effects of clouds, defective solar panels or shadings. Therefore, we conclude that although this converter is excellent, it is not suitable for the application in question.
 
+    Their are some other companies in the market but not so relevant as the two previus ones. For example the Rover Lite and MS4840N are reasonable converters but use communication protocols that not suit this project. Additionally there is only minimal information about them public available.
 
-
+    There is one more converter in table \ref{tab:commercial-mppt-comparison}, the Reboost V0.2.1. This converter was built 5 years ago by student team with the automotive sector in mind and is public available. Since than it as been update over the years. All hardware and software is opensourced and can be modified by evry user to achieve the desired. The specs of this converter are near what we are looking for, but due to some overprice components and some discontinued ones this converter is not ideal for project in question. Additionally the fact of being a boost converter limitates the voltage of solar panels relative to the batterie, since the in a boost converte the output is always higher than the imput. So if in the foture \acs{tsb} decides to change from a 48V batterie to a 24V batterie, the arrays above 24V whould need be rearrange.
 
     
 
@@ -514,8 +515,8 @@ In this chapter is explained the main state-of-art concepts about the engineerin
         \midrule
         Brand & Gensun & Victron Energy & TPEE & Renogy & BougeRV \\
         Type & Boost & \cellcolor[RGB]{255,200,200}Buck & Synchronous Boost & Boost & Boost \\
-        Communication & No & \cellcolor[RGB]{255,200,200}Yes (VE.can/ Bluetooth) & Yes & \cellcolor[RGB]{255,200,200}Bluetooth and RS485 & Bluetooth \\
-        Configurable & No & Yes & Yes & Yes & Yes \\
+        Communication & \cellcolor[RGB]{255,200,200} No & \cellcolor[RGB]{255,200,200}Yes (VE.can/ Bluetooth) & Yes & \cellcolor[RGB]{255,200,200}Bluetooth and RS485 & \cellcolor[RGB]{255,200,200} Bluetooth \\
+        Configurable & \cellcolor[RGB]{255,200,200} No & Yes & Yes & Yes & Yes \\
         Commutation frequency & ?? & Unknown & Programable & Unknown & Unknown \\
         Programable battery voltage & No & Yes & Yes & \cellcolor[RGB]{255,200,200}Yes (non-lithium batteries) & Yes \\
         Tracking speed & 15Hz / 66.6(6)ms & Fast (Unknown value) & Programable & Unknown & Unknown \\
@@ -526,7 +527,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
         MCU & ATtiny461A-U & Unknown & STM32G474 & Unknown & Unknown \\
         Details & High Performance, Low Power AVR® 8-Bit Microcontroller (RISC) & - & 32-bit, Mainstream Arm Cortex-M4 MCU 170 MHz with  Math Accelerator & - & - \\
         Transistor & FZT951 (BJT PNP 60V 5A) & Unknown & GS61008T (GaN FETs 100V 90A) & Unknown & Unknown \\
-        Price & \cellcolor[RGB]{255,200,200}240€ & 100-200€ & \cellcolor[RGB]{255,200,200}Components: 250-280€ PCB:20-100€ Total:270-380€ & 300-350€ & 120-160€ \\
+        Price & \cellcolor[RGB]{255,200,200}240€ & \cellcolor[RGB]{255,200,200}100-200€ & \cellcolor[RGB]{255,200,200}Components: 250-280€ PCB:20-100€ Total:270-380€ & \cellcolor[RGB]{255,200,200}300-350€ & \cellcolor[RGB]{255,200,200}120-160€ \\
         \bottomrule
         \end{tabularx}
     \end{adjustbox}
