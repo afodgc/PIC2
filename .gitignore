@@ -4,9 +4,16 @@
 !.github/
 !.git/
 !Chapters/
+!Chapters/SoA/
+!Chapters/Introduction/
+!Chapters/Planning\ and\ scheduling/
+!Chapters/Preliminary\ Work/
+!Chapters/Solucion\ Proposal/
+!Chapters/Abstract/
 !Acronyms/
 !Appendix/
 !Bibliography/
+!Images/
 !Front_Cover.tex
 !Main_Document.tex
 !Preamble_commands.tex
