@@ -1,32 +1,41 @@
-# Ignore everything
-*
+# Whitelist approach: ignore everything, then allow specific paths
+
+# Allow these directories explicitly
+!.github/
+!.git/
+!Chapters/
+!Acronyms/
+!Appendix/
+!Bibliography/
+!Front_Cover.tex
+!Main_Document.tex
+!Preamble_commands.tex
+!README.md
+!.gitignore
+!Tools/
 
 # Allow LaTeX source files
-!.tex
-!.bib
-!.cls
-!.sty
-!.md
+!*.tex
+!*.bib
+!*.cls
+!*.sty
+!*.md
 !.cls
 
-# Allow directories
-!*/
-!.github/
-!.gitignore
-!.git/
-
-# Allow images (add more extensions as needed)
+# Allow images
 !*.png
 !*.jpg
 !*.jpeg
-!*.pdf
 !*.eps
 !*.svg
 
-# Allow the main PDF output (change 'main.pdf' to your filename if needed)
+# Allow the main PDF output
 !Main_Document.pdf
 
-# Ignore all auxiliary/build files
+# Ignore everything else
+*
+
+# Explicit LaTeX build artifacts to ignore
 *.aux
 *.log
 *.out
@@ -82,15 +91,11 @@
 *.t[1-9]
 *.t[1-9][0-9]
 *.sta
-*.acn
-*.acr
 *.glsdefs
 *.lzo
 *.lzs
 *.slg
-*.slo
 *.sls
-*.ist
 *-gnuplottex-*
 *.table
 *.gnuplot
@@ -124,14 +129,12 @@
 TSWLatexianTemp*
 .texpadtmp
 *.lyx~
-*.backup
 .*.swp
 *~[0-9]*
 *.tps
 ./auto/*
 *.el
 *-tags.tex
-*.sta
 *.lpz
 *.newpax
 *.upa
@@ -144,8 +147,3 @@ latex.out/
 node_modules/
 __pycache__/
 *.pyc
-
-# Allow folders and files in the root
-!*/
-
-# End
