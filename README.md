@@ -101,6 +101,13 @@ pdflatex main.tex
 
 1. Create a .gitignore file
 2. Copy my gitignore (basically ignores all files except PDF and latex files)
+3. Change the lines after:
+```yaml
+{
+   # Allow these directories explicitly
+}
+```
+Note: There must be a better way. This is giving me a lot of problems.
 
 ## Wrap text
 1. Alt+Z : this command lets you see one full line without scrolling
