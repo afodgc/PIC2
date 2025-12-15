@@ -8,6 +8,12 @@
 !.sty
 !.md
 
+# Allow directories
+!*/
+!.github/
+!.gitignore
+!.git/
+
 # Allow images (add more extensions as needed)
 !*.png
 !*.jpg
