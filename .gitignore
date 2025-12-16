@@ -13,7 +13,6 @@
 !Acronyms/
 !Appendix/
 !Bibliography/
-!Images/
 !Front_Cover.tex
 !Main_Document.tex
 !Preamble_commands.tex
@@ -29,12 +28,19 @@
 !*.md
 !.cls
 
+# Allow Images folder and subfolders
+!Images/
+!Images/Background/
+!Images/Preliminary\ Work/
+!Images/Solucional\ Proposal/
+
 # Allow images
 !*.png
 !*.jpg
 !*.jpeg
 !*.eps
 !*.svg
+!*.pdf
 
 # Allow the main PDF output
 !Main_Document.pdf
