@@ -1,10 +1,44 @@
 \fancychapter{Preliminary Work}
-    \textcolor{red}{Mostrar simulações já feitas}
+    In order to get familiar with the tools needed for the development of the project, some basic test was conduct. In this section, a brief introduction to simulation tools and Hardware tests are presented.
 
-    \textcolor{red}{mostrar as simulações do simulink}
+    \section{Simulations}
+        Nowadays, the most use tool to simulate the behavior of a \acs{mppt} is Matlab Simulink. With this software a solar panel can be simulated by providing the environmental conditions (temperature and irradiance) at every simulation instance. This block can be set with the exact parameters of the real system (open circuit voltage, short circuit current, temperature coefficient, etc.). Then, using simscape electrical library, the electronics of the converter can describe by connecting specific blocks configured with the parameters needed (resistance, capacities, inductance, forward voltage, etc.). For the battery, the same procedure was executed. Like the others blocks the battery can be configured with the exact same parameters as the real battery (nominal voltage, discharge current, battery type, capacity, etc.).
+
+        By providing the correct parameters to every block, the system behaves has the actual circuit. However, it is just a simulation tool, and by doing some approximations, simulation errors will be found. Therefore, the simulations need to be analyzed carefully.
+
+        In figure~\ref{fig:Matlab_simulink} is represented the model build it Matlab Simulink, using a boost converter and P\&O method. As previously said, this model was built to understand how to use this simulation tool and how to overcome the problems that show up in the process. Therefore, everything can be changed later.
+        
+        
 
 
+        \begin{figure} [!h]
+            \centering
+            \includegraphics[width=0.99 \textwidth]{Images/Preliminary Work/Sim Model.pdf}
+            \qquad
+            \caption{Matlab/Simulink system model with Boost Converter and P\&O.}
+            \label{fig:Matlab_simulink}
+        \end{figure}
 
+        The objective was successfully accomplished, with good results. Figure~\ref{fig:Matlab_simulink_res} shows the results of the presented model. 
+        
+        The \ac{mpp} of the given solar panel ($V_{oc}=22.33V$ and $I_{SC} = 6.038A$) was successfully tracked with a simple algorithm. The results show some noise at the input which can be improved in future work. Also, a strange behavior was found at the beginning of the simulation. The load current goes to negative before starts tracking the \ac{mpp}. This behavior is introduced by the resistance in series with the battery, which drains the battery when the converter is disconnected. This problem is not alarming since this resistance is only placed for simulation.
+
+        \begin{figure} [!h]
+            \centering
+            \includegraphics[width=1 \textwidth]{Images/Preliminary Work/Sim scope.pdf}
+            \qquad
+            \caption{Matlab/Simulink results}
+            \label{fig:Matlab_simulink_res}
+        \end{figure}
+
+    \section{Hardware tests}
+        Since the use of an STM32 is one of the requirements of \acs{tsb} to comply theirs standards, some research and tests were also performed to get familiar with the software tools and the requirements of the \acs{mcu}.
+
+        The test were carried out with a cheap development board called Blue Pill witch accommodates a STM32F103C8T6. As this is one of the cheapest boards on the marked, the specs are not perfect. However, it was suitable for aim of these tests.
+
+        The STM32F103C8T6 has an ARM Cortex-M3 32-bit core running at up to 72 MHz, providing sufficient processing performance for real-time control and signal-processing tasks. It integrates two 12-bit ADCs with a maximum sampling rate of approximately 1 million samples per second and up to 16 multiplexed analog input channels, while no internal DAC is available. The device includes several general-purpose and advanced timers capable of generating PWM signals, with maximum PWM frequencies limited by the 72 MHz timer clock and the selected resolution. Housed in a 48-pin package, it offers up to around 37 configurable GPIO pins. In terms of communication interfaces, the \acs{mcu} supports multiple USARTs, SPI and I²C peripherals, as well as a Full-Speed USB 2.0 device interface, making it suitable for a wide range of embedded communication requirements.
+
+        The tests conducted were based on online examples, which allowed the evaluation of several functionalities of this \acs{mcu}, including timers, interrupts, basic GPIO operations, PWM generation, ADC usage, and communication interfaces such as USB, CAN, and I²C.
 
 
 
