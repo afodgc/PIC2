@@ -107,6 +107,13 @@ pdflatex main.tex
    # Allow these directories explicitly
 }
 ```
+4. If a folder is still not being committed, run the following line (change the name of the folder):
+```yaml
+{
+   git add -f "Images/Planning/"*
+}
+```
+
 Note: There must be a better way. This is giving me a lot of problems.
 
 ## Wrap text
