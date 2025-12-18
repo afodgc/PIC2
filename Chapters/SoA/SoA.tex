@@ -63,7 +63,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
     A \acf{mppt} is a device that is used to optimize the power output from solar panels by continuously tracking and adjusting the operation point of the panels to ensure they operate at their \ac{mpp}. 
 
-    To achieve its goal, a \ac{mppt} is usually composed by an DC-DC converter, a microcontroller and some sensors (Figure \ref{fig:block diagram mppt}). The sensors are used to measure the input variables of the control system (typically voltage and current). The information acquired by these sensors are processed by the microcontroller, which runs an algorithm to determine if the \ac{mpp} was reached or how to act on the system towards the \ac{mpp}. In the second case, the microcontroller sends control signals to the DC-DC converter to adjust its operation accordingly. Usually with PWM to control transistors.
+    To achieve its goal, a \ac{mppt} is usually composed by an DC-DC converter, a microcontroller and some sensors (Figure \ref{fig:block diagram mppt}). The sensors are used to measure the input/output variables of the control system (typically voltage and current). The information acquired by these sensors are processed by the microcontroller, which runs an algorithm to determine if the \ac{mpp} was reached or how to act on the system towards the \ac{mpp}. In the second case, the microcontroller sends control signals to the DC-DC converter to adjust its operation accordingly. Usually a PWM signal to control transistors.
  
     \begin{figure} [!h]
         \centering
@@ -86,7 +86,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
     \subsection{Constant Voltage}
         This is the simplest and the most inefficient method. It works by fixing a reference voltage to operate the solar panel. The reference voltage is the input of a PID controller that will adjust the duty cycle of the DC-DC converter to maintain the solar panel voltage at this reference value.
 
-        There are some well known variations of this method that improve the performance by adjusting the reference voltage to a fraction of the open circuit voltage of the solar panel (usually between 71\% and 78\%)~\cite{Comparison_PV_Array_MPPT_Techniques_2007}, Equation \ref{eq:cv_vref}. This open circuit voltage can be measured periodically by disconnecting the solar panel from the load for a short period of time. This way, the reference voltage will be more accurate and the efficiency will increase.
+        There are some well known variations of this method that improve the performance by adjusting the reference voltage to a fraction of the open circuit voltage of the solar panel (usually between 71\% and 78\%), equation \ref{eq:cv_vref} ~\cite{Comparison_PV_Array_MPPT_Techniques_2007}, . This open circuit voltage can be measured periodically by disconnecting the solar panel from the load for a short period of time. This way, the reference voltage will be more accurate and the efficiency will increase.
 
         \begin{equation}
             V_{ref} = k \cdot V_{oc}
@@ -95,7 +95,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
         Other variation is based on the short circuit current of the solar panel, setting the reference voltage to a fraction of this value~\cite{MPPT_Comparison_techniques}. 
 
-        Both methods are simple and low cost, but they are inefficient, since they have to stop producing energy to do measurements. But there is also some variations that solve this problem by using a dummy cell to do the measurements or even a diode since its there physical properties are similar to a solar cell \cite{Comparison_PV_Array_MPPT_Techniques_2007} \cite{Optimum_Operating_Point_Tracker_2004}.
+        Although both methods are simple and cost-effective, they are inherently inefficient due to the necessity of interrupting energy production during measurement phases. However, alternative implementations address this limitation through proxy measurement techniques employing dummy cells or diodes, whose physical properties closely approximate those of standard solar cells, thereby enabling continuous power generation during measurement acquisition~\cite{Comparison_PV_Array_MPPT_Techniques_2007} \cite{Optimum_Operating_Point_Tracker_2004}.
 
 
     \subsection{Perturb and Observe (P\&O)}
@@ -122,6 +122,8 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
         To solve this issue, a new condition must be added to the algorithm to take into account two consecutive measures of $\Delta P$ and $\Delta V$. This way, if the sign of both $\Delta P$ are different, it means that the power change was caused by an environmental variation and not by the perturbation, so the algorithm must not change the voltage. This variation is called "two point algorithms" or "improved P\&O" \cite{bendib_survey_mppt_methods}. 
         Table~\ref{tab:improved-peo-truth-extended} shows the 16 possible cases of the truth table of this algorithm with an extra column showing the changes caused by the perturbation or by the environment. \textcolor{red}{Por acabar e rever (não sei se gosto muito desta tabela e explicação)}
+
+        To address this limitation, an additional condition is incorporated into the algorithm that evaluates two consecutive measurements of $\Delta P$ and $\Delta V$. Specifically, when the signs of consecutive $\Delta P$ measurements differ, this indicates that the observed power variation results from environmental disturbances rather than the algorithm's perturbation; consequently, the voltage adjustment is suppressed. This refined variant is designated the two-point algorithm or improved P\&O method~\cite{bendib_survey_mppt_methods}. Table~\ref{tab:improved-peo-truth-extended} presents the sixteen distinct operational states encompassed by this algorithm's truth table, with an additional column delineating whether observed changes originate from algorithm perturbation or environmental variation.
 
         \begin{table}[!h]
         \centering
@@ -423,7 +425,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 \section{Voltage and current sensing}
     \textcolor{red}{This is just a draft based on my research writen in OneNote and converted to latex with the help of chatGPT. (It needs some work and references). The text is written as I have already decided a solution, but I did not. IT's JUST A DRAFT!!}
 
-    Accurate voltage and current measurements are essential for MPPT operation, since tracking algorithms directly rely on these quantities to estimate power and adjust the operating point of the photovoltaic (PV) array. Measurement noise or inaccuracies directly impact tracking efficiency, especially in high‑frequency switching DC–DC converters.
+    Accurate voltage and current measurements are essential for MPPT operation, since tracking algorithms directly rely on these quantities to estimate power and adjust the operating point of the photovoltaic (PV) array. Measurement noise or inaccuracies directly impact tracking efficiency, especially in high frequency switching DC–DC converters.
 
     Voltage sensing is generally straightforward and can be implemented using resistive voltage dividers followed by ADC sampling. Current sensing, however, is more critical and requires careful consideration of the available measurement techniques.
 
