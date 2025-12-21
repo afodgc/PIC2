@@ -186,11 +186,31 @@ In this chapter is explained the main state-of-art concepts about the engineerin
         \subsection{Look Up Table (LUT)}
             The Look Up Table method is a simple and fast \ac{mppt} algorithm that relies on pre-calculated/measured data to determine the optimal operating point of a solar panel.
             
-            The LUT table contains several entries organized by voltage and current. Each of these entries contains the optimal duty cycle of the DC-DC converter, that are pre-calculated or measured for a specific voltage and current. This way, the algorithm can reach the \acs{mpp} in one clock cycle by measuring the voltage and current of the solar panel, looking for the closest entry in the LUT table and applying the corresponding duty cycle to the converter.
+            The LUT table contains several entries organized by voltage and current. Each of these entries contains the optimal duty cycle of the DC-DC converter, that are pre-calculated or measured for a specific voltage and current. This way, the algorithm can reach the \acs{mpp} in one clock cycle by measuring the voltage and current of the solar panel, looking for the closest entry in the LUT table and applying the corresponding duty cycle to the converter. The entries of the table can be calculated truth a mathematical model of the solar panel with different conditions (temperature and irradiance) or measured in laboratory.
 
-            The main advantage of this method is its speed since it can reach the \ac{mpp} in one clock cycle. This makes it suitable for applications where fast tracking is required, like in this project. But the main drawback is that it is not very acquired.
+            Table~\ref{tab:LUT_matrix} is visual representation of a 2D LUT, only based on current and voltage.
 
-            To improve the accuracy the LUT table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table would increase the accuracy, making it almost 100\% accurate, but this would increase the size of the table exponentially, making it unfeasible for most applications.
+            \begin{table}[h]
+                \centering
+                \caption{LUT matrix representation with $m \times n$ elements}
+                \label{tab:LUT_matrix}
+                \renewcommand{\arraystretch}{1.3}
+                \begin{tabular}{c|ccccccc}
+                    & $V_1$ & $\cdots$ & $V_k$ & $\cdots$ & $V_m$ \\
+                    \hline
+                    $I_1$ & $D_{11}$ & $\cdots$ & $D_{1k}$ & $\cdots$ & $D_{1m}$ \\
+                    $\vdots$ & $\vdots$ &  & $\vdots$ &  & $\vdots$ \\
+                    $I_j$ & $D_{j1}$ & $\cdots$ & $D_{jk}$ & $\cdots$ & $D_{jm}$ \\
+                    $\vdots$ & $\vdots$ &  & $\vdots$ &  & $\vdots$ \\
+                    $I_n$ & $D_{n1}$ & $\cdots$ & $D_{nk}$ & $\cdots$ & $D_{nm}$
+                \end{tabular}
+            \end{table}
+
+            The main advantage of this method is its speed since it can reach the \ac{mpp} in one clock cycle. This makes it suitable for applications where fast tracking is required, like in this project. Also, research show less output ripple and higher output power at some levels of irradiance. However, it is not very acquired~\cite{Look-Up-Table_VS_PeO}.
+
+            To improve the accuracy, the LUT table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table, would increase the accuracy, making it almost 100\% accurate, but this would increase the size of the table exponentially, making it unfeasible for most applications.
+
+            Research show less ripple than P\&O and in some cases higher efficiency, making this algorithm 
 
             \textcolor{red}{referir a tese do Antonio}
 
