@@ -120,42 +120,9 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
         Another weal know issue of P\&O is that it can get confused in rapidly changing environmental conditions, like fast irradiance changes caused by clouds. In this case, the algorithm can misinterpret the power change caused by the environmental variation as a result of its own perturbation, leading it to move away from the \ac{mpp} instead of towards it. For example, if the perturbation was in the wrong direction but the irradiance increased, the power output would increase and the algorithm would continue perturbing in the wrong direction.
 
-        To solve this issue, a new condition must be added to the algorithm to take into account two consecutive measures of $\Delta P$ and $\Delta V$. This way, if the sign of both $\Delta P$ are different, it means that the power change was caused by an environmental variation and not by the perturbation, so the algorithm must not change the voltage. This variation is called "two point algorithms" or "improved P\&O" \cite{bendib_survey_mppt_methods}. 
-        Table~\ref{tab:improved-peo-truth-extended} shows the 16 possible cases of the truth table of this algorithm with an extra column showing the changes caused by the perturbation or by the environment. \textcolor{red}{Por acabar e rever (não sei se gosto muito desta tabela e explicação)}
+        To address this limitation, an additional condition is incorporated into the algorithm that evaluates two consecutive measurements of $\Delta P$ and $\Delta V$. Specifically, when the signs of consecutive $\Delta P$ measurements do not folow the signs of $\Delta V$, this indicates that the observed power variation results from environmental disturbances rather than the algorithm's perturbation. Consequently, the voltage adjustment is suppressed. This refined variant is designated the two-point algorithm or improved P\&O method~\cite{bendib_survey_mppt_methods}.
 
-        To address this limitation, an additional condition is incorporated into the algorithm that evaluates two consecutive measurements of $\Delta P$ and $\Delta V$. Specifically, when the signs of consecutive $\Delta P$ measurements differ, this indicates that the observed power variation results from environmental disturbances rather than the algorithm's perturbation; consequently, the voltage adjustment is suppressed. This refined variant is designated the two-point algorithm or improved P\&O method~\cite{bendib_survey_mppt_methods}. Table~\ref{tab:improved-peo-truth-extended} presents the sixteen distinct operational states encompassed by this algorithm's truth table, with an additional column delineating whether observed changes originate from algorithm perturbation or environmental variation.
-
-        \begin{table}[!h]
-        \centering
-        \caption{Truth table for the Improved P\&O algorithm (extended with one extra column) \cite{bendib_survey_mppt_methods}.}
-        \label{tab:improved-peo-truth-extended}
-        \newcommand{\pl}{$+$}
-        \newcommand{\mi}{$-$}
-        \begin{tabular}{cccccc}
-            \toprule
-            $\Delta V(k-1)$ & $\Delta P(k-1)$ & $\Delta V(k)$ & $\Delta P(k)$ & $\Delta V(k+1)$ & Changes caused by: \\ 
-            \midrule
-            \mi & \mi & \mi & \mi & \mi & \\ 
-            \mi & \mi & \mi & \pl & \pl & \\ 
-            \mi & \mi & \pl & \mi & \mi & \\ 
-            \mi & \mi & \pl & \pl & \pl & \\ 
-            \mi & \pl & \mi & \mi & \mi & \\ 
-            \mi & \pl & \mi & \pl & \pl & \\ 
-            \mi & \pl & \pl & \mi & \mi & \\ 
-            \mi & \pl & \pl & \pl & \pl & \\ 
-            \pl & \mi & \mi & \mi & \mi & \\ 
-            \pl & \mi & \mi & \pl & \pl & \\ 
-            \pl & \mi & \pl & \mi & \mi & \\ 
-            \pl & \mi & \pl & \pl & \pl & \\ 
-            \pl & \pl & \mi & \mi & \mi & \\ 
-            \pl & \pl & \mi & \pl & \pl & \\ 
-            \pl & \pl & \pl & \mi & \mi & \\ 
-            \pl & \pl & \pl & \pl & \pl & \\ 
-            \bottomrule
-        \end{tabular}
-        \end{table}
-
-        There are some more relevant variations of this algorithm that will not be explained here, like the Variable Step Size P\&O (VSS-P\&O), the three point P\&O, a-factor P\&O and others.
+        There are more relevant variations of this algorithm that will not be explained here, like the Variable Step Size P\&O (VSS-P\&O), the three point P\&O, a-factor P\&O and others.
 
 
         \textcolor{red}{Posso explicar o three point algorithm e o a-factor aqui no futuro se achar relevante.}
@@ -426,8 +393,6 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
 
 \section{Voltage and current sensing}
-    \textcolor{red}{This is just a draft based on my research writen in OneNote and converted to latex with the help of chatGPT. (It needs some work and references). The text is written as I have already decided a solution, but I did not. IT's JUST A DRAFT!!}
-
     Accurate voltage and current measurements are essential for MPPT operation, since tracking algorithms directly rely on these quantities to estimate power and adjust the operating point of the photovoltaic (PV) array. Measurement noise or inaccuracies directly impact tracking efficiency, especially in high frequency switching DC–DC converters.
 
     Voltage sensing is generally straightforward and can be implemented using resistive voltage dividers followed by ADC sampling. Current sensing, however, is more critical and requires careful consideration of the available measurement techniques.
@@ -516,7 +481,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
             \textcolor{red}{There is more ICs but not a lot usually they have low input and output voltage.}
 
-\section{Commercial \acs{mppt}s}
+\section{Commercial MPPTs}
     As discussed in the previous section, there are some commercial available solutions for the problem in analysis. In this section is discussed the commercial solutions on layer above. These products are able to solve the problem without any extra hardware but all of them have a spec that can be improved. In table~\ref{tab:commercial-mppt-comparison} is represented a selection of \ac{mppt} commercial available with some important specs and marked in red the worst specs.
     
     The first and most important \ac{mppt} at the table is the GVB-8-Li-CV. This converter is extremely efficient and fast, making it one of the best \acp{mppt} in the market for moving vehicles like a boat. For the past years \acs{tsb} have been using this converter in all of their boats and no problems have been encountering except the lack of customization and information. Fact that lead to this project because \acs{tsb} is a competitive team and every information about the boat is an advantage during competition and for future improvements. Additionally, it does not have a programmable output voltage which make it only suitable for 48V batteries and is expensive.
