@@ -1,55 +1,6 @@
-# Whitelist approach: ignore everything, then allow specific paths
-
-# Allow these directories explicitly
-!.github/
-!.git/
-!Chapters/
-!Chapters/SoA/
-!Chapters/Introduction/
-!Chapters/Planning\ and\ scheduling/
-!Chapters/Preliminary\ Work/
-!Chapters/Solucion\ Proposal/
-!Chapters/Abstract/
-!Acronyms/
-!Appendix/
-!Bibliography/
-!Front_Cover.tex
-!Main_Document.tex
-!Preamble_commands.tex
-!README.md
-!.gitignore
-!Tools/
-
-# Allow LaTeX source files
-!*.tex
-!*.bib
-!*.cls
-!*.sty
-!*.md
-!.cls
-
-# Allow Images folder and subfolders
-!Images/
-!Images/Background/
-!Images/Preliminary\ Work/
-!Images/Solucional\ Proposal/
-!Images/Planning/
-
-# Allow images
-!*.png
-!*.jpg
-!*.jpeg
-!*.eps
-!*.svg
-!*.pdf
-
-# Allow the main PDF output
-!Main_Document.pdf
-
-# Ignore everything else
-*
-
-# Explicit LaTeX build artifacts to ignore
+# =========================
+# LaTeX build artifacts
+# =========================
 *.aux
 *.log
 *.out
@@ -64,100 +15,81 @@
 *.run.xml
 *.bcf
 *-blx.aux
-*-blx.bib
-*.maf
-*.mtc*
-*.mlf
-*.slo
+
+# Index / glossary / nomenclature
 *.acn
 *.acr
 *.alg
 *.glg
 *.glo
 *.gls
+*.glsdefs
 *.ist
-*.nav
-*.snm
-*.vrb
-*.xdv
-*.dvi
-*.ps
-*.bak
-*.backup
-*.sav
-*.pyg
-*.pytxcode
-*.lol
-*.ilg
 *.ind
 *.idx
 *.nlo
 *.nls
 *.soc
-*.cut
-*.cpt
-*.spl
-*.ent
-*.lox
-*.mf
-*.mp
-*.tfm
-*.t[1-9]
-*.t[1-9][0-9]
-*.sta
-*.glsdefs
-*.lzo
-*.lzs
-*.slg
-*.sls
-*-gnuplottex-*
-*.table
-*.gnuplot
+*.loc
+*.loe
+*.lol
+
+# Minipage TOC & multicol
+*.maf
+*.mtc
+*.mtc[0-9]
+*.mtc[0-9][0-9]
+
+# Beamer / presentations
+*.nav
+*.snm
+*.vrb
+
+# DVI / PS / intermediate
+*.dvi
+*.ps
+*.xdv
+
+# TikZ / externalization
+*-tikzDictionary
 *.gaux
 *.glog
 *.gtex
-*.4ct
-*.4tc
-*.idv
-*.lg
-*.trc
-*.xref
-*.brf
-*-concordance.tex
-*-tikzDictionary
-*.ltjruby
-*.loe
-*.dpth
-*.md5
-*.auxlock
-*.ptc
-*.tdo
-*.lod
-*.xcp
-*.xmpi
-*.xdy
-*.xyd
-*.xyc
-*.ttt
-*.fff
-TSWLatexianTemp*
-.texpadtmp
-*.lyx~
-.*.swp
-*~[0-9]*
-*.tps
-./auto/*
-*.el
-*-tags.tex
-*.lpz
-*.newpax
-*.upa
-*.upb
+*.gnuplot
+*.table
+*-gnuplottex-*
+
+# SVG / PythonTeX / minted
 _minted*
 pythontex-files-*/
 svg-inkscape/
 sympy-plots-for-*.tex/
-latex.out/
-node_modules/
+
+# =========================
+# Editor / OS junk
+# =========================
+*~
+.*.swp
+*.lyx~
+.texpadtmp
+TSWLatexianTemp*
 __pycache__/
 *.pyc
+node_modules/
+
+# =========================
+# Data / tool artifacts
+# =========================
+*.json
+*.el
+*.lpz
+*.newpax
+*.upa
+*.upb
+*.md5
+
+# =========================
+# PDFs
+# =========================
+*.pdf
+!Main_Document.pdf

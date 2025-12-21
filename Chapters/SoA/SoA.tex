@@ -12,7 +12,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
     \begin{figure} [!h]
         \centering
-        \includegraphics[width=0.60 \textwidth]{Images/solar_cell.pdf}
+        \includegraphics[width=0.60 \textwidth]{Images/Background/solar_cell.pdf}
         \qquad
         \caption{Principle of operation of a solar panel}
     \end{figure}
@@ -23,7 +23,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
     \begin{figure} [!h]
         \centering
-        \includegraphics[width=0.55 \textwidth]{Images/i-v,p-v.pdf}
+        \includegraphics[width=0.55 \textwidth]{Images/Background/i-v,p-v.pdf}
         \qquad
         \caption{I-V and P-V curves of a solar panel \cite{photovoltaics_System_Design}}
         \label{fig:i-v,p-v}
@@ -280,24 +280,22 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
 
     \subsection{Non-isolated DC-DC converters}
-        Modern non-isolated conversion circuits generally use one of three basic topologies: buck, boost or buck-boost converters. They are 'basic' in the sense that only one switch is used and there is no isolation from the output circuits. A given topology is used to obtain a specific result, such as voltage step-down, voltage step-up, or hybrid mode \cite{Comparison_PV_Converter_Technologies_1989}. 
+        Modern non-isolated conversion circuits generally use one of three basic topologies: buck, boost or buck-boost converters. They are 'basic' in the sense that only one switching element needed and there is no isolation between the input and output circuits. A given topology is used to obtain a specific result, such as voltage step-down, voltage step-up, or hybrid mode \cite{Comparison_PV_Converter_Technologies_1989}. 
 
         \subsubsection{Boost converter}
-            The boost converter is a step-up DC-DC converter that is widely used in \ac{mppt} because solar panels usually have a lower voltage than the battery or load they are powering. There are multiple papers that use this topology \textcolor{red}{buscar alguns}.
-
-            Also this DC-DC topologies are simple to implement, low cost and have high efficiency, reaching efficiencies of up 98\% \cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. 
+            The boost converter is a step-up DC-DC converter widely employed in \ac{mppt} systems, as photovoltaic panels typically operate at voltages substantially lower than the target battery or load. This topology has been extensively documented in the literature and is distinguished by its inherent simplicity, cost-effectiveness, and superior efficiency characteristics, frequently achieving conversion efficiencies exceeding 98\%~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. 
 
             One downside of this topology is that can not emulate smaller impedance than the load impedance, and therefore, it does not reach values near the short circuit current of the PV module, so it can not be used for all algorithms~\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}. 
 
         \subsubsection{Buck converter}
-            The buck converter is a step-down DC-DC converter also widely use for applications where the solar panel voltage is higher than the battery or load voltage. But in most automotive applications the area of the solar panel is limited, so the voltage is usually lower than the battery voltage, making the boost converter a more suitable choice.
+            The buck converter is a step-down DC-DC converter also widely use for applications where the solar panel voltage is higher than the battery or load voltage. However, in most automotive applications the area of the solar panel is limited, so the voltage is usually lower than the battery voltage, making the boost converter a more suitable choice.
 
-            Similar with the boost converter, the buck converter can emulate smaller impedance than the load impedance, and therefore, it can reach values near the open circuit voltage of the PV module~\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}.
+            Similar with the boost converter, the buck converter can not emulate smaller impedance than the load impedance, and therefore, it can not reach values near the open circuit voltage of the PV module~\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}.
 
         \subsubsection{Buck-Boost converter}
             Buck-Boost converters are step-up and step-down DC-DC converters that can operate in both modes. This makes them more versatile than the previous two topologies, but also more complex and less efficient \cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. 
 
-            They are used in applications where the solar panel voltage can be both higher or lower than the battery or load voltage, also certain \ac{mppt} use it to have a wider range of operation or versatility of the used batteries.
+            They are used in applications where the solar panel voltage can be both higher or lower than the battery or load voltage, also certain \ac{mppt} use it to have a wider range of operation or add versatility of the used batteries.
 
             This type of converter has some variations. The most common variations are called the Zeta, Cuk and SEPIC converters.
 
@@ -305,7 +303,7 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
 
     \subsection{Comparison between Non-isolated DC-DC converters}
-        All the non-isolated DC-DC topologies explained before have their own advantages and disadvantages. The choice of the topology will depend on the specific application, the desired performance, and the available resources. To help with this choice, Table~\ref{tab:dc-dc-comparison} shows a comparison between the most relevant characteristics of each topology. In green the best vantages of each topology are highlighted.
+        All the non-isolated DC-DC topologies explained before have their own advantages and disadvantages. The choice of the topology will depend on the specific application, the desired performance, and the available resources. To help with this choice, Table~\ref{tab:dc-dc-comparison} shows a comparison between the most relevant characteristics of each topology. In green the best advantages of each topology are highlighted.
 
         \begin{table}[htbp]
         \centering
@@ -349,18 +347,23 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
 \section{Switching circuit}
     \subsection{Types of transistors}
-        \textcolor{red}{falar dos timpos de transistores e como dar drive deles. Caso se use um transistor em vez de um diodo tem de se ter cuidado para não provocar curto circuito}
+        \textcolor{red}{falar dos timpos de transistores e como dar drive deles.}
         \textcolor{red}{BJT, Mosfet, GaN FETs, IGBT, ...}
 
     \subsection{Switching problems}
         \textcolor{red}{diode voltage drop (sync FETs)}
 
-        \textcolor{red}{Body diode current lekage}
+        \textcolor{red}{Body diode current lekage.}
+
+        \textcolor{red}{Caso se use um transistor em vez de um diodo tem de se ter cuidado para não provocar curto circuito}
 
     \subsection{Protection circuits}
+        \textcolor{red}{Ways to solve the problem}
 
     
 \section{Battery charging techniques}
+        \textcolor{red}{Needs to be summarized. Only CC-CV is relevant.}
+
     As the demand of electronic devices and E-vehicles increased, emerge the need for efficient, compact and lightweight batteries. Among the exiting technologies lithium-ion batteries have one of the best energy-to-weight/volume ratios and, at this moment, it is the technology use in \ac{tsb} batteries. But, as every other battery technology, they need to be charged properly to ensure their safety and longevity~\cite{Charging_Algorithms_Lithium_Ion_Batteries_Overview_2012}.
 
     To charge these batteries properly, the \ac{mppt} algorithm can stand alone if an additional converter is used in series. But in most cases, the \ac{mppt} and the battery charging unit are integrated in the same converter. This way, the \ac{mppt} can adjust the operating point of the solar panel to extract the maximum power while the battery charging unit ensures that the battery is charged properly. 
@@ -408,9 +411,9 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
         A \acs{fpga} is powerful design tool that implements \acs{hdl} code in real hardware, offering the possibility of cheap prototyping. 
 
-        Comparing with \acp{mcu}, \acp{fpga} can be beneficial in terms of energy efficiency and efficiency, however it is expensive, requires a lot of knowledge in \ac{hdl} and time to design. If the design will not be mass-produced in the form of a \acs{ic}, it is not worth the time and money spent.
+        Comparing with \acp{mcu}, \acp{fpga} can be beneficial in terms of energy efficiency and speed, however it is expensive, requires a lot of knowledge in \ac{hdl} and time to design. If the design will not be mass-produced in the form of a \acs{ic}, it is not worth the time and money spent.
 
-        In the other hand \acp{mcu} are easily programmed, versatile, cheap, fast and reliable. Since this project is for a team of students, it needs to be easily changed for the future needs and understandable without having depth knowledge in \acp{mcu} or \acp{fpga}. With that in mind, \acp{fpga} will not be use in this project despite its advantages.
+        On the other hand \acp{mcu} are easily programmed, versatile, cheap, fast and reliable. Since this project is for a team of students, it needs to be easily changed for the future needs and understandable without having depth knowledge in \acp{mcu} or \acp{fpga}. With that in mind, \acp{fpga} will not be use in this project despite its advantages.
 
         \textcolor{red}{este paper implementa um MPPT numa FPGA}\cite{FPGA_Implementation_MPPT}
             
@@ -437,9 +440,10 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
     \begin{itemize}
         \item Shunt-based sensing with operational amplifiers
-        \item Differential amplifiers
-        \item Instrumentation amplifiers
-        \item Dedicated current-sense amplifiers
+        \item Differential amplifiers;
+        \item Instrumentation amplifiers;
+        \item Dedicated current-sense amplifiers;
+        \item Hall effect current sensor.
     \end{itemize}
 
     Instrumentation amplifiers offer very high accuracy and excellent common-mode rejection, but they are typically more complex, consume more power and are unnecessary for the current and voltage levels involved in this application. Dedicated current-sense amplifiers integrate many features and simplify the design, but they increase cost, reduce flexibility and may impose voltage or interface constraints.
@@ -452,14 +456,9 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
     Low-side shunt sensing results in a low common-mode voltage and a ground‑referenced output signal, simplifying the analog front‑end and easing direct interfacing with the microcontroller ADC. Compared to high‑side sensing, it also improves noise immunity in a switching environment, which is particularly relevant in DC–DC converters.
 
-    The differential amplifier ensures that only the voltage drop across the shunt resistor is amplified, rejecting common-mode noise generated by switching activity. Operational amplifiers are especially attractive in this role due to their low power consumption, flexibility in gain selection and availability in precision, low‑noise variants suitable for power electronics applications.
-
-
-    \subsection{Design considerations}
+    The differential amplifier ensures that only the voltage drop across the shunt resistor is amplified, rejecting common-mode noise generated by switching activity. Operational amplifiers are especially attractive in this role due to their low power consumption, flexibility in gain selection, price and availability in precision, low‑noise variants suitable for power electronics applications.
 
     In a switching MPPT environment, the chosen amplifier must exhibit high common‑mode rejection, low offset voltage and low noise to ensure accurate current measurement. The shunt resistor should have a very low resistance to minimize conduction losses, while maintaining high precision and a low temperature coefficient to reduce measurement error.
-
-    Overall, shunt‑based current sensing using a differential amplifier built from an operational amplifier provides a robust, accurate and cost‑effective solution for MPPT applications. This approach offers sufficient performance without the added complexity of instrumentation amplifiers or dedicated current‑sense ICs, making it well aligned with the objectives of this project.
 
 
 \section{ICs specialized in MPPT}
@@ -470,9 +469,9 @@ In this chapter is explained the main state-of-art concepts about the engineerin
 
         The BQ24650RVAT is a IC that with a controller for \ac{mppt} algorithm and some current sensors, can be perfect for cars with 12V batteries and large panels. But in our use case we need to charge a 48V battery and panels with at leat 12V in open circuit.
 
-        The MAX20801TPBA+ and SPV1040TTR, are good for IOT applications, where batteries and solar panels are both small, but in our use case it is not suitable since it can deliver 48V. Other problem that could show up is the tracking speed, since there is no information online about it.
+        The MAX20801TPBA+ and SPV1040TTR are designed for IoT applications characterized by low-power systems with miniaturized batteries and solar panels. However, these devices are unsuitable for the present application, as neither can accommodate the required 48V output specification. Furthermore, the lack of publicly available information regarding their tracking speed characteristics presents an additional limitation for performance evaluation.
 
-        The last one in the table, LT8491IUKJ\#PBF, is almost perfect. It has an wide input and output range, can do both step up and step down, it has a good efficiency, communication,  CC-CV, etc. But digging in the data sheet, there is an image showing a tracking speed of 2 seconds, which is not fast enough for this application. Additionally, it uses I2C communication that would require an additional microcontroller to convert the telemetry to \acs{can}.
+        The last one in the table, LT8491IUKJ\#PBF, is almost perfect. It has an wide input and output range, can do both step up and step down, it has a good efficiency, communication,  CC-CV, etc. However digging in the data sheet, there is an image showing a tracking speed of 2 seconds, which is not fast enough for this application. Additionally, it uses I2C communication that would require an additional microcontroller to convert the telemetry to \acs{can}.
 
         \begin{table}[htbp]
             \centering
@@ -515,10 +514,12 @@ In this chapter is explained the main state-of-art concepts about the engineerin
             \end{adjustbox}
             \end{table}
 
+            \textcolor{red}{There is more ICs but not a lot usually they have low input and output voltage.}
+
 \section{Commercial \acs{mppt}s}
     As discussed in the previous section, there are some commercial available solutions for the problem in analysis. In this section is discussed the commercial solutions on layer above. These products are able to solve the problem without any extra hardware but all of them have a spec that can be improved. In table~\ref{tab:commercial-mppt-comparison} is represented a selection of \ac{mppt} commercial available with some important specs and marked in red the worst specs.
     
-    The first and most important \ac{mppt} at the table is the GVB-8-Li-CV. This converter is extremely efficient and fast, making it one of the best \acp{mppt} in the market for moving vehicles like a boat. For the past years \acs{tsb} have been using this converter in all of their boats and no problems have been encountering except the lack of customization and information. Fact that lead to this project because \acs{tsb} is a competitive team and every information about the boat is an advantage to future improvements. Additionally, it does not have a programmable output voltage which make it only suitable for 48V batteries and is expensive.
+    The first and most important \ac{mppt} at the table is the GVB-8-Li-CV. This converter is extremely efficient and fast, making it one of the best \acp{mppt} in the market for moving vehicles like a boat. For the past years \acs{tsb} have been using this converter in all of their boats and no problems have been encountering except the lack of customization and information. Fact that lead to this project because \acs{tsb} is a competitive team and every information about the boat is an advantage during competition and for future improvements. Additionally, it does not have a programmable output voltage which make it only suitable for 48V batteries and is expensive.
 
     Overcome the problems of the GVB-8-Li-CV will mean success, so it will use as a reference to this project.
 

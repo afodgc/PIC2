@@ -283,6 +283,7 @@
         \begin{textblock*}{10cm}(\th@univlogopsx,\th@univlogopsy)
             \includegraphics[width=5cm]{\th@univlogo}
         \end{textblock*}
+    
     % printing THESIS LOGO
     \ifthenelse{\equal{\th@thesislogo}{\relax}}{\relax}{
         \textblockorigin{-18pt}{-2pt}
@@ -292,7 +293,7 @@
         \end{textblock*}
     }
     % insert vertical spacing for the TITLES
-    \vspace*{8cm}
+    \vspace*{11cm}
     {
     % printing thesis TITLE
         \centering
