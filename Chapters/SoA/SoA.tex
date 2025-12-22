@@ -123,7 +123,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
     \subsection{Incremental Conductance (IncCond)}
         The Incremental Conductance algorithm is another widely used \ac{mppt} method due to its accuracy and ability to track the \ac{mpp} under rapidly changing environmental conditions.
         
-        This algorithm lies on the fact that at the \ac{mpp} the derivative of power with respect to voltage is zero. By knowing the output voltage and current of the solar panel, the algorithm can calculate the conductance and the incremental conductance. 
+        This algorithm lies on the fact that at the \ac{mpp} the derivative of power with respect to voltage is zero. By knowing the output voltage and current of the solar panel, the algorithm can calculate the conductance and the incremental conductance~\cite{Intelligent_PV_Module_2006}. 
         
         The following formulas (Equation~\ref{eq:inc_cond_mpp}) show the equation which this algorithm is based on.
 
@@ -150,8 +150,6 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
         Based on these conditions the algorithm adjust it's operating point (increasing or decreasing the voltage) using a variable step size based of the instantaneous conductance relative to the incremental conductance, Figure~\ref{fig:IncCond_flowchart}.  
 
         Comparative analysis demonstrates that the IncCond algorithm exhibits superior performance relative to the Perturb and Observe method. This outcome is expected, as the Incremental Conductance technique was developed specifically to address the limitations inherent in the P\&O approach. For example the IncCond method eliminates the oscillation problem around the MPP that is characteristic of the P\&O method. Additionally, IncCond demonstrates superior performance under rapidly changing environmental conditions, such as sudden irradiance variations caused by cloud cover, since it uses derivative-based information that is less sensitive to transient disturbances. 
-        
-        Experimental studies conducted in 2006 further corroborate these findings, demonstrating that efficiencies of up to 95\% can be achieved when employing a buck converter~\cite{Intelligent_PV_Module_2006}. \textcolor{red}{Review this}
 
         \begin{figure}[!h]
             \centering
