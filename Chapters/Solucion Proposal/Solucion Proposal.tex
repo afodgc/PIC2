@@ -2,11 +2,11 @@
 \label{chap:Solucion_Proposal}
 
 \section{System architecture}
-    The system is mainly composed by a battery, solar panels and several \acp{mppt}. Additionally, the Battery Management system (BMS) and sensors are also relevant to the system, Figure~\ref{fig:sys_architecture}.
+    The solar system is mainly composed by a battery, solar panels and several \acp{mppt}. Additionally, the Battery Management system (BMS) and sensors are also relevant to the system, Figure~\ref{fig:sys_architecture}.
 
     \begin{figure} [!h]
         \centering
-        \includegraphics[width=0.55 \textwidth]{Images/Solucional Proposal/System architecture.drawio.pdf}
+        \includegraphics[width=0.70 \textwidth]{Images/Solucional Proposal/System architecture.drawio.pdf}
         \qquad
         \caption{System architecture.}
         \label{fig:sys_architecture}
@@ -14,11 +14,19 @@
 
     This project aims to build a \ac{mppt} for \ac{sg01}, which is one of the vessels built by \ac{tsb}, but \ac{tsb} is continuously developing new boats with different batteries and different configurations of solar panels. With that in mind, the final solution needs to be versatile in terms of battery voltage and maximum ratings which will provide savings over the years.
 
-    In terms of batteries, 3 different voltages were used in the past: 12V, 24~V and 48~V.\textcolor{red}{rever isto} As for solar panels, the biggest solar panel array that \ac{tsb} have ever built had 56 solar cells in series, which in total give a 40.94~V in open circuit and 6.382~A in short circuit (with Maxeon Gen 5 solar cells from SunPower). This will be considered as the limit size of the solar panel and some margin will be added.
+    In terms of batteries, 3 different voltages were used in the past: 12V, 24~V and 48~V. As for solar panels, the biggest solar panel array that \ac{tsb} have ever built had 56 solar cells in series, which in total give a 40.94~V in open circuit and 6.382~A in short circuit (with Maxeon Gen 5 solar cells from SunPower). This will be considered as the limit size of the solar panel and some margin will be added.
 
-    As for communication with the system, \ac{tsb} uses \ac{can} with 1~Mbit/s of bus speed to connect every \ac{pcb} to the same bus. However, when communicating with sensors there is more freedom and every other protocol can be used.
+    As for the \acs{mppt} controller, it is composed by current and voltage sensing elements to feed the \acs{mppt} algorithm, a power supply cable to ensure steady DC voltage output in the whole range of input voltages, a DC-DC converter alongside with a \acs{mcu} which controls the DC-DC converter taking into account the input measures, Figure~\ref{fig:sys_architecture}.
 
-    Also connected in the \ac{can} bus is the \ac{bms}. The \ac{bms} is the main safety system of the battery. It measures input and output currents, cells temperatures and voltages and decides if the battery is safe to use or not. So the final product does not need to provide these features. However, the safety of the battery is always a priority, so it will be taken into consideration in the proposed solution.
+    The proposed system will use a step-down/up DC-DC converter to ensure load voltage and input voltage flexibility. The exact type is still to be decided. As for the \ac{mppt} algorithm, a simple P\&O will be initial used to simplify the work, however, the prototype needs to support other algorithms for further improvements.
+
+    Thinking on the Look-Up Table (LUT) method, the proposed solution will be able to read both temperature and solar irradiance.
+
+    The communication with the system will be made by \ac{can} communication with 1~Mbit/s of bus speed to connect every \ac{pcb} to the same bus. \acs{can} is the standard communication protocol used by \acs{tsb}, however, when communicating with sensors there is more freedom and every other protocol can be used.
+
+    The prototype will send message to \acs{can} bus with the data measured (voltage, current, temperature and irradiance) as weal as calculated data such as power and electrical efficiency. Also, some additional information can be sent such as status (erro codes, charging, not charging, etc.) or warning about solar panels health.
+
+    Also connected in the \ac{can} bus is the \ac{bms}. The \ac{bms} is the main safety system of the battery. It measures input and output currents, cells temperatures and voltages and decides if the battery is safe to use or not. So the final product does not need to provide these features. However, the safety of the battery is always a priority, so it will be taken into consideration in the proposed solution in the form of protections against overcurrent, overvoltage and reverse polarity. Also, CC-CV charging mode will be used in order to safely charger lithium-ion batteries. 
 
     \subsection{Requirements summary}
         Taking into account all user requirements and adding some margin, the summary of the requirements is:
