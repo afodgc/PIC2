@@ -1,8 +1,8 @@
-\fancychapter{Solucion Proposal}
+\fancychapter{Proposed Solucion}
 \label{chap:Solucion_Proposal}
 
 \section{System architecture}
-    The system is mainly composed by a battery, solar panels and several \ac{mppt}. Additionally, the Battery Management system (BMS) and sensors are also relevant to the system. 
+    The system is mainly composed by a battery, solar panels and several \acp{mppt}. Additionally, the Battery Management system (BMS) and sensors are also relevant to the system, Figure~\ref{fig:sys_architecture}.
 
     \begin{figure} [!h]
         \centering
@@ -12,27 +12,28 @@
         \label{fig:sys_architecture}
     \end{figure}
 
-    This project aims to build an \ac{mppt} for \ac{sg01}, which is one of the vessels built by \ac{tsb}, but \ac{tsb} is continuously developing new boats with different batteries and different configurations of solar panels. With that in mind, the final solution needs to be versatile in terms of battery voltage and maximum ratings which will provide savings over the future years.
+    This project aims to build a \ac{mppt} for \ac{sg01}, which is one of the vessels built by \ac{tsb}, but \ac{tsb} is continuously developing new boats with different batteries and different configurations of solar panels. With that in mind, the final solution needs to be versatile in terms of battery voltage and maximum ratings which will provide savings over the years.
 
-    In terms of batteries, 3 different voltages were used in the past years, the 12V, 24V and 48V. As for solar panels, the biggest solar panel array that \ac{tsb} have ever built had 56 solar cells in series, which in total give a 40.94 V in open circuit and 6.382 A in short circuit (with Maxeon Gen 5 solar cells from SunPower). This will be considered as the limit size of the solar panel and some margin will be added.
+    In terms of batteries, 3 different voltages were used in the past: 12V, 24V and 48V.\textcolor{red}{rever isto} As for solar panels, the biggest solar panel array that \ac{tsb} have ever built had 56 solar cells in series, which in total give a 40.94 V in open circuit and 6.382 A in short circuit (with Maxeon Gen 5 solar cells from SunPower). This will be considered as the limit size of the solar panel and some margin will be added.
 
-    As for communication with the system, \ac{tsb} uses \ac{can} with 1Mbit/s of bus speed to connect every \ac{pcb} to the same bus. However, when communicating with sensors there is more freedom and every other protocol can be use.
+    As for communication with the system, \ac{tsb} uses \ac{can} with 1Mbit/s of bus speed to connect every \ac{pcb} to the same bus. However, when communicating with sensors there is more freedom and every other protocol can be used.
 
-    Also connected in the \ac{can} bus is the \ac{bms}. The \ac{bms} is the main safety system of the batter. It measures input and output currents, cells temperatures and voltages and decides if the battery is safe to use or not. So the final product does not need to provide these features. However, the safety of the battery is always a priority, so it will be taken into consideration in the purpose solution.
+    Also connected in the \ac{can} bus is the \ac{bms}. The \ac{bms} is the main safety system of the battery. It measures input and output currents, cells temperatures and voltages and decides if the battery is safe to use or not. So the final product does not need to provide these features. However, the safety of the battery is always a priority, so it will be taken into consideration in the proposed solution.
 
     \subsection{Requirements summary}
         Taking into account all user requirements and adding some margin, the summary of the requirements is:
 
         \begin{itemize}
-            \item Work with a wide range of batteries: from 12V to 48V; 
-            \item Minium input max rating: 10A and 50V;
+            \item Work with a wide range of battery voltage: from 12V to 48V; 
+            \item Input maximum rating: 10A and 50V;
             \item Electrical efficiency: at least 85\%;
             \item Fast tracking speed: less than 200ms;
             \item High track efficiency: close to 100\% (between 95\% and 100\%);   
-            \item \ac{can} communication: 1000 Mbit/s and send status, power produced, current, voltage, efficiency, temperature, etc;
-            \item Battery protection: overcurrent, overvoltage and charging techniques;
+            \item \ac{can} communication: 1000 Mbit/s and send status, power produced, current, voltage, efficiency and temperature;
+            \item Load limits: overcurrent and overvoltage;
+            \item Charging technique: CC-CV;
             \item Circuit protection: overcurrent, overvoltage, overtemperature, reverse polarity, ESD, etc.;
-            \item MPPT algorithm: support different algorithms for future prove;
+            \item MPPT algorithm: support different algorithms;
             
         \end{itemize}
 
@@ -41,24 +42,24 @@
 
 \section{Methodology}
     \subsection{Simulations and design}
-        To achieve the requirements, a step-down/up converter needs to be used for versatility. The main purpose is to both convert from low input to high outputs or high inputs and low outputs. Even when the solar panels and battery have similar voltage, the step-down/up converter will be able to achieve the \ac{mpp}. 
+        To achieve the requirements, a step-down/up converter needs to be used for versatility. The main purpose is to both convert from low input to high outputs or high inputs and low outputs. Even when the solar panels and battery have similar voltages, the step-down/up converter will be able to achieve the \ac{mpp}. 
         
         After choosing one of the DC-DC converter types, calculations and simulation in Matlab/simulink and LT-spice will be conducted to achieve a high efficient converter.
 
-        As for the algorithm, the final prototype needs to be able to use different algorithms to be future prove and to provide their comparison. Additionally, one new  algorithm can be implemented based on a previous study by António Miguel Soares de Matos Neves in his master thesis. In this thesis he proposed an algorithm which combines LUT and P\&O but this LUT table only uses voltage and current. Maybe if we add temperature or irradiance we will get better results. \textcolor{red}{Not sure if i like this paragraph}.
+        As for the algorithm, the final prototype needs to be able to use different algorithms to be future prove and to provide their comparison. Additionally, one new  algorithm can be implemented based on a previous study by António Neves in his master thesis. In this thesis he proposed an algorithm which combines LUT and P\&O but this LUT table only uses voltage and current. It expected that by adding temperature and/or irradiance we will get better results. \textcolor{red}{Not sure if i like this paragraph}.
 
-        All the algorithms can be implemented and tested in Matlab/simulink.
+        All the algorithms will be implemented and tested in Matlab/simulink.
 
-        Also, research about how to implement low power consumption voltage and current sensors will be conducted to find a cheap and accrued solution. Some  available solution can be simulated in LTspice for precise toning.
+        Also, research about how to implement low power consumption voltage and current sensors will be conducted to find a cheap and accrued solution. A few solutions can be simulated in LTspice for precise tuning.
 
-        Finally, before designing the \ac{pcb} in Altium designer to latter be manufactured, the microcontroller and sensors will be chosen accordantly with the specs.      
+        Finally, before designing the \ac{pcb} in Altium designer to later be manufactured, the microcontroller and sensors will be chosen accordingly to the specifications.      
     
     \subsection{Experimental results}
-        To test the circuit in lab, a control environment needs to be built with a close box and a light emitter device (for example an LED light). Inside this box the irradiance emitted by external sources, like lab lights or sun, will be reduced. The light emitter device should achieve irradiance close to the \ac{stc}, which is $1000w/m^2$, 
+        To test the circuit in the laboratory, a control environment needs to be built with a closed box and a light emitter device (for example a LED light). Inside this box the irradiance emitted by external sources, like lamps or sun, will be reduced. The light emitter device should achieve irradiance close to the \ac{stc}, which is 1000$\mathrm{w/m}^2$.
         
-        The same can be done with the temperature using a simple thermostat to maintain the system at the same temperature or at \ac{stc} conditions, which is 25ºC. 
+        The same can be done with the temperature using a simple heater and thermostat to maintain the system at the same temperature or at \ac{stc} conditions, which is 25ºC. 
 
-        This setup provides constant irradiance and temperature but can also provide variations to the environment variables, by changing the irradiance of LEDs with PWM or changing the reference signal of the thermostat. So by applying abrupt variants (steps), to one of the variables, the speed of the response and accuracy can be analyzed.
+        This setup provides constant irradiance and temperature but can also provide variations to the environment variables, by changing the irradiance of LEDs with PWM or changing the reference signal of the thermostat. By applying abrupt variations (steps), to one of the variables, the speed of the response and accuracy can be analyzed.
 
         To eliminate setup errors, an irradiance sensor and a temperature sensor should be installed inside the box for better analyses of the results.
 

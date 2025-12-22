@@ -5,16 +5,16 @@
 \section{Motivation}
 \label{sec:introduction:motivation}
 
-As the world is reaching a point where pollution is taking over the news, solar panels are one of the main solutions available. 
-In 2024, 7\% of the energy produced in the world comes from solar panels, and in Portugal this number rises to 14.5\% \cite{ourworldindata_electricity_mix_2025}. Solar energy still plays a miniscule role that it is listed behind the other sources of energy in terms of the contribution for meeting the world’s energy demand. However as the years go by, solar energy is becoming more and more relevant, with the cost of solar panels dropping significantly in the last decade. 
+As the world is reaching a point where pollution is alarming, solar panels are one of the main solutions available. 
+In 2024, 7\% of the energy produced in the world come from solar panels, and in Portugal this number rises to 14.5\% \cite{ourworldindata_electricity_mix_2025}. Solar energy still plays a miniscule role, and it is listed behind the other sources of energy in terms of the contribution for meeting the world’s energy demand. However, solar energy is becoming more relevant, with the cost of solar panels dropping significantly in the last decade. 
 
 In comparison to other forms of green energy, Photovoltaic energy is relevant due to its availability, simplicity, lower maintenance, environmental friendliness, reliability and many other benefits. 
-More recently, is becoming more relevant in the automotive industry, with solar-powered cars, boats and robots.  The CO2 emissions of automotive sector is one of the main contributors to global warming. More than 30\% of total CO2 emissions in the EU in 2018 came from transport sector, with 3\% of global pollution coming from the maritime sector alone \cite{icct_transport_eu_carbon_budget} \cite{shahira2022_electrical_design_solar_boat}.
+More recently, it is becoming more relevant in the automotive industry, with solar-powered cars, boats and robots.  The CO2 emissions of automotive sector is one of the main contributors to global warming. More than 30\% of total CO2 emissions in the EU in 2018 came from the transport sector, with 3\% of global pollution coming from the maritime sector alone \cite{icct_transport_eu_carbon_budget} \cite{shahira2022_electrical_design_solar_boat}.
 And that is where the \ac{tsb} project fits in.
 
-In 2015, \ac{tsb} was created with the goal of designing and building a solar-powered boat to compete in international competitions. Since then, the project has growth and built several vessels. It begins with the construction of the first solar prototype, São Rafael 01 which had a lot of room to improvement and so São Rafael 02 and 03 were built. Then the team decided to approach the hydrogen energy and autonomous driving, and therefore São Miguel 01 and 02 and São Pedro 01 were built. More recently, a vessel were built with the purpose of combing all the technologies used before and were named \ac{sg01}.   
+In 2015, \ac{tsb} was created with the goal of designing and building a solar-powered boat to compete in international competitions. Since then, the project has grown and several vessels were built. It began with the construction of the first solar prototype, São Rafael 01 which still had a lot of room for improvement, and was followed by São Rafael 02 and 03. The team then decided to approach the hydrogen energy and autonomous driving, and therefore São Miguel 01 and 02 and São Pedro 01 were built. More recently, a vessel was built with the purpose of combining all the technologies used before and was named \ac{sg01}.   
 
-All of these prototypes used solar energy to maximize their range and efficiency. In the first years the energy produced was not much and the all system were commercial available. However, as a team of students that want to push the limits of solar power boats and the overall technology, the "built your self" philosophy was presented all over the years. And that is why we started building our own solar panels in 2020 for São Rafael 03. As the years went by, a lot of other systems were designed and built in house however there is still one system that is yet to be developed, the \ac{mppt}.
+All of these prototypes used solar energy to maximize their range and efficiency. In the first years the energy produced was small, and the whole system was built using commercial off the shelf (OTS) components. In 2020 the team stated to built its own solar panels, for São rafael 02. Many others systems were also designed and built in house, but there is still one system that is yet to be developed, the \ac{mppt}.
 
 The \ac{mppt} constitutes an essential subsystem of photovoltaic energy systems, designed to optimize energy extraction from solar panels by maintaining continuous operation at the \ac{mpp}. This optimization is achieved through dynamic adjustment of the electrical operating parameters of the photovoltaic modules or arrays.
 
@@ -22,21 +22,21 @@ The \ac{mppt} constitutes an essential subsystem of photovoltaic energy systems,
 
 \section{Objectives}
 
-This project  aims to design and implement a \ac{mppt} system for solar panels used in the TSB project. The \ac{mppt} will convert the energy produced by the solar panel as efficiently as possible with the use of a quality DC-DC converter and the implementation of \ac{mpp} tracking algorithms.
+This project  aims to design and implement a \ac{mppt} controller for the solar panels used in the TSB project. The \ac{mppt} will convert the energy produced by the solar panel as efficiently as possible with the use of a quality DC-DC converter and the implementation of \ac{mpp} tracking algorithms.
 
-So the main objectives of this project are:
+The main objectives of this project are:
 \begin{itemize}
     \item Study and understand the operation of solar panels and \ac{mppt} techniques;
     \item Chose the most suitable DC-DC topology for the system;
-    \item Design and simulation of the hardware and software.
-    \item Implement a fast response and efficient control algorithm;
-    \item Implement the system in hardware and develop a \ac{pcb}.
-    \item Test and validate the performance of the \ac{pcb}.
-    \item Ensure the safety and reliability of the \ac{mppt} for its integration in the \ac{tsb} project.
-    \item Provide data to the user about the performance of the solar panel and of \ac{mppt} through a \ac{can} communication interface.
+    \item Design and simulation of the hardware and software;
+    \item Implement a fast response and accurate control algorithm;
+    \item Implement the system in hardware and develop a \ac{pcb};
+    \item Test and validate the performance of the \ac{pcb};
+    \item Ensure the safety and reliability of the \ac{mppt} for its integration in the \ac{tsb} project;
+    \item Provide data about the performance of the solar panel and of \ac{mppt} through a \ac{can} communication interface.
 \end{itemize}
 
-By achieving these objectives, the project will contribute for a better control of the system, maximizing the data received from the solar panels to later improve the energy efficiency of the \ac{mppt} or even take conclusions about the manufacture quality of the solar panels build by \ac{tsb} project. A cheap, efficient and versatile \ac{mppt} will also mean future savings to the team, since it could be used in a variety of vessels.
+By achieving these objectives, the project will contribute for a better control of the system, maximizing the energy received from the solar panels and performance tracking to later improve the energy efficiency of the \ac{mppt} or even take conclusions about the manufacture quality of the solar panels build by \ac{tsb} project. A cheap, efficient and versatile \ac{mppt} will also mean future savings to the team, since it could be used in a variety of vessels.
 
 
 
