@@ -180,7 +180,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
 
             \begin{table}[h]
                 \centering
-                \caption{LUT matrix representation with $m \times n$ elements}
+                \caption{LUT matrix representation with $m \times n$ elements.}
                 \label{tab:LUT_matrix}
                 \renewcommand{\arraystretch}{1.3}
                 \begin{tabular}{c|ccccccc}
@@ -196,7 +196,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
 
             The main advantage of this method is its speed since it can reach the \ac{mpp} in one clock cycle. This makes it suitable for applications where fast tracking is required, like in this project. Also, research show less output ripple and higher output power at some levels of irradiance. However, it is not very accurate~\cite{Look-Up-Table_VS_PeO}.
 
-            To improve the accuracy, the LUT table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table, would increase the accuracy, making it almost 100\% accurate, but this would increase the size of the table exponentially, making it unfeasible for most applications.
+            To improve the accuracy, the LUT table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table, would increase the accuracy, making it almost 100~\% accurate, but this would increase the size of the table exponentially, making it unfeasible for most applications.
 
             Research show less ripple than P\&O and in some cases higher efficiency, making this algorithm 
 
@@ -368,7 +368,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
         
         The design of a \acs{ic} start with the constraints, then a design is made in a \ac{hdl} and after software test bench and verifications, the design needs to be tested in real hardware. To test this new \ac{ic} in hardware there are two main options, ask a manufactured to produce a prototype or test the circuit in a \ac{fpga}. In most real world cases, a prototype is produced since the circuits are too complexity and the timing constraints can't be validated in \acs{fpga} however a \ac{ic} prototype costs thousands of euros. So every time that a \ac{fpga} can be used, they use it. 
 
-        A \acs{fpga} is powerful design tool that implements \acs{hdl} code in real hardware, offering the possibility of cheap prototyping. 10~$\mathrm{kW/m}^2$
+        A \acs{fpga} is powerful design tool that implements \acs{hdl} code in real hardware, offering the possibility of cheap prototyping. 
 
         Comparing with \acp{mcu}, \acp{fpga} can be beneficial in terms of energy efficiency and speed, however it is expensive, requires a lot of knowledge in \ac{hdl} and time to design. If the design will not be mass-produced in the form of a \acs{ic}, it is not worth the time and money spent~\cite{FPGA_Implementation_MPPT}.
 
@@ -420,7 +420,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
 
         Table~\ref{tab:commercial-ics-comparison} showcases 4 of the most used commercial ICs. The characteristic marked in red are no suitable to this project, so the corresponding IC can not be adopted.
 
-        The BQ24650RVAT is a IC that with a controller for \ac{mppt} algorithm and some current sensors, can be perfect for cars with 12V batteries and large panels. However, in our use case we need to charge a 48V battery and panels with at least 12V in open circuit.
+        The BQ24650RVAT is a IC that with a controller for \ac{mppt} algorithm and some current sensors, can be perfect for cars with 12~V batteries and large panels. However, in our use case we need to charge a 48V battery and panels with at least 12~V in open circuit.
 
         The MAX20801TPBA+ and SPV1040TTR are designed for IoT applications characterized by low-power systems with miniaturized batteries and solar panels. However, these devices are unsuitable for the present application, as neither can accommodate the required 48V output specification. Furthermore, the lack of publicly available information regarding their tracking speed characteristics presents an additional limitation for performance evaluation.
 

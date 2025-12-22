@@ -8,15 +8,15 @@
         \centering
         \includegraphics[width=0.55 \textwidth]{Images/Solucional Proposal/System architecture.drawio.pdf}
         \qquad
-        \caption{System architecture}
+        \caption{System architecture.}
         \label{fig:sys_architecture}
     \end{figure}
 
     This project aims to build a \ac{mppt} for \ac{sg01}, which is one of the vessels built by \ac{tsb}, but \ac{tsb} is continuously developing new boats with different batteries and different configurations of solar panels. With that in mind, the final solution needs to be versatile in terms of battery voltage and maximum ratings which will provide savings over the years.
 
-    In terms of batteries, 3 different voltages were used in the past: 12V, 24V and 48V.\textcolor{red}{rever isto} As for solar panels, the biggest solar panel array that \ac{tsb} have ever built had 56 solar cells in series, which in total give a 40.94 V in open circuit and 6.382 A in short circuit (with Maxeon Gen 5 solar cells from SunPower). This will be considered as the limit size of the solar panel and some margin will be added.
+    In terms of batteries, 3 different voltages were used in the past: 12V, 24~V and 48~V.\textcolor{red}{rever isto} As for solar panels, the biggest solar panel array that \ac{tsb} have ever built had 56 solar cells in series, which in total give a 40.94~V in open circuit and 6.382~A in short circuit (with Maxeon Gen 5 solar cells from SunPower). This will be considered as the limit size of the solar panel and some margin will be added.
 
-    As for communication with the system, \ac{tsb} uses \ac{can} with 1Mbit/s of bus speed to connect every \ac{pcb} to the same bus. However, when communicating with sensors there is more freedom and every other protocol can be used.
+    As for communication with the system, \ac{tsb} uses \ac{can} with 1~Mbit/s of bus speed to connect every \ac{pcb} to the same bus. However, when communicating with sensors there is more freedom and every other protocol can be used.
 
     Also connected in the \ac{can} bus is the \ac{bms}. The \ac{bms} is the main safety system of the battery. It measures input and output currents, cells temperatures and voltages and decides if the battery is safe to use or not. So the final product does not need to provide these features. However, the safety of the battery is always a priority, so it will be taken into consideration in the proposed solution.
 
@@ -24,12 +24,12 @@
         Taking into account all user requirements and adding some margin, the summary of the requirements is:
 
         \begin{itemize}
-            \item Work with a wide range of battery voltage: from 12V to 48V; 
-            \item Input maximum rating: 10A and 50V;
-            \item Electrical efficiency: at least 85\%;
-            \item Fast tracking speed: less than 200ms;
-            \item High track efficiency: close to 100\% (between 95\% and 100\%);   
-            \item \ac{can} communication: 1000 Mbit/s and send status, power produced, current, voltage, efficiency and temperature;
+            \item Work with a wide range of battery voltage: from 12~V to 48~V; 
+            \item Input maximum rating: 10~A and 50~V;
+            \item Electrical efficiency: at least 85~\%;
+            \item Fast tracking speed: less than 200~ms;
+            \item High track efficiency: close to 100~\% (between 95~\% and 100~\%);   
+            \item \ac{can} communication: 1000~Mbit/s and send status, power produced, current, voltage, efficiency and temperature;
             \item Load limits: overcurrent and overvoltage;
             \item Charging technique: CC-CV;
             \item Circuit protection: overcurrent, overvoltage, overtemperature, reverse polarity, ESD, etc.;

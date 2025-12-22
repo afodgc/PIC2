@@ -21,13 +21,13 @@
 
         The objective was successfully accomplished, with good results. Figure~\ref{fig:Matlab_simulink_res} shows the results of the presented model. 
         
-        The \ac{mpp} of the given solar panel ($V_{oc}=22.33V$ and $I_{SC} = 6.038A$) was successfully tracked with a simple algorithm. The results show some noise at the input which can be improved in future work. Also, a strange behavior was found at the beginning of the simulation. The load current goes to negative before the \ac{mpp} starts tracking. This behavior is introduced by the resistance in series with the battery, which drains the battery when the converter is disconnected. This problem is not alarming since this resistance is only placed for simulation.
+        The \ac{mpp} of the given solar panel ($V_{oc}=22.33$~V and $I_{SC} = 6.038$~A) was successfully tracked with a simple algorithm. The results show some noise at the input which can be improved in future work. Also, a strange behavior was found at the beginning of the simulation. The load current goes to negative before the \ac{mpp} starts tracking. This behavior is introduced by the resistance in series with the battery, which drains the battery when the converter is disconnected. This problem is not alarming since this resistance is only placed for simulation.
 
         \begin{figure} [!h]
             \centering
             \includegraphics[width=1 \textwidth]{Images/Preliminary Work/Sim scope.pdf}
             \qquad
-            \caption{Matlab/Simulink results}
+            \caption{Matlab/Simulink results.}
             \label{fig:Matlab_simulink_res}
         \end{figure}
 
@@ -36,7 +36,7 @@
 
         The test were carried out with a cheap development board called Blue Pill witch accommodates a STM32F103C8T6. As this is one of the cheapest boards on the marked, the specifications are not high-end. However, it was suitable for the aim of these tests.
 
-        The STM32F103C8T6 has an ARM Cortex-M3 32-bit core running at up to 72 MHz, providing sufficient processing performance for real-time control and signal-processing tasks. It integrates two 12-bit ADCs with a maximum sampling rate of approximately 1 million samples per second and up to 16 multiplexed analog input channels, while no internal DAC is available. The device includes several general-purpose and advanced timers capable of generating PWM signals, with maximum PWM frequencies limited by the 72 MHz timer clock and the selected resolution. Housed in a 48-pin package, it offers up to around 37 configurable GPIO pins. In terms of communication interfaces, the \acs{mcu} supports multiple USARTs, SPI and I²C peripherals, as well as a Full-Speed USB 2.0 device interface, making it suitable for a wide range of embedded communication requirements.
+        The STM32F103C8T6 has an ARM Cortex-M3 32-bit core running at up to 72~MHz, providing sufficient processing performance for real-time control and signal-processing tasks. It integrates two 12-bit ADCs with a maximum sampling rate of approximately 1 million samples per second and up to 16 multiplexed analog input channels, while no internal DAC is available. The device includes several general-purpose and advanced timers capable of generating PWM signals, with maximum PWM frequencies limited by the 72~MHz timer clock and the selected resolution. Housed in a 48-pin package, it offers up to around 37 configurable GPIO pins. In terms of communication interfaces, the \acs{mcu} supports multiple USARTs, SPI and I²C peripherals, as well as a Full-Speed USB 2.0 device interface, making it suitable for a wide range of embedded communication requirements.
 
         The tests conducted were based on online examples, which allowed the evaluation of several functionalities of this \acs{mcu}, including timers, interrupts, basic GPIO operations, PWM generation, ADC usage, and communication interfaces such as USB, CAN, serial and I²C.
 
