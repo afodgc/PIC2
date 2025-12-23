@@ -8,7 +8,7 @@
         \centering
         \includegraphics[width=0.70 \textwidth]{Images/Solucional Proposal/System architecture.drawio.pdf}
         \qquad
-        \caption{System architecture.}
+        \caption{Solar system architecture.}
         \label{fig:sys_architecture}
     \end{figure}
 
@@ -54,13 +54,13 @@
         
         After choosing one of the DC-DC converter types, calculations and simulation in Matlab/simulink and LT-spice will be conducted to achieve a high efficient converter.
 
-        As for the algorithm, the final prototype needs to be able to use different algorithms to be future prove and to provide their comparison. Additionally, one new  algorithm can be implemented based on a previous study by António Neves in his master thesis. In this thesis he proposed an algorithm which combines LUT and P\&O but this LUT table only uses voltage and current. It expected that by adding temperature and/or irradiance we will get better results. \textcolor{red}{Not sure if i like this paragraph}.
+        As for the algorithm, the final prototype needs to be able to use different algorithms to be future prove and to provide their comparison. Additionally, one new  algorithm can be implemented based on a previous study by António Neves in his master thesis. In this thesis he proposed an algorithm which combines LUT and P\&O but this LUT table only uses voltage and current. It is expected that by adding temperature and/or irradiance we will get better results.
 
         All the algorithms will be implemented and tested in Matlab/simulink.
 
         Also, research about how to implement low power consumption voltage and current sensors will be conducted to find a cheap and accrued solution. A few solutions can be simulated in LTspice for precise tuning.
 
-        Finally, before designing the \ac{pcb} in Altium designer to later be manufactured, the microcontroller and sensors will be chosen accordingly to the specifications.      
+        Finally, before testing the circuit in a proto board or designing the \ac{pcb} in Altium designer to later be manufactured, the microcontroller and sensors will be chosen accordingly to the specifications.      
     
     \subsection{Experimental results}
         To test the circuit in the laboratory, a control environment needs to be built with a closed box and a light emitter device (for example a LED light). Inside this box the irradiance emitted by external sources, like lamps or sun, will be reduced. The light emitter device should achieve irradiance close to the \ac{stc}, which is 1000$\mathrm{w/m}^2$.
