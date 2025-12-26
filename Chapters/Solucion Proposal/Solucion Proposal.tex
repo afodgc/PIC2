@@ -31,7 +31,7 @@
     \subsection{Requirements summary}
         Taking into account all user requirements and adding some margin, the summary of the requirements is:
 
-        \begin{itemize}
+        \begin{itemize}[leftmargin=4em, itemsep=1pt, topsep=2pt]
             \item Work with a wide range of battery voltage: from 12~V to 48~V; 
             \item Input maximum rating: 10~A and 50~V;
             \item Electrical efficiency: at least 85~\%;
@@ -42,6 +42,7 @@
             \item Charging technique: CC-CV;
             \item Circuit protection: overcurrent, overvoltage, overtemperature, reverse polarity, ESD, etc.;
             \item MPPT algorithm: support different algorithms;
+            \item cost less than 150~EUR per unit.
             
         \end{itemize}
 
@@ -52,9 +53,9 @@
     \subsection{Simulations and design}
         To achieve the requirements, a step-down/up converter needs to be used for versatility. The main purpose is to both convert from low input to high outputs or high inputs and low outputs. Even when the solar panels and battery have similar voltages, the step-down/up converter will be able to achieve the \ac{mpp}. 
         
-        After choosing one of the DC-DC converter types, calculations and simulation in Matlab/simulink and LT-spice will be conducted to achieve a high efficient converter.
+        After choosing one of the DC-DC converter types, calculations and simulation in Matlab/simulink and LTspice will be conducted to achieve a high efficient converter.
 
-        As for the algorithm, the final prototype needs to be able to use different algorithms to be future prove and to provide their comparison. Additionally, one new  algorithm can be implemented based on a previous study by António Neves in his master thesis. In this thesis he proposed an algorithm which combines LUT and P\&O but this LUT table only uses voltage and current. It is expected that by adding temperature and/or irradiance we will get better results.
+        As for the algorithm, the final prototype needs to be able to use different algorithms to be future prove and to provide their comparison. Additionally, one new  algorithm can be implemented based on a previous study by António Neves in his master thesis. In this thesis he proposed an algorithm which combines LUT and P\&O but this LUT table only uses voltage and current. It is expected that by adding temperature and/or irradiance it will get better results.
 
         All the algorithms will be implemented and tested in Matlab/simulink.
 
@@ -62,7 +63,7 @@
 
         Finally, before testing the circuit in a proto board or designing the \ac{pcb} in Altium designer to later be manufactured, the microcontroller and sensors will be chosen accordingly to the specifications.      
     
-    \subsection{Experimental results}
+    \subsection{Experimental results and validation}
         To test the circuit in the laboratory, a control environment needs to be built with a closed box and a light emitter device (for example a LED light). Inside this box the irradiance emitted by external sources, like lamps or sun, will be reduced. The light emitter device should achieve irradiance close to the \ac{stc}, which is 1000$\mathrm{w/m}^2$.
         
         The same can be done with the temperature using a simple heater and thermostat to maintain the system at the same temperature or at \ac{stc} conditions, which is 25ºC. 

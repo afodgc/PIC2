@@ -90,7 +90,7 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
     With that in mind, some of the most relevant algorithms will be briefly explained, so we can choose the most suitable one for this project.
 
     \subsection{Constant Voltage}
-        This is the simplest and the most inefficient method. It works by operating the solar panel at a fixed voltage. The reference voltage is the input of a Proportional-Integral-Derivative (PID) controller (simple and classic type of controller) that will adjust the operation of the DC-DC converter to maintain the solar panel voltage at this reference value.
+        This is the simplest and the most inefficient method. It works by operating the solar panel at a fixed voltage. This referenced voltage is used to calculate the duty cycle of the DC-DC converter that will maintain the operating point of the solar panel.
 
         There are some well-known variations of this method that improve the performance by adjusting the reference voltage to a fraction of the open circuit voltage of the solar panel (usually between 71\% and 78\%)~\cite{Comparison_PV_Array_MPPT_Techniques_2007}. This open circuit voltage can be measured periodically by disconnecting the solar panel from the load for a short period of time. In this way, the reference voltage will be more accurate and the efficiency will increase.
 
@@ -146,7 +146,7 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
             \label{eq:inc_cond_mpp}
         \end{equation}
 
-        So at the \ac{mpp} point, the slope of the P-V curve is zero, which means that the negative of the conductance, $\frac{-I}{V}$, is equal to the incremental conductance, $\frac{dI}{dV}$, (Figure~\ref{fig:IncCond_graph}). So the algorithm compares these two values to determine if the operating point is at, to the left or to the right of the \ac{mpp}~\cite{MPPT_Comparison_techniques}:
+        So at the \ac{mpp} point, the slope of the P-V curve is zero, which means that the negative of the conductance, $-\frac{I}{V}$, is equal to the incremental conductance, $\frac{dI}{dV}$, (Figure~\ref{fig:IncCond_graph}). So the algorithm compares these two values to determine if the operating point is at, to the left or to the right of the \ac{mpp}~\cite{MPPT_Comparison_techniques}\cite{Comparison_PV_Array_MPPT_Techniques_2007}:
 
         \begin{equation}
             \begin{aligned}
@@ -161,9 +161,13 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
         \end{equation}
 
 
-        Based on these conditions the algorithm adjust it's operating point (increasing or decreasing the voltage) using a variable step size based of the instantaneous conductance relative to the incremental conductance, Figure~\ref{fig:IncCond_flowchart}.  
+        Based on these conditions the algorithm adjust it's operating point (increasing or decreasing the voltage) using a variable step size based of the instantaneous conductance relative to the incremental conductance, Figure~\ref{fig:IncCond_flowchart}. For example, as suggested in~\cite{Comparison_PV_Array_MPPT_Techniques_2007} the step size can be calculated using a proportional integral (PI) controller with input error defined as:
 
-        Comparative analysis demonstrates that the IncCond algorithm exhibits superior performance relative to the Perturb and Observe method. This outcome is expected, as the Incremental Conductance technique was developed specifically to address the limitations inherent in the P\&O approach~\cite{Intelligent_PV_Module_2006}. For example the IncCond method eliminates the oscillation problem around the MPP that is characteristic of the P\&O method. Additionally, IncCond demonstrates superior performance under rapidly changing environmental conditions, such as sudden irradiance variations caused by cloud cover, since it uses derivative-based information that is less sensitive to transient disturbances. 
+        \begin{equation}
+            e = \frac{I}{V} + \frac{dI}{dV}
+        \end{equation}
+
+        Comparative analysis demonstrates that the IncCond algorithm exhibits superior performance relative to the Perturb and Observe method. This outcome is expected, as the Incremental Conductance technique was developed specifically to address the limitations inherent in the P\&O approach~\cite{Intelligent_PV_Module_2006}. For example the IncCond method eliminates the oscillation problem around the MPP that is characteristic of the P\&O method. Additionally, IncCond demonstrates superior performance under rapidly changing environmental conditions, such as sudden irradiance variations, since it uses derivative based information that is less sensitive to transient disturbances~\cite{bendib_survey_mppt_methods}. 
 
         \begin{figure}[!h]
             \centering
@@ -184,9 +188,9 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
 
     
         \subsection{Look Up Table (LUT)}
-            The Look-Up Table (LUT) method is a simple and fast \ac{mppt} algorithm that relies on pre-calculated/measured data to determine the optimal operating point of a solar panel.
+            The Look-Up Table (LUT) method is a simple and fast \ac{mppt} algorithm that relies on pre-calculated/measured data to determine the optimal operating point of a solar panel~\cite{MPPT_Comparison_techniques}.
             
-            The LUT table contains several entries organized by voltage and current. Each of these entries contains the optimal duty cycle of the DC-DC converter, that are pre-calculated or measured for a specific voltage and current. In this way, the algorithm can reach the \acs{mpp} in one clock cycle by measuring the voltage and current of the solar panel, looking for the closest entry in the LUT table and applying the corresponding duty cycle to the converter. The entries of the table can be calculated truth a mathematical model of the solar panel with different conditions (temperature and irradiance) or measured in laboratory.
+            The LUT table contains several entries organized by voltage and current. Each of these entries contains the optimal duty cycle of the DC-DC converter, that are pre-calculated or measured for a specific voltage and current. This way, the algorithm can reach the \acs{mpp} in one clock cycle by measuring the voltage and current of the solar panel, looking for the closest entry in the LUT table and applying the corresponding duty cycle to the converter. The entries of the table can be calculated truth a mathematical model of the solar panel with different conditions (temperature and irradiance) or measured in laboratory.
 
             Table~\ref{tab:LUT_matrix} is visual representation of a 2D LUT, only based on current and voltage. Each entry represents the duty cycle used in each case.
 
@@ -208,11 +212,10 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
 
             The main advantage of this method is its speed since it can reach the \ac{mpp} in one clock cycle. This makes it suitable for applications where fast tracking is required, like in this project. Also, research show less output ripple and higher output power at some levels of irradiance. However, it is not very accurate~\cite{Look-Up-Table_VS_PeO}.
 
-            To improve the accuracy, the LUT table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table, would increase the accuracy, making it almost 100~\% accurate, but this would increase the size of the table exponentially, making it unfeasible for most applications.
+            To improve the accuracy, the LUT table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table, would increase the accuracy, making it almost 100~\% accurate, but this would increase the size of the table exponentially. At extreme cases, the memory requirements became expensive and slow. There is a trade-off between size, speed and accuracy that needs to be considered when using this method.
+            
 
-            Research show less ripple than P\&O and in some cases higher efficiency, making this algorithm 
-
-\section{DC-DC types}
+\section{Types of DC-DC Converters}
 
 
     \subsection{Non-isolated versus isolated DC-DC converters}
@@ -224,7 +227,7 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
 
         \begin{table}[htbp]
             \centering
-            \caption{Comparison between Non-isolated Converters and Galvanic Isolated Converters.}
+            \caption{Comparison between Non-isolated Converters and Galvanic Isolated Converters, where red, yellow and green represents bad, medium and good respectively.}
             \label{tab:switching-vs-isolated-converters}
             \scriptsize
             \setlength{\tabcolsep}{5pt}
@@ -252,8 +255,6 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
             \end{table}
 
             In summary, the choice between isolated and non-isolated DC-DC converters depends on the specific requirements of the application, including safety, efficiency, cost, and complexity. In many solar energy applications where the solar panel voltage is not too different from the battery or load voltage, non-isolated converters are preferred due to their higher efficiency and lower cost. So in this project, non-isolated converters will be considered. 
-
-            \textcolor{red}{pesquisar e falar sobre Synchronous Buck, aqui fala um bocado sobre isso: https://www.instructables.com/DIY-1kW-MPPT-Solar-Charge-Controller/}
 
 
     \subsection{Non-isolated DC-DC converters}
