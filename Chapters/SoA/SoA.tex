@@ -1,26 +1,30 @@
 \fancychapter{State-of-the-Art}
 \label{sec:introduction:background}
 
-In this chapter the main state-of-art concepts about the engineering behind a \ac{mppt} is explained. More specifically, it addresses key concepts such as: what is a solar panel, how to use solar energy, \ac{mppt} algorithms, DC-DC converter types and battery charging techniques. 
+In this chapter the main state-of-art concepts about the engineering behind a \ac{mppt} and solar panels are explained. More specifically, it addresses key challenges such as: what is a solar panel, \ac{mppt} algorithms, DC-DC converter types and battery charging techniques. 
 
 
 \section{Solar Panels}
 
-    Solar panels, also known as \ac{pv} panels are devices that convert sunlight into electrical energy. Each solar panel is made of multiple solar cells connected in series and/or parallel. As in electrical circuits, connection type affects the connection voltage and current output of the panel. More specifically, series increases voltage and parallel increases current.
+    \ac{pv} panels are devices that convert solar irradiance into electrical energy. A PV panel consists of multiple solar cells electrically connected in series and/or parallel to achieve the desired voltage and current levels. As in conventional electrical systems, the interconnection topology directly affects the electrical characteristics of the panel: series connections increase the output voltage, while parallel connections increase the output current~\cite{bendib_survey_mppt_methods}.
 
-    Each cell is made of semiconductor materials, usually silicon. This semiconductor is doped with phosphorus, a group V element, to create a negative type layer. On the other side, a layer is doped with boron, a group III element, to create a positive type layer. This creates a p-n junction, which is essential for the photovoltaic effect.
+    Series connected PV panels operate at higher voltage levels, which reduces conduction losses in interconnecting cables and improves the efficiency of the DC–DC conversion stage. Moreover, power converters designed for high voltage, low current operation are generally less complex and more cost-effective than those operating at low voltage and high current. However, series configurations are more sensitive to partial shading or panel failure, as the output current of the entire string is limited by the weakest module~\cite{Shading_Effect_PV_Modules_2011}. In contrast, parallel configurations provide improved tolerance to shading and faults but result in higher current levels and increased conduction losses.
+    In this project we will not control the series/parallel configuration of the solar panels, since it is already pre-defined by \ac{tsb}, however it is important to understand the implications of each configuration. \\
+
+    Each cell is made of semiconductor materials, usually silicon. This semiconductor is doped with phosphorus, a group V element, to create a negative type layer. On the other side, a layer is doped with boron, a group III element, to create a positive type layer. This creates a p-n junction, which is essential for the photovoltaic effect~\cite{photovoltaics_System_Design}.
 
     \begin{figure} [!h]
         \centering
         \includegraphics[width=0.60 \textwidth]{Images/Background/solar_cell.pdf}
         \qquad
-        \caption{Principle of operation of a solar panel.}
+        \caption{Principle of operation of a solar panel. \textcolor{red}{descobrir de onde tirei}}
         \label{fig:Solar_Cell}
     \end{figure}
 
     When sunlight hits the solar cell, photons energy are absorbed by the semiconductor material. This energy excites electrons, allowing them to escape their atomic bonds and create electron hole pairs. The electric field at the p-n junction drives these free electrons towards the n-type layer and holes towards the p-type layer, generating a flow of electric current when the cell is connected to an external circuit~\cite{photovoltaics_System_Design}, Figure~\ref{fig:Solar_Cell}.
 
-    This energy produces a direct current (DC) voltage and current output, which are not constant. Both voltage and current are codependent, so if one varies the other will too. This variation is not linear and can be represented in an I-V curve, as in Figure~\ref{fig:i-v,p-v}. Also, the power output suffers variations, which can be represented in a P-V curve.  
+    The generated energy results in voltage and current outputs that are not constant. Voltage and current are interdependent, therefore, a variation in one parameter leads to a corresponding variation in the other. This relationship is nonlinear and can be characterized by a current-voltage (I–V) curve. Furthermore, the power output also varies with operating conditions and can be represented by a power-voltage (P–V) curve. Both curves are represented in Figure~\ref{fig:i-v,p-v}.
+    In both curves, there is a specific point where the power output is maximized, known as the \ac{mpp}. This point corresponds to a unique combination of voltage and current, denoted as $V_{mpp}$ and $I_{mpp}$ respectively. Operating the solar panel at this point ensures optimal energy extraction under given conditions.
 
     \begin{figure} [!h]
         \centering
@@ -31,7 +35,9 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
     \end{figure}
 
 
-    The efficiency of a solar panel depends on various factors, including the quality of the materials used, the design of the cells, and environmental conditions such as temperature and solar irradiance.
+    The characteristic curves of a solar panel depends on various factors, including the quality of the materials used, the design of the cells, and environmental conditions such as temperature and solar irradiance. It is noted that under partial
+shading conditions, in some cases it is possible to have multiple
+local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_Array_MPPT_Techniques_2007}.
 
     As seen in Figure~\ref{fig:irradiance_i-v}, the variation of the solar irradiance, change the I-V and P-V curve of the solar panel. The increase of irradiance produces more power by mainly increasing the current output of the panel. On the other hand, the temperature has an opposite effect (Figure~\ref{fig:temperature_i-v}). The increase of temperature produces a decrease in power output, mainly by decreasing the voltage output of the panel. 
 
@@ -41,7 +47,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
             \centering
             \includegraphics[width=1 \textwidth]{Images/Background/irradiance_i-v.pdf}
             \qquad
-            \caption{I-V curves of a solar panel with cell temperature of 25 ºC and variable Irradiance. }
+            \caption{Cell temperature of 25~ºC and variable Irradiance. }
             \label{fig:irradiance_i-v}
         \end{subfigure}
         \hfill
@@ -49,7 +55,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
              \centering
             \includegraphics[width=1 \textwidth]{Images/Background/temperature_i-v.pdf}
             \qquad
-            \caption{I-V curves of a solar panel with 1~$\mathrm{kW/m}^2$ of irradiance  and variable temperature.}
+            \caption{Irradiance of 1~$\mathrm{kW/m}^2$ and variable temperature.}
             \label{fig:temperature_i-v}
         \end{subfigure}
         \caption{I-V curves under different conditions. Left: irradiance variation. Right: temperature variation~\cite{photovoltaics_System_Design}.}
@@ -57,14 +63,14 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
     \end{figure}
     
 
-    Both environmental conditions have a meaningful impact on the \ac{mpp} of the solar panel and therefor on the power output of the system. So, if we want to maximize the power extracted by the solar panels, we can not use a classic power converter like a buck converter since neither the current nor the voltage are constant. Instead, we need to use a \ac{mppt}.
+    Both environmental conditions have a meaningful impact on the \ac{mpp} of the solar panel and therefor on the power output of the system. To maximize the power extracted by the solar panels, a classic power converter like a buck converter, will not get a good result since neither the current nor the voltage are constant. Instead, a \ac{mppt} controller is used which will find the \ac{mpp} and operate the solar panel at that point while sensing the changes caused by the environment.
 
-\section{Solar energy production}
+\section{Maximum Power Point Tracker (MPPT)}
     As discussed in the previous section, solar panels produce a variable DC voltage and current output which depends on environmental conditions. To extract as much energy as possible, commonly a \ac{mppt} are used. 
 
     A \acf{mppt} is a device that is used to optimize the power output from solar panels by continuously tracking and adjusting the operation point of the panels to ensure they operate at their \ac{mpp}. 
 
-    To achieve its goal, a \ac{mppt} is usually composed by an DC-DC converter, a microcontroller and some sensors (Figure~\ref{fig:block diagram mppt}). The sensors are used to measure the input/output variables of the control system (typically voltage and current). The information acquired by these sensors is processed by the microcontroller, which runs an algorithm to determine if the \ac{mpp} was reached or how to act on the system towards the \ac{mpp}. In the second case, the microcontroller sends control signals to the DC-DC converter to adjust its operation accordingly.
+    To achieve its goal, a \ac{mppt} is usually composed by a DC-DC converter, a microcontroller and some sensors (Figure~\ref{fig:block diagram mppt}). The sensors are used to measure the input/output variables of the control system (typically voltage and current). The information acquired by these sensors is processed by the microcontroller, which runs an algorithm to determine if the \ac{mpp} was reached or how to act on the system towards the \ac{mpp}. In the second case, the microcontroller generates a signal to control the DC-DC converter that will adjust its operation accordingly.
  
     \begin{figure} [!h]
         \centering
@@ -74,50 +80,58 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
         \label{fig:block diagram mppt}
     \end{figure}
     
-    The output can be connected to different types of loads, like batteries, DC loads or inverters to convert the energy to alternate current and inject it in the grid.
+    The output can be connected to different types of loads, like batteries, DC loads or inverters. 
 
 \section{MPPT Algorithms}
     There are plenty of \ac{mppt} algorithms, each one with its own advantages and disadvantages. The choice of the algorithm will depend on the specific application, the desired performance, and the available resources. 
-    In this work the aim is to extract the maximum energy possible of a solar panel installed in a moving boat, which will produce an I-V curve variation due to the quick changes in irradiance caused by changes of inclination and clouds, and also temperature changes due to waves and wind.
+    In this work the aim is to extract the maximum energy possible of a solar panel installed in a moving boat, which will produce an I-V curve variation due to the quick changes in irradiance caused by changes of inclination, orientation and clouds, and also temperature changes due to waves and wind.
     For these reasons, the tracking speed and accuracy are the most important factors to consider.
 
     With that in mind, some of the most relevant algorithms will be briefly explained, so we can choose the most suitable one for this project.
 
     \subsection{Constant Voltage}
-        This is the simplest and the most inefficient method. It works by operating the solar panel at a fixed voltage. The reference voltage is the input of a PID controller that will adjust the operation of the DC-DC converter to maintain the solar panel voltage at this reference value.
+        This is the simplest and the most inefficient method. It works by operating the solar panel at a fixed voltage. The reference voltage is the input of a Proportional-Integral-Derivative (PID) controller (simple and classic type of controller) that will adjust the operation of the DC-DC converter to maintain the solar panel voltage at this reference value.
 
         There are some well-known variations of this method that improve the performance by adjusting the reference voltage to a fraction of the open circuit voltage of the solar panel (usually between 71\% and 78\%)~\cite{Comparison_PV_Array_MPPT_Techniques_2007}. This open circuit voltage can be measured periodically by disconnecting the solar panel from the load for a short period of time. In this way, the reference voltage will be more accurate and the efficiency will increase.
 
         Other variation is based on the short circuit current of the solar panel, setting the reference current to a fraction of this value~\cite{MPPT_Comparison_techniques}. 
 
-        Although both methods are simple and cost-effective, they are inherently inefficient due to the necessity of interrupting energy production during measurement phases. However, alternative implementations address this limitation through proxy measurement techniques employing dummy cells or diodes, whose physical properties closely approximate those of standard solar cells, thereby enabling continuous power generation during measurement acquisition~\cite{Comparison_PV_Array_MPPT_Techniques_2007}~\cite{Optimum_Operating_Point_Tracker_2004}.
+        Although both methods are simple and cost-effective, they are inherently inefficient due to the necessity of interrupting energy production during measurement phases. However, alternative implementations address this limitation through proxy measurement techniques employing dummy cells or diodes, whose physical properties closely approximate those of standard solar cells, thereby enabling continuous power generation during measurement acquisition~\cite{Comparison_PV_Array_MPPT_Techniques_2007}~\cite{Optimum_Operating_Point_Tracker_2004}. Still, the \ac{mpp} is not always located at the same percentage of the open-circuit voltage or short circuit current, leading to a lack of accuracy and therefore lower efficiency~\cite{Comparative_study_MPPT_algorithms_2000}.
 
 
     \subsection{Perturb and Observe (P\&O)}
         The Perturb and observe (P\&O) method is widely used in commercial products and is the basis of many advanced algorithms. Its popularity lies on its simplicity, low cost and ease of implementation.
 
-        Its name says exactly what it does, it perturbs the voltage of an PV array and observes the resulting effect on the power output.
-        This means that if the voltage was increased and the power output also increased, the algorithm is working in the direction of the \ac{mpp}, so it will continue increasing the voltage. In the opposite case, if the power output decreased, the algorithm is working away from the \ac{mpp}, so it will reverse the direction of the perturbation~\cite{PeO_and_Newton_Raphson_Comparison}. Figure~\ref{fig:PeO_flowchart} shows a flow chart of the algorithm.
+        % Its name says exactly what it does, 
+        As its name indicates, it perturbs the voltage of an PV array and observes the resulting effect on the power output~\cite{chermitti2012improvement}.
+        This means that if the voltage was increased and the power output also increased, the algorithm is working in the direction of the \ac{mpp}, so it will continue increasing the voltage. In the opposite case, if the power output decreased, the algorithm is working away from the \ac{mpp}, so it will reverse the direction of the perturbation~\cite{PeO_and_Newton_Raphson_Comparison}\cite{Look-Up-Table_VS_PeO}. Figure~\ref{fig:PeO_flowchart} shows a flow chart of the algorithm.        
 
-        \begin{figure} [!h]
-            \centering
-            \includegraphics[width=0.35 \textwidth]{Images/Background/PeO.pdf}
-            \qquad
-            \caption{Flow chart of the classic version of Perturb and Observe algorithm~\cite{chermitti2012improvement}.}
-            \label{fig:PeO_flowchart}
-        \end{figure}
-
-        
-
-        The biggest drawback of this algorithm is that it oscillates around the \ac{mpp}, which produces power losses. This oscillation can be reduced by decreasing the step size of the perturbation, but this will also reduce the tracking speed of the algorithm. So there is a trade-off between tracking speed and accuracy~\cite{MPPT_Comparison_techniques}. 
+        The biggest drawback of this algorithm is that it oscillates around the \ac{mpp}, which produces power losses. This oscillation can be reduced by decreasing the step size of the perturbation, but this will also reduce the tracking speed of the algorithm. So there is a trade-off between tracking speed and accuracy~\cite{MPPT_Comparison_techniques}\cite{Comparison_PV_Array_MPPT_Techniques_2007}. 
 
         To mitigate this issue an adaptive step size can be used, where the step size is larger when the \ac{mpp} is far away and smaller when it is closer. In this way, the tracking speed is maximized while minimizing the oscillations around the \ac{mpp}. This can be achieved by measuring the power and voltage and calculating the P-V curve slope ($\frac{\Delta P}{\Delta V}$). In the \ac{mpp} this value must be zero, so the step size can be reduced. This variation of the algorithm is called "differential power-perturb and Observe (dP-P\&O)".
 
-        Another weal-know, issue of P\&O is that it can get confused in rapidly changing environmental conditions, like fast irradiance changes caused by clouds. In this case, the algorithm can misinterpret the power change caused by the environmental variation as a result of its own perturbation, leading it to move away from the \ac{mpp} instead of towards it. For example, if the perturbation was in the wrong direction but the irradiance increased, the power output would increase and the algorithm would continue perturbing in the wrong direction.
+        Another weal-know, issue of P\&O is that it can get confused in rapidly changing environmental conditions, like fast irradiance changes caused by clouds. In this case, the algorithm can misinterpret the power change caused by the environmental variation as a result of its own perturbation, leading it to move away from the \ac{mpp} instead of towards it~\cite{Comparison_PV_Array_MPPT_Techniques_2007}. For example, if the perturbation was in the wrong direction, but the irradiance increased, the power output would increase and the algorithm would continue perturbing in the wrong direction (Figure).
+
+        \begin{figure}[!h]
+            \centering
+            \begin{minipage}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{Images/Background/PeO.pdf}
+                \caption{Flow chart of the classic version of Perturb and Observe algorithm~\cite{Look-Up-Table_VS_PeO}.}
+                \label{fig:PeO_flowchart}
+            \end{minipage}
+            \hfill
+            \begin{minipage}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{Images/Background/fast_change.pdf}
+                \caption{Divergence of P\&O from MPP as shown in~\cite{4112312}}
+                \label{fig:}
+            \end{minipage}
+        \end{figure}
 
         To address this limitation, an additional condition is incorporated into the algorithm that evaluates two consecutive measurements of $\Delta P$ and $\Delta V$. Specifically, when the signs of consecutive $\Delta P$ measurements do not folow the signs of $\Delta V$, this indicates that the observed power variation results from environmental disturbances rather than the algorithm's perturbation. Consequently, the voltage adjustment is suppressed. This refined variant is designated the two-point algorithm or improved P\&O method~\cite{bendib_survey_mppt_methods}.
 
-        There are more relevant variations of this algorithm that will not be explained here, like the Variable Step Size P\&O (VSS-P\&O), the three point P\&O, a-factor P\&O and others.
+        There are other variations of P\&O algorithm that improve its performance, like Variable Step Size P\&O (VSS-P\&O), the three point P\&O, a-factor P\&O and more. Unfortunately, due to the scope of this work, it is not possible to explain all of them.
 
 
     \subsection{Incremental Conductance (IncCond)}
@@ -149,7 +163,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
 
         Based on these conditions the algorithm adjust it's operating point (increasing or decreasing the voltage) using a variable step size based of the instantaneous conductance relative to the incremental conductance, Figure~\ref{fig:IncCond_flowchart}.  
 
-        Comparative analysis demonstrates that the IncCond algorithm exhibits superior performance relative to the Perturb and Observe method. This outcome is expected, as the Incremental Conductance technique was developed specifically to address the limitations inherent in the P\&O approach. For example the IncCond method eliminates the oscillation problem around the MPP that is characteristic of the P\&O method. Additionally, IncCond demonstrates superior performance under rapidly changing environmental conditions, such as sudden irradiance variations caused by cloud cover, since it uses derivative-based information that is less sensitive to transient disturbances. 
+        Comparative analysis demonstrates that the IncCond algorithm exhibits superior performance relative to the Perturb and Observe method. This outcome is expected, as the Incremental Conductance technique was developed specifically to address the limitations inherent in the P\&O approach~\cite{Intelligent_PV_Module_2006}. For example the IncCond method eliminates the oscillation problem around the MPP that is characteristic of the P\&O method. Additionally, IncCond demonstrates superior performance under rapidly changing environmental conditions, such as sudden irradiance variations caused by cloud cover, since it uses derivative-based information that is less sensitive to transient disturbances. 
 
         \begin{figure}[!h]
             \centering
@@ -231,6 +245,7 @@ In this chapter the main state-of-art concepts about the engineering behind a \a
                 Switching Frequency & \cellcolor[RGB]{255,255,153}Low/Medium & \cellcolor[RGB]{255,255,153}Medium \\
                 Thermal Management & \cellcolor[RGB]{198,239,206}Easier & \cellcolor[RGB]{255,255,153}Moderate \\
                 Control Complexity & \cellcolor[RGB]{198,239,206}Simple & \cellcolor[RGB]{255,200,200}Complex \\
+                Cost & \cellcolor[RGB]{198,239,206}Low & \cellcolor[RGB]{255,200,200}High \\
                 \bottomrule
                 \end{tabularx}
             \end{adjustbox}

@@ -5,57 +5,57 @@
 \section{Motivation}
 \label{sec:introduction:motivation}
 
-As the world is reaching a point where pollution is alarming, solar panels are one of the main solutions available. 
+With environmental pollution intensifying worldwide, the transition to cleaner energy sources such as solar power has become increasingly urgent
 In 1985 only 20.82\% of the energy produced in the world came from renewable energies. These numbers have been rising every year and in 2024 we have reached 31.92\%~\cite{ourworldindata_electricity_mix_2025}. In 2024, 6.9\% of the energy produced in the world come from solar panels, and in Portugal this number rises to 14.5\%, demonstrating the importance and the impact of solar energy~\cite{ourworldindata_electricity_mix_2025}. Solar energy still plays a miniscule role, and it is listed behind the other sources of energy in terms of the contribution for meeting the world’s energy demand. However, solar energy is becoming more relevant, with the cost of solar panels dropping significantly in the last decade. 
 
 In comparison to other forms of green energy, Photovoltaic energy is relevant due to its availability, simplicity, lower maintenance, environmental friendliness, reliability and many other benefits. 
 More recently, it is becoming more relevant in the automotive industry, with solar-powered cars, boats and robots~\cite{shahira2022_electrical_design_solar_boat}.  The CO2 emissions of automotive sector is one of the main contributors to global warming. In 2018, 29\% of total CO2 emissions in the EU came from the transport sector, with 4\% coming from the maritime sector alone~\cite{icct_transport_eu_carbon_budget}.
-And that is where the \ac{tsb} project fits in.
+These challenges directly motivate the development of the \ac{tsb} project.
 
 In 2015, \ac{tsb} was created with the goal of designing and building a solar-powered boat to compete in international competitions. Since then, the project has grown and several vessels were built. It began with the construction of the first solar prototype, São Rafael 01 which still had a lot of room for improvement, and was followed by São Rafael 02 and 03. The team then decided to approach the hydrogen energy and autonomous driving, and therefore São Miguel 01 and 02 and São Pedro 01 were built. More recently, a vessel was built with the purpose of combining all the technologies used before and was named \ac{sg01}.   
 
-All of these prototypes used solar energy to maximize their range and efficiency. In the first years the energy produced was small, and the whole system was built using commercial off the shelf (OTS) components. In 2020 the team stated to built its own solar panels, for São rafael 02. Many others systems were also designed and built in house, but there is still one system that is yet to be developed, the \ac{mppt}.
+All of these prototypes used solar energy to maximize their range and efficiency. In the first years the energy produced was small, and the whole system was built using commercial off the shelf (OTS) components. In 2020 the team stated to built its own solar panels, for São Rafael 02. Many others systems were also designed and built in house, but there is still one system that is yet to be developed, the \ac{mppt}.
 
-The \ac{mppt} constitutes an essential subsystem of photovoltaic energy systems, designed to optimize energy extraction from solar panels by maintaining continuous operation at the \ac{mpp}. This optimization is achieved through dynamic adjustment of the electrical operating parameters of the photovoltaic modules or arrays.
+The \ac{mppt} is a fundamental subsystem in photovoltaic energy systems, responsible for maximizing the power extracted from solar panels by ensuring continuous operation at the \ac{mpp}. A \ac{mppt} controller is typically a power converter, that continuously monitors the voltage and current produced by the photovoltaic modules and adjusts their electrical operating point accordingly. By dynamically regulating these operating parameters, the \ac{mppt} compensates for variations in environmental conditions such as solar irradiance and temperature, which cause the \ac{mpp} to shift over time. As a result, the photovoltaic system is able to operate with improved efficiency and deliver maximum available power under changing conditions~\cite{Comparative_study_MPPT_algorithms_2000}.
 
 
 
-\section{Objectives}
+\section{Objectives} 
 
 This project  aims to design and implement a \ac{mppt} controller for the solar panels used in the TSB project. The \ac{mppt} will convert the energy produced by the solar panel as efficiently as possible with the use of a quality DC-DC converter and the implementation of \ac{mpp} tracking algorithms.
 
 The main objectives of this project are:
-\begin{itemize}
+\begin{itemize}[leftmargin=4em, itemsep=1pt, topsep=2pt]
     \item Study and understand the operation of solar panels and \ac{mppt} techniques;
-    \item Chose the most suitable DC-DC topology for the system;
-    \item Design and simulation of the hardware and software;
-    \item Implement a fast response and accurate control algorithm;
+    \item Choose the most suitable DC--DC topology for the system;
+    \item Implement a fast-response and accurate control algorithm;
+    \item Design and simulate the hardware and software;
     \item Implement the system in hardware and develop a \ac{pcb};
     \item Test and validate the performance of the circuit;
     \item Ensure the safety and reliability of the \ac{mppt} for its integration in the \ac{tsb} project;
-    \item Provide data about the performance of the solar panel and of \ac{mppt} through a \ac{can} communication interface.
+    \item Provide performance data of the solar panel and the \ac{mppt} through a \ac{can} communication interface.
 \end{itemize}
 
-By achieving these objectives, the project will contribute for a better control of the solar system, maximizing the energy received from the solar panels and performance tracking to later improve the energy efficiency of the \ac{mppt} or even take conclusions about the manufacture quality of the solar panels build by \ac{tsb} project. A cheap, efficient and versatile \ac{mppt} will also mean future savings to the team, since it could be used in a variety of vessels.
+
+By achieving these objectives, the project will contribute for a more effective solar system, maximizing the energy received from the solar panels and increase the available data for performance tracking of the \ac{mppt} and solar panel. This data will be used to later improve the energy efficiency of the \ac{mppt} and take conclusions about the manufacture quality of the solar panels build by \ac{tsb} project. A cheap, efficient and versatile \ac{mppt} will also mean future savings to the team, since it could be used in a variety of vessels.
 
 
-
+\newpage
 
 
 \section{Outline}
 
-    This document is organized into five main chapters.
+    This document is organized into five main chapters:
 
-    Chapter 1 introduces the context of the work, presenting the motivation behind the development of a \acl{mppt} for the \acl{tsb} project. The objectives of the project are defined, and the scope of the proposed solution is established.
+    \begin{itemize}[leftmargin=4em, itemsep=1pt, topsep=2pt]
+        \item \textbf{Chapter 1} introduces the context of the work, presenting the motivation behind the development of a \acl{mppt} for the \acl{tsb} project. The objectives of the project are defined, and the scope of the proposed solution is established.
 
-    Chapter 2 presents the state-of-the-art related to photovoltaic energy systems and \acs{mppt} technology. It reviews the operating principles of solar panels, solar energy production, and the most relevant \acs{mppt} algorithms. Additionally, different DC–DC converter topologies, switching circuits, battery charging techniques, processing units, sensing methods, and both commercial and integrated \acs{mppt} solutions are analyzed and compared.
+        \item \textbf{Chapter 2} presents the state-of-the-art related to photovoltaic energy systems and \acs{mppt} technology. It reviews the operating principles of solar panels, solar energy production, and the most relevant \acs{mppt} algorithms. Additionally, different DC–DC converter topologies, switching circuits, battery charging techniques, processing units, sensing methods, and both commercial and integrated \acs{mppt} solutions are analyzed and compared. \textcolor{red}{rever o conteudo no futuro}
 
-    Chapter 3 describes the proposed solution for the \acs{mppt} system. The overall system architecture is presented, followed by a summary of the technical requirements. The adopted design approach is detailed, including converter selection, control strategy, simulation methodology, and experimental validation plan.
+        \item \textbf{Chapter 3} describes the proposed solution for the \acs{mppt} system. The overall system architecture is presented, followed by a summary of the technical requirements. The adopted design approach and methodology is detailed, including converter selection, control strategy, simulation, and experimental validation plan.
 
-    Chapter 4 presents the preliminary work developed so far, including initial simulations and early design results that support the feasibility of the proposed solution.
+        \item \textbf{Chapter 4} presents the preliminary work developed so far, including initial simulations and early design results that support the feasibility of the proposed solution.
+        \item \textbf{Chapter 5} outlines the planning and scheduling of the project, presenting the development timeline and key milestones required to achieve the defined objectives.
 
-    Finally, Chapter 5 outlines the planning and scheduling of the project, presenting the development timeline and key milestones required to achieve the defined objectives.
-
-
-
-
+    \end{itemize}
+    

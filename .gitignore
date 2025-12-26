@@ -91,5 +91,5 @@ node_modules/
 # =========================
 # PDFs
 # =========================
-*.pdf
+# (PDFs are already allowed globally via !*.pdf above)
 !Main_Document.pdf
