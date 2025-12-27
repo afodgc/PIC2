@@ -337,98 +337,92 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
 
     
 \section{Battery charging techniques}
-        \textcolor{red}{Needs to be summarized. Only CC-CV is relevant.}
 
-    As the demand of electronic devices and E-vehicles increased, the need for efficient, compact and lightweight batteries has emerged. Among many exiting technologies, lithium-ion batteries have one of the best energy-to-weight/volume ratios and, at this moment, is the technology used in \ac{tsb} batteries. But, as every other battery technology, they need to be charged properly to ensure their safety and longevity~\cite{Charging_Algorithms_Lithium_Ion_Batteries_Overview_2012}.
+    As the demand of electronic devices and E-vehicles increased, the need for efficient, compact and lightweight batteries has emerged. Among many exiting technologies, lithium-ion batteries have one of the best energy-to-weight/volume ratios and, at this moment, it is the technology used in \ac{tsb} batteries. But, as every other battery technology, they need to be charged properly to ensure their safety and longevity~\cite{Charging_Algorithms_Lithium_Ion_Batteries_Overview_2012}.
 
-    To charge these batteries properly, the \ac{mppt} algorithm can operate alone if an additional converter is used in series. But in most cases, the \ac{mppt} and the battery charging unit are integrated in the same converter. This way, the \ac{mppt} can adjust the operating point of the solar panel to extract the maximum power while the battery charging unit ensures that the battery is charged properly. 
+    To charge these batteries properly, the \ac{mppt} algorithm can operate alone if an additional converter is used in series. But in most cases, the \ac{mppt} and the battery charging unit are integrated in the same converter. This way, the \ac{mppt} algorithm can adjust the operating point of the solar panel to extract the maximum power while the battery charging technique ensures that the battery is charged properly. A proper combination of both algorithms/techniques is essential to ensure both maximum energy extraction and battery safety.
 
-    There several algorithms to charge lithium-ion batteries, the most relevant for this use case being the Constant Current-Constant Voltage (CC-CV) method~\cite{Charging_Algorithms_Nickel_Lithium_Battery_2011}. This method consists in two main phases, (Figure~\ref{fig:CC-CV profile}). In the first phase, the battery is charged with a constant current until it reaches a predefined voltage limit (usually 4.2V per cell). In the second phase, the voltage is held constant at this limit while the current gradually decreases as the battery approaches full charge. Once the current drops below a certain threshold, the charging process is terminated to prevent overcharging.
+    There are several techniques to charge lithium-ion batteries, the most relevant for this use case being the Constant Current-Constant Voltage (CC-CV) method~\cite{Charging_Algorithms_Nickel_Lithium_Battery_2011}. Also, it is widely used in commercial chargers due to its simplicity and effectiveness~\cite{Review_Different_Charging_Techniques_Lithium_Polymer_Battery_2015}. 
+     This method consists in two main phases, (Figure~\ref{fig:CC-CV profile}). In the first phase, the battery is charged with a constant current until it reaches a predefined voltage limit (usually 4.2V per cell). In the second phase, the voltage is held constant at this limit while the current gradually decreases as the battery approaches full charge. Once the current drops below a certain threshold, the charging process is terminated to prevent overcharging~\cite{Review_Different_Charging_Techniques_Lithium_Polymer_Battery_2015}.
+
+     When employing the constant current–constant voltage (CC–CV) charging technique with a \ac{mppt} controller, the initial constant-current phase is regulated by the \ac{mppt} algorithm, which extracts the maximum available current from the solar panel. Once the constant-voltage phase is reached, the \ac{mppt} function is disabled, and the power converter increases the solar panel voltage to progressively reduce the charging current while keeping the output voltage constant.
+
 
     \begin{figure} [!h]
         \centering
-        \includegraphics[width=0.55 \textwidth]{Images/Background/CC-CV graph.pdf}
+        \includegraphics[width=0.45 \textwidth]{Images/Background/CC-CV graph.pdf}
         \qquad
         \caption{Charging profile of CC/CV~\cite{Charging_Algorithms_Lithium_Ion_Batteries_Overview_2012}.}
         \label{fig:CC-CV profile}
     \end{figure}
 
-    There are also some more advanced and high performance charging techniques. For example, double-loop control charger (DL-CC/CV) eliminates the need for a current sensor with a positive and negative feedback loop, the boost charger (BC-CC/CV) adds efficiency by charging faster at the first 30\% of the battery capacity and then switching to CC-CV.
+    More advanced high-performance battery charging techniques have been proposed by the literature to reduce charging time without increasing the charging current, thereby preserving battery lifetime. However, these techniques generally introduce higher switching losses and increased system complexity. In the present application, the current generated by the photovoltaic panels is less than half of the maximum allowable battery charging current, consequently, the charging current is inherently limited by the solar panels rather than by the charging strategy. Furthermore, battery lifetime is not a critical concern in this project, as the battery is expected to undergo a limited number of charge cycles, not exceeding 20 cycles per year.
 
-    There are two more complex methods that use advanced control techniques to implement CC-CV, mainly the fuzzy logic and gray predict (FL-CC/CV and GP-CC/CV). These methods can adapt the charging process based on the battery's state of charge, temperature, and other factors, potentially improving charging efficiency and battery lifespan. As downside, they require significant computational resources.
+Therefore, the constant-current–constant-voltage (CC-CV) charging method is considered the most suitable technique for this project, owing to its simplicity, effectiveness, and widespread adoption in commercial battery chargers. Although alternative charging strategies may be explored in future work to achieve faster charging or enhanced battery longevity, CC-CV currently represents the most appropriate choice for the proposed system.
 
-    In cases where the digital resources are limited, analog methods such as phase-locked loop charger (PLL-CC/CV) and improved phase-locked loop (IPLL-CC/CV) can be used. These methods use phase-locked loop (PLL) circuits to regulate the charging current and voltage, providing a simpler and more cost-effective solution compared to digital control methods.
+Other charging techniques fall outside the scope of this work, however, some  methods are briefly discussed in the references provided~\cite{Charging_Algorithms_Nickel_Lithium_Battery_2011}\cite{Charging_Algorithms_Lithium_Ion_Batteries_Overview_2012}\cite{Review_Different_Charging_Techniques_Lithium_Polymer_Battery_2015}.
 
-    There is also Multistage current charging (MSCC) method that divides the charging process into multiple stages with different current levels. 
-
-    Finally, the pulse charging method uses short bursts of high current to charge the battery, which can help reduce heat generation and improve charging efficiency.
     
-    
-    
-    
+\section{Processing and sensing unit}
+    \subsection{Types of processing units}
+        There are several processing units in the market that can be used and implemented in this project. The most common ones are \acp{mcu}, \acp{fpga} and \acp{asic}. 
+
+        \acp{asic} are custom designed chips that are optimized for a specific application. They are usually more efficient and faster than \acp{mcu} and \acp{fpga}, but they are also more expensive and time-consuming to design and manufacture. On the other hand, there are already commercial available \acp{asic}, called \ac{ic} that overcome those problems. However, as we will discuss in section~\ref{sec:ICs}, these \acp{ic} are designed for specific applications and may not be suitable for this project.
+
+        \ac{fpga} are programmable devices that can be configured to implement custom digital circuits. They are more flexible than \acp{ic} and can be reprogrammed if needed, but they are also more complex to design and program. These devices are separated into block internally which uses Look-Up tables (LUTs) to store all different outputs knowing the inputs. This way, complex digital circuits can be implemented by programming the LUTs and interconnections between them~\cite{231340}. The main advantage of \acp{fpga} is their parallel processing capabilities, which leads to high speed performance. However, they are usually expensive, harder to implement in terms of hardware and software and volatile, meaning that they lose their configuration when powered off~\cite{ampheo_fpga_vs_microcontroller_2025}\cite{FPGA_Implementation_MPPT}.
+
+        Overcoming the limitations of \acp{fpga}, \acp{mcu} are widely used in embedded systems due to their ease of use, low cost, and versatility. They are programmable devices that can execute a wide range of tasks, including data acquisition, signal processing, and control. They are usually easier to program than \acp{fpga}, due to their non-volatile flash memory, and have a large community of developers and resources available. However, they are generally slower in parallel processing than \acp{fpga} due to their sequential processing architecture~\cite{ampheo_fpga_vs_microcontroller_2025}. Overall, \acp{mcu} are cheaper and required less additional hardware. Additionally, they are easier to program and understand, making them less time-consuming for development and debugging. 
+
+        For this application, a \ac{mcu} will be used due to the importance of a low cost and ease of use solution. Additionally, the processing power of modern \acp{mcu} is sufficient to handle the requirements of the \ac{mppt} algorithm and battery charging technique.
 
 
-\section{Processing unit}
-    \subsection{FPGA}
-        \textcolor{red}{\textbf{NOTE:} This is just a draft made with knowledge base on a "Hardware programming" course and an internship in Synopsys. This text needs to be verified with the state of the art, and make some meaningful references.}
+    \subsection{Microcontroller}
+        A microcontroller typically consists of three fundamental components: a central processing unit (CPU), memory, and peripheral modules. The CPU executes program instructions and performs arithmetic and logical operations. Memory is generally divided into non-volatile memory (e.g., Flash) for program storage and volatile memory (e.g., SRAM) for data and runtime variables. Peripheral modules provide interfaces to the external environment and may include analog-to-digital converters (ADCs), timers, pulse-width modulation (PWM) units, communication interfaces (such as UART, SPI, and I²C), and general-purpose input/output (GPIO) ports. The integration of these components enables standalone operation without the need for extensive external circuitry~\cite{ibm_microcontroller_2025}.
 
-        The digital circuit of a \ac{mppt} have 4 main functions, implementation of a \acs{mppt} Algorithm, sensor aquisicision mainly done by ADCs, generate PWM signal to drive the converter circuit and, in some cases, communication.
+         When selecting a microcontroller for a specific application the first factor to consider is to use an 8, 16 or 32 bit \acs{mcu}. For this application a 16-bit \acs{mcu} would probably be sufficient, however to ensure future-proof and compatibility with other \ac{tsb} systems, the choice is for a 32-bit \ac{mcu}. Besides, nowadays, 32-bit \acp{mcu} are considered the industry standard since most embedded system \ac{red} effort is focused on 32-bit cores, and thus both architectures can achieve similar power consumption~\cite{embedded_upgrading_mcu_designs_2025}.
+          There are two main architectures for 32-bit \acp{mcu}: AVR and ARM. Being ARM the most widely used architecture in the industry and the most advanced, it was chosen for this project~\cite{ampheo_fpga_vs_microcontroller_2025}. 
 
-        All of these functions can be implemented in a variety of ways. The most professional way is to use a \ac{ic}. These chips are usually design and manufactured by a team of professional engineers that dedicated their time and knowledge to develop an efficient product. But as we will discuss later in section~\ref{sec:ICs}, this \acp{ic} are design and produced with a specific application in mind and depending on the application, they can be useful or not.
+        Other important characteristics like clock speed, PWM resolution, communication protocols, memory capacity, power consumption, and cost, are not yet well-defined. The choice of microcontroller will be revisited in future stages of the project.
 
-        Assuming that there is no IC perfect for this application, what are the options? The main options are \acp{mcu} or \acp{fpga}. There is also some less powerful options like \acp{cpld} and \ac{dsp} however usually they are too complex to work with and not powerful enough. Lets focused on \acs{fpga} for now. 
-        
-        In an industrial design, if a company needs a \acs{ic} with a specific specs that there isn't in the market, they can design one. 
-        
-        The design of a \acs{ic} start with the constraints, then a design is made in a \ac{hdl} and after software test bench and verifications, the design needs to be tested in real hardware. To test this new \ac{ic} in hardware there are two main options, ask a manufactured to produce a prototype or test the circuit in a \ac{fpga}. In most real world cases, a prototype is produced since the circuits are too complexity and the timing constraints can't be validated in \acs{fpga} however a \ac{ic} prototype costs thousands of euros. So every time that a \ac{fpga} can be used, they use it. 
+        However, the STM32 family of microcontroller was already selected as it is the standard microcontroller used in \ac{tsb} project and widely used in the industry. The STM32 family offers a wide range of solutions with different characteristics, making it suitable for various applications, including this project. 
 
-        A \acs{fpga} is powerful design tool that implements \acs{hdl} code in real hardware, offering the possibility of cheap prototyping. 
+        \textcolor{red}{If there is time, chose a specific STM32 and justify the choice based on some parameters.}
 
-        Comparing with \acp{mcu}, \acp{fpga} can be beneficial in terms of energy efficiency and speed, however it is expensive, requires a lot of knowledge in \ac{hdl} and time to design. If the design will not be mass-produced in the form of a \acs{ic}, it is not worth the time and money spent~\cite{FPGA_Implementation_MPPT}.
+    % \subsection{Sensors}
 
-        On the other hand \acp{mcu} are easily programmed, versatile, cheap, fast and reliable. Since this project is for a team of students, it needs to be easily changed for the future needs and understandable without having depth knowledge in \acp{mcu} or \acp{fpga}. With that in mind, \acp{fpga} will not be use in this project despite its advantages.
-            
-    \subsection{Microcontrollers}        
+% \section{Voltage and current sensing}
+%     Accurate voltage and current measurements are essential for MPPT operation, since tracking algorithms directly rely on these quantities to estimate power and adjust the operating point of the photovoltaic (PV) array. Measurement noise or inaccuracies directly impact tracking efficiency, especially in high frequency switching DC–DC converters.
 
-        \textcolor{red}{Arduino, STM32, Raspberry Pi, others}
-
-        \textcolor{red}{tentar justificar o uso do STM32 (speed, resolution of ADC/DAC, standardization)}
-
-
-
-\section{Voltage and current sensing}
-    Accurate voltage and current measurements are essential for MPPT operation, since tracking algorithms directly rely on these quantities to estimate power and adjust the operating point of the photovoltaic (PV) array. Measurement noise or inaccuracies directly impact tracking efficiency, especially in high frequency switching DC–DC converters.
-
-    Voltage sensing is generally straightforward and can be implemented using resistive voltage dividers followed by ADC sampling. Current sensing, however, is more critical and requires careful consideration of the available measurement techniques.
+%     Voltage sensing is generally straightforward and can be implemented using resistive voltage dividers followed by ADC sampling. Current sensing, however, is more critical and requires careful consideration of the available measurement techniques.
 
 
 
-    \subsection{Overview of current sensing options}
+%     \subsection{Overview of current sensing options}
 
-    Several approaches can be used to measure current in power electronics applications:
+%     Several approaches can be used to measure current in power electronics applications:
 
-    \begin{itemize}
-        \item Shunt-based sensing with operational amplifiers;
-        \item Dedicated current-sense amplifiers;
-        \item Hall effect current sensor.
-    \end{itemize}
+%     \begin{itemize}
+%         \item Shunt-based sensing with operational amplifiers;
+%         \item Dedicated current-sense amplifiers;
+%         \item Hall effect current sensor.
+%     \end{itemize}
 
-    Instrumentation amplifiers offer very high accuracy and excellent common-mode rejection, but they are typically more complex, consume more power and are unnecessary for the current and voltage levels involved in this application. Dedicated current-sense amplifiers integrate many features and simplify the design, but they increase cost, reduce flexibility and may impose voltage or interface constraints.
+%     Instrumentation amplifiers offer very high accuracy and excellent common-mode rejection, but they are typically more complex, consume more power and are unnecessary for the current and voltage levels involved in this application. Dedicated current-sense amplifiers integrate many features and simplify the design, but they increase cost, reduce flexibility and may impose voltage or interface constraints.
 
-    In contrast, shunt-based sensing combined with discrete amplifiers provides a good balance between accuracy, simplicity, power consumption and design flexibility, making it well suited for a custom MPPT implementation.
+%     In contrast, shunt-based sensing combined with discrete amplifiers provides a good balance between accuracy, simplicity, power consumption and design flexibility, making it well suited for a custom MPPT implementation.
 
-    \subsection{ Shunt-based sensing with operational and differential amplifiers}
+%     \subsection{ Shunt-based sensing with operational and differential amplifiers}
 
-    The approach to be adopted is based on a low-value shunt resistor placed on the low side of the power path, converting the load current into a small differential voltage. This voltage is then amplified using a differential amplifier built from a precision operational amplifier.
+%     The approach to be adopted is based on a low-value shunt resistor placed on the low side of the power path, converting the load current into a small differential voltage. This voltage is then amplified using a differential amplifier built from a precision operational amplifier.
 
-    Low-side shunt sensing results in a low common-mode voltage and a ground‑referenced output signal, simplifying the analog front‑end and easing direct interfacing with the microcontroller ADC. Compared to high‑side sensing, it also improves noise immunity in a switching environment, which is particularly relevant in DC–DC converters.
+%     Low-side shunt sensing results in a low common-mode voltage and a ground‑referenced output signal, simplifying the analog front‑end and easing direct interfacing with the microcontroller ADC. Compared to high‑side sensing, it also improves noise immunity in a switching environment, which is particularly relevant in DC–DC converters.
 
-    The differential amplifier ensures that only the voltage drop across the shunt resistor is amplified, rejecting common-mode noise generated by switching activity. Operational amplifiers are especially attractive in this role due to their low power consumption, flexibility in gain selection, price and availability in precision, low‑noise variants suitable for power electronics applications.
+%     The differential amplifier ensures that only the voltage drop across the shunt resistor is amplified, rejecting common-mode noise generated by switching activity. Operational amplifiers are especially attractive in this role due to their low power consumption, flexibility in gain selection, price and availability in precision, low‑noise variants suitable for power electronics applications.
 
-    In a switching MPPT environment, the chosen amplifier must exhibit high common‑mode rejection, low offset voltage and low noise to ensure accurate current measurement. The shunt resistor should have a very low resistance to minimize conduction losses, while maintaining high precision and a low temperature coefficient to reduce measurement error.
+%     In a switching MPPT environment, the chosen amplifier must exhibit high common‑mode rejection, low offset voltage and low noise to ensure accurate current measurement. The shunt resistor should have a very low resistance to minimize conduction losses, while maintaining high precision and a low temperature coefficient to reduce measurement error.
 
-
-\section{Specialized ICs for MPPT}
+\section{Commercial Options}
+\subsection{Specialized ICs}
 \label{sec:ICs}
         There are a few commercial available ICs that are specialized on Solar battery chargers or \ac{mppt}. These ICs are worth mentioning since, if they are suitable for our application, they can save a lot of time on the design thinking of most of the previously discussed sections. Some of this ICs already have an integrated DC-DC and input and output protections and on top of the integrated \ac{mppt} algorithm.
 
@@ -481,7 +475,7 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
             \end{adjustbox}
             \end{table}
 
-\section{Commercial MPPTs}
+\subsection{Commercial MPPT controllers}
     As discussed in the previous section, there are some commercial available solutions for the problem in analysis. This section discusses the available commercial solutions. These products are able to solve the problem without any extra hardware but all of them have specifications that can be improved. Table~\ref{tab:commercial-mppt-comparison} represents a selection of commercial available \acs{mppt} controllers and their specifications. Red-marked characteristics are unsuitable for this project.
     
     The first and most important \ac{mppt} at the table is the GVB-8-Li-CV(50.4). This converter is extremely efficient and fast, making it one of the best \acp{mppt} in the market for moving vehicles like a boat. For the past years \acs{tsb} have been using this converter in all of their boats and no problems have been found except the lack of customization and information. This fact lead to this project because \acs{tsb} is a competitive team and every information about the boat is an advantage during competition and for future improvements. Additionally, this \acs{mppt} is expensive and does not have a programmable output voltage which makes it only suitable for 50.4~V batteries and is expensive.
