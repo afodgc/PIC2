@@ -283,7 +283,7 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
 
         \begin{table}[htbp]
         \centering
-        \caption{Comparison of non-isolated DC-DC topologies.}
+        \caption{Comparison of non-isolated DC-DC topologies, where green represents good characteristics.}
         \label{tab:dc-dc-comparison}
         \scriptsize
         \setlength{\tabcolsep}{4pt}
@@ -437,7 +437,7 @@ Considering the emphasis on low cost, reduced development time, and implementati
 
         \begin{table}[htbp]
             \centering
-            \caption{Comparison of commercial MPPT controllers and specialized ICs.}
+            \caption{Comparison of commercial MPPT controllers and specialized ICs, where red represents bad characteristics.}
             \label{tab:commercial-ics-comparison}
             \scriptsize
             \setlength{\tabcolsep}{3pt}
@@ -461,16 +461,16 @@ Considering the emphasis on low cost, reduced development time, and implementati
 
                 Electrical Efficiency & 95\% & 99.1\% (max) & \cellcolor[RGB]{255,200,200}80 to 95\% & 95 to 99\% \\
 
-                Tracking Efficiency & User dependent & 99.9\% (max) & Unknown & Unknown \\
+                Tracking accuracy & User dependent & 99.9\% (max) & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown \\
 
-                Tracking Speed & User dependent & Unknown & Unknown & \cellcolor[RGB]{255,200,200}1 to 2 seconds \\
+                Tracking Speed & User dependent & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}1 to 2 seconds \\
 
                 Algorithm & User input & Unknown & Unknown & P\&O \\
                 Switching Frequency & 600kHz & Unknown & 100kHz & 100 to 400 kHz \\
-                Communication & No & No & No & \cellcolor[RGB]{255,200,200}I2C \\
+                Communication & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}I2C \\
                 Configurability & No & No & No & Yes \\
-                Charge Profile & CC-CV & Unknown & Unknown & CC-CV \\
-                Price & 5.25€ & 4.50€ & 3.02€ & 15-20€ \\
+                Charge Profile & CC-CV & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown & CC-CV \\
+                Price & 5.25€ & 4.50€ & 3.02€ & \cellcolor[RGB]{255,200,200}15-20€ \\
                 \bottomrule
                 \end{tabularx}
             \end{adjustbox}
@@ -492,7 +492,7 @@ Considering the emphasis on low cost, reduced development time, and implementati
 
     \begin{table}[htbp]
     \centering
-    \caption{Comparison of commercial MPPT controllers.}
+    \caption{Comparison of commercial MPPT controllers, , where red represents bad characteristics.}
     \label{tab:commercial-mppt-comparison}
     \scriptsize
     \setlength{\tabcolsep}{2pt}
@@ -511,12 +511,12 @@ Considering the emphasis on low cost, reduced development time, and implementati
         Type & Boost & \cellcolor[RGB]{255,200,200}Buck & Synchronous Boost & Boost & Boost \\
         Communication & \cellcolor[RGB]{255,200,200} No & \cellcolor[RGB]{255,200,200}Yes (VE.can/ Bluetooth) & Yes & \cellcolor[RGB]{255,200,200}Bluetooth and RS485 & \cellcolor[RGB]{255,200,200} Bluetooth \\
         Configurable & \cellcolor[RGB]{255,200,200} No & Yes & Yes & Yes & Yes \\
-        Commutation frequency & ?? & Unknown & Programable & Unknown & Unknown \\
-        Programable battery voltage & No & Yes & Yes & \cellcolor[RGB]{255,200,200}Yes (non-lithium batteries) & Yes \\
-        Tracking speed & 15Hz / 66.6(6)ms & Fast (Unknown value) & Programable & Unknown & Unknown \\
-        Tracking efficiency & 99\%+ typical & Unknown & Programable & 99\% & Unknown \\
-        Electrical efficiency & 96-99\% typical & 98\% peak & Unknown & 97\% & Unknown \\
-        Charger profile & CC-CV & Unknown & Programable & Unknown & CC-CV \\
+        % Commutation frequency & ?? & Unknown & Programable & Unknown & Unknown \\
+        Programable battery voltage & \cellcolor[RGB]{255,200,200}No & Yes & Yes & \cellcolor[RGB]{255,200,200}Yes (non-lithium batteries) & Yes \\
+        Tracking speed & 15Hz / 66.6(6)ms & \cellcolor[RGB]{255,200,200}Fast (Unknown value) & Programable & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown \\
+        Tracking efficiency & 99\%+ typical & \cellcolor[RGB]{255,200,200}Unknown & Programable & 99\% & \cellcolor[RGB]{255,200,200}Unknown \\
+        Electrical efficiency & 96-99\% typical & 98\% peak & \cellcolor[RGB]{255,200,200}Unknown & 97\% & \cellcolor[RGB]{255,200,200}Unknown \\
+        Charger profile & CC-CV & \cellcolor[RGB]{255,200,200}Unknown & Programable & \cellcolor[RGB]{255,200,200}Unknown & CC-CV \\
         GUI & No & Yes & Yes & Yes & Yes \\
         MCU & ATtiny461A-U & Unknown & STM32G474 & Unknown & Unknown \\
         Details & High Performance, Low Power AVR® 8-Bit Microcontroller (RISC) & - & 32-bit, Mainstream Arm Cortex-M4 MCU 170 MHz with  Math Accelerator & - & - \\
