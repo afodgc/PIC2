@@ -1,6 +1,8 @@
 # Afonso Coelho PIC2
 
-In future a small summary of the PIC can be placed here
+This repo contains the state of the art and solucion proposal of Afonso Coelho master thesis named "Fast response MPPT switched charger for the Técnico Solar Boat". 
+
+PDF file: [Link](Main_Document.pdf)
 
 ## LaTeX Document Template
 This repo used a GitHub latex repo and a latex template made by Rui Santos Cruz. Both templates were combined as like. Following is explained how to set up vs code for latex
@@ -60,11 +62,10 @@ pdflatex main.tex
 4. **Use labels and references** for figures, tables, and equations
 5. **Compile frequently** to catch errors early
 
----
 
-*Happy LaTeX writing! 📝*
 
-## How to hide trash files in vscode (ADDed by Afonso)
+## Tips Added by Afonso
+### How to hide trash files in vscode 
 
 1. Open the command palette (Ctrl+Shift+P) and type Preferences: Open Settings (JSON).
 2. Add or edit the files.exclude section like this:
@@ -87,8 +88,8 @@ pdflatex main.tex
   }
 }
 ```
-
-## Good VScode extensions for latex
+---
+### Good VScode extensions for latex
 1. Latex Workshop
 2. Code Spell Checker
 4. vscode-pdf (pdf visualizer)
@@ -96,25 +97,13 @@ pdflatex main.tex
 5. LTeX (grammar and spell check)
 
 
-
-## How to ignore trash files when using git (ADDed by Afonso)
+---
+### How to ignore trash files when using git 
 
 1. Create a .gitignore file
 2. Copy my gitignore (basically ignores all files except PDF and latex files)
-3. Change the lines after:
-```yaml
-{
-   # Allow these directories explicitly
-}
-```
-4. If a folder is still not being committed, run the following line (change the name of the folder):
-```yaml
-{
-   git add -f "Images/Planning/"*
-}
-```
 
-Note: There must be a better way. This is giving me a lot of problems.
+---
 
-## Wrap text
+### Wrap text
 1. Alt+Z : this command lets you see one full line without scrolling
