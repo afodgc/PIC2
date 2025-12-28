@@ -425,15 +425,16 @@ Considering the emphasis on low cost, reduced development time, and implementati
 \section{Commercial Options}
 \subsection{Specialized ICs}
 \label{sec:ICs}
-        There are a few commercial available ICs that are specialized on Solar battery chargers or \ac{mppt}. These ICs are worth mentioning since, if they are suitable for our application, they can save a lot of time on the design thinking of most of the previously discussed sections. Some of this ICs already have an integrated DC-DC and input and output protections and on top of the integrated \ac{mppt} algorithm.
+Several commercially available integrated circuits (ICs) are specifically designed for solar battery charging and \ac{mppt} applications. These devices are relevant to this project since, if suitable, they could significantly reduce design complexity by integrating functions such as DC-DC conversion, protection mechanisms, and \acs{mppt} algorithm.
 
-        Table~\ref{tab:commercial-ics-comparison} showcases 4 of the most used commercial ICs. The characteristic marked in red are no suitable to this project, so the corresponding IC can not be adopted.
+Table~\ref{tab:commercial-ics-comparison} summarizes four commonly used commercial ICs. Characteristics marked in red indicate incompatibilities with the project requirements, leading to the exclusion of the corresponding devices.
 
-        The BQ24650RVAT is a IC that with a controller for \ac{mppt} algorithm and some current sensors, can be perfect for cars with 12~V batteries and large panels. However, in our use case we need to charge a 48V battery and panels with at least 12~V in open circuit.
+The BQ24650RVAT is a Stand-Alone Synchronous Buck Battery Charge Controller that by adding a \ac{mcu} for \acs{mppt} algorithm and current and voltage sensors, can reach a significant efficiency making it appropriate for applications with 12/24~V batteries and high-power panels, such as electric vehicles. However, it does not support the required 48~V battery voltage and is therefore unsuitable for this work.
 
-        The MAX20801TPBA+ and SPV1040TTR are designed for IoT applications characterized by low-power systems with miniaturized batteries and solar panels. However, these devices are unsuitable for the present application, as neither can accommodate the required 48V output specification. Furthermore, the lack of publicly available information regarding their tracking speed characteristics presents an additional limitation for performance evaluation.
+The MAX20801TPBA+ and SPV1040TTR target low-power IoT applications with small batteries and solar panels. Both devices are unable to meet the 48~V output requirement, and their limited publicly available information on tracking speed further restricts performance evaluation.
 
-        The last one in the table, LT8491IUKJ\#PBF, is almost perfect. It has an wide input and output range, can do both step up and step down, it has a good efficiency, communication and CC-CV charger. However, digging in the data sheet, there is an image showing a tracking speed of 2 seconds, which is not fast enough for this application. Additionally, it uses I2C communication that would require an additional microcontroller to convert the telemetry to \acs{can}.
+The LT8491IUKJ\#PBF offers a wide input and output voltage range, buck–boost operation, high efficiency, communication capabilities, and CC–CV charging. Despite these advantages, its reported MPPT tracking speed of up to 2~s is insufficient for the dynamic conditions of this application. Additionally, its I\textsuperscript{2}C interface would require an additional microcontroller to provide \acs{can} communication, increasing system complexity and cost.
+
 
         \begin{table}[htbp]
             \centering
@@ -455,7 +456,7 @@ Considering the emphasis on low cost, reduced development time, and implementati
 
                 Output Voltage (BAT) & \cellcolor[RGB]{255,200,200}12 to 24V & \cellcolor[RGB]{255,200,200}12.4V & \cellcolor[RGB]{255,200,200}-0.3 to 5.5V & 1.3 to 80V \\
 
-                Max Output Current & - & 12A & \cellcolor[RGB]{255,200,200}1.8A & 10A \\
+                Max Output Current & Externally limited & 12A & \cellcolor[RGB]{255,200,200}1.8A & 10A \\
 
                 Topology & Synchronous Buck & Synchronous Buck & Synchronous Boost & Buck-Boost \\
 
@@ -476,18 +477,32 @@ Considering the emphasis on low cost, reduced development time, and implementati
             \end{adjustbox}
             \end{table}
 
-\subsection{Commercial MPPT controllers}
-    As discussed in the previous section, there are some commercial available solutions for the problem in analysis. This section discusses the available commercial solutions. These products are able to solve the problem without any extra hardware but all of them have specifications that can be improved. Table~\ref{tab:commercial-mppt-comparison} represents a selection of commercial available \acs{mppt} controllers and their specifications. Red-marked characteristics are unsuitable for this project.
+% \subsection{Commercial MPPT controllers}
+%     As discussed in the previous section, there are some commercial available solutions for the problem in analysis. This section discusses the available commercial solutions. These products are able to solve the problem without any extra hardware but all of them have specifications that can be improved. Table~\ref{tab:commercial-mppt-comparison} represents a selection of commercial available \acs{mppt} controllers and their specifications. Red-marked characteristics are unsuitable for this project.
     
-    The first and most important \ac{mppt} at the table is the GVB-8-Li-CV(50.4). This converter is extremely efficient and fast, making it one of the best \acp{mppt} in the market for moving vehicles like a boat. For the past years \acs{tsb} have been using this converter in all of their boats and no problems have been found except the lack of customization and information. This fact lead to this project because \acs{tsb} is a competitive team and every information about the boat is an advantage during competition and for future improvements. Additionally, this \acs{mppt} is expensive and does not have a programmable output voltage which makes it only suitable for 50.4~V batteries and is expensive.
+%     The first and most important \ac{mppt} at the table is the GVB-8-Li-CV(50.4). This converter is extremely efficient and fast, making it one of the best \acp{mppt} in the market for moving vehicles like a boat. For the past years \acs{tsb} have been using this converter in all of their boats and no problems have been found except the lack of customization and information. This fact lead to this project because \acs{tsb} is a competitive team and every information about the boat is an advantage during competition and for future improvements. Additionally, this \acs{mppt} is expensive and does not have a programmable output voltage which makes it only suitable for 50.4~V batteries and is expensive.
 
-    Overcoming the problems of the GVB-8-Li-CV will mean success, so it will be used as a reference design to this project.
+%     Overcoming the problems of the GVB-8-Li-CV will mean success, so it will be used as a reference design to this project.
 
-    The Smart Solar \acs{mppt} 100/20 is one of Victron Energy solar chargers (\acs{mppt}). This brand is well known in the caravan community for its high efficiency, fast \acs{mpp} tracking and low cost. Their \acp{mppt} have \acs{can} and Bluetooth communication with a mobile app for data visualization. The only downside of this converter is the need of a relative large solar panel since it uses a buck converter. In \acs{tsb} application the solar panels are small and organized in groups of 2 to 3 solar panels in the same array to minimize the effects of clouds, defective solar panels or shadings. Therefore, we conclude that although this converter is excellent, it is not suitable for the application in question.
+%     The Smart Solar \acs{mppt} 100/20 is one of Victron Energy solar chargers (\acs{mppt}). This brand is well known in the caravan community for its high efficiency, fast \acs{mpp} tracking and low cost. Their \acp{mppt} have \acs{can} and Bluetooth communication with a mobile app for data visualization. The only downside of this converter is the need of a relative large solar panel since it uses a buck converter. In \acs{tsb} application the solar panels are small and organized in groups of 2 to 3 solar panels in the same array to minimize the effects of clouds, defective solar panels or shadings. Therefore, we conclude that although this converter is excellent, it is not suitable for the application in question.
 
-    There are some other companies in the market but not so relevant as the two previous ones. For example the Rover Lite and MS4840N are reasonable converters but use communication protocols that do not suit this project. Additionally, there is only minimal information available.
+%     There are some other companies in the market but not so relevant as the two previous ones. For example the Rover Lite and MS4840N are reasonable converters but use communication protocols that do not suit this project. Additionally, there is only minimal information available.
 
-    There is one more converter in Table~\ref{tab:commercial-mppt-comparison}, the Reboost V0.2.1. This converter was built 5 years ago by a student team with the automotive sector in mind and is publicly available. Since then, it has been updated over the years. All hardware and software is open sourced and can be modified by any user to achieve the desired performance. The specification of this converter are near what we are looking for, but due to some overpriced components and some discontinued ones this converter is not ideal for project in question. Additionally, the fact of being a boost converter limits the voltage of solar panels relative to the batteries, since boost converters always have the output higher than the input. So if in the future \acs{tsb} decides to change from a 48V batteries to a 24V batteries, the arrays above 24V would need be rearranged.
+%     There is one more converter in Table~\ref{tab:commercial-mppt-comparison}, the Reboost V0.2.1. This converter was built 5 years ago by a student team with the automotive sector in mind and is publicly available. Since then, it has been updated over the years. All hardware and software is open sourced and can be modified by any user to achieve the desired performance. The specification of this converter are near what we are looking for, but due to some overpriced components and some discontinued ones this converter is not ideal for project in question. Additionally, the fact of being a boost converter limits the voltage of solar panels relative to the batteries, since boost converters always have the output higher than the input. So if in the future \acs{tsb} decides to change from a 48V batteries to a 24V batteries, the arrays above 24V would need be rearranged.
+
+\subsection{Commercial MPPT controllers}
+Several commercial \ac{mppt} controllers are available that can address the problem under analysis without requiring additional hardware. However, each solution presents limitations when evaluated against the project requirements. Table~\ref{tab:commercial-mppt-comparison} summarizes selected commercial \acs{mppt} controllers, with red-marked characteristics indicating incompatibilities.
+
+The GVB-8-Li-CV(50.4) is a high-performance and fast \ac{mppt} converter, particularly suited for dynamic environments such as marine applications. It has been successfully used by \acs{tsb} in previous projects, demonstrating high efficiency and reliability. Nevertheless, its lack of configurability, fixed output voltage, and high cost restrict its suitability for this application. Despite these drawbacks, it serves as a valuable reference design.
+
+The Smart Solar MPPT 100/20, developed by Victron Energy, offers high efficiency, fast tracking, and integrated communication interfaces. However, it uses a buck topology that requires higher input voltages, making it incompatible with the small and distributed solar panel arrays used in the \acs{tsb} application.
+
+Other commercial solutions, such as the Rover Lite and MS4840N, provide acceptable performance but rely on communication protocols that are not compatible with the project requirements and offer limited technical documentation.
+
+The Reboost V0.2.1 is an open-source \ac{mppt} converter originally developed for automotive applications. While it provides flexibility and near adequate specifications, it's reliance on expensive and discontinued components, along with the use of a boost topology, limits scalability and adaptability to potential future battery voltage changes.
+
+Overall, none of the evaluated commercial \ac{mppt} controllers fully satisfy the technical, economic, and configurability requirements of this project, motivating the development of a custom solution.
+
     
 
     \begin{table}[htbp]
