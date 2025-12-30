@@ -34,12 +34,18 @@
     \section{Hardware tests}
         Since the use of an STM32 is one of the requirements of \acs{tsb} to comply their standards, some research and tests were also performed to get familiar with the software tools and the requirements of the \acs{mcu}.
 
-        The test were carried out with a cheap development board called Blue Pill witch accommodates a STM32F103C8T6. As this is one of the cheapest boards on the marked, the specifications are not high-end. However, it was suitable for the aim of these tests.
+        The test were carried out with a cheap development board called Blue Pill witch accommodates a STM32F103C8T6 (Figure~\ref{fig:Blue_Pill}). As this is one of the cheapest boards on the marked, the specifications are not high-end. However, it was suitable for the aim of these tests.
 
         The STM32F103C8T6 has an ARM Cortex-M3 32-bit core running at up to 72~MHz, providing sufficient processing performance for real-time control and signal-processing tasks. It integrates two 12-bit ADCs with a maximum sampling rate of approximately 1 million samples per second and up to 16 multiplexed analog input channels, while no internal DAC is available. The device includes several general-purpose and advanced timers capable of generating PWM signals, with maximum PWM frequencies limited by the 72~MHz timer clock and the selected resolution. Housed in a 48-pin package, it offers up to around 37 configurable GPIO pins. In terms of communication interfaces, the \acs{mcu} supports multiple USARTs, SPI and I²C peripherals, as well as a Full-Speed USB 2.0 device interface, making it suitable for a wide range of embedded communication requirements.
 
         The tests conducted were based on online examples, which allowed the evaluation of several functionalities of this \acs{mcu}, including timers, interrupts, basic GPIO operations, PWM generation, ADC usage, and communication interfaces such as USB, CAN, serial and I²C.
 
-
+        \begin{figure} [!h]
+            \centering
+            \includegraphics[width= 0.5\textwidth]{Images/Preliminary Work/STM32F103C8T6_Blue_Pill-1.jpg}
+            \qquad
+            \caption{Blue Pill development board.}
+            \label{fig:Blue_Pill}
+        \end{figure}
 
 
