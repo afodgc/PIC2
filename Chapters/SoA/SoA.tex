@@ -223,7 +223,7 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
 
         This galvanic isolation is usually achieved by using a transformer which provides electrical separation between the input and output sides of the converter. This isolation is important in applications where safety is a concern, such as in medical devices or industrial equipment, as it helps to prevent electrical shock and damage to sensitive components. In the context of solar energy systems and E-mobility, isolated converters are often used when the solar panel is connected to the grid~\cite{Review_Isolated_Non_isolated_DC_DC_Converters_MVDC_2021}, as they help to protect against voltage spikes and other electrical disturbances or when the solar panels \ac{mpp} voltage is very different from the battery or load voltage (typically medium voltages). 
 
-        On the other hand, non-isolated converters do not provide isolation between the input and the output circuits, but they are generally more efficient and lower costs. 
+        In contrast, non-isolated converters do not provide galvanic isolation between the input and output circuits. However, they generally offer higher efficiency, lower cost, reduced size, and lower circuit complexity. Additionally, they present fewer challenges in thermal management and are simpler to design. These advantages, together with the fact that galvanic isolation is not a requirement for this application, led to the exclusion of isolated DC–DC converters from this project.
 
         \begin{table}[htbp]
             \centering
@@ -254,28 +254,49 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
             \end{adjustbox}
             \end{table}
 
-            In summary, the choice between isolated and non-isolated DC-DC converters depends on the specific requirements of the application, including safety, efficiency, cost, and complexity. In many solar energy applications where the solar panel voltage is not too different from the battery or load voltage, non-isolated converters are preferred due to their higher efficiency and lower cost. So in this project, non-isolated converters will be considered. 
+            % In summary, the choice between isolated and non-isolated DC-DC converters depends on the specific requirements of the application, including safety, efficiency, cost, and complexity. In many solar energy applications where the solar panel voltage is not too different from the battery or load voltage, non-isolated converters are preferred due to their higher efficiency and lower cost. So in this project, non-isolated converters will be considered. 
 
 
     \subsection{Non-isolated DC-DC converters}
-        Modern non-isolated conversion circuits generally use one of three basic topologies: buck, boost or buck-boost converters. They are 'basic' in the sense that only one switching element needed and there is no isolation between the input and output circuits. A given topology is used to obtain a specific result, such as voltage step-down, voltage step-up, or hybrid mode~\cite{Comparison_PV_Converter_Technologies_1989}. 
+        Modern non-isolated conversion circuits generally use one of three basic topologies: buck, boost or buck-boost converters. They are "basic" in the sense that only one switching element is needed. A given topology is used to obtain a specific result, such as voltage step-down, voltage step-up, or hybrid mode~\cite{Comparison_PV_Converter_Technologies_1989}. 
 
-        \subsubsection{Boost converter}
-            The boost converter is a step-up DC-DC converter widely employed in \ac{mppt} systems, as photovoltaic panels typically operate at voltages substantially lower than the target battery or load. This topology has been extensively documented in the literature and is distinguished by its inherent simplicity, cost-effectiveness, and superior efficiency characteristics, frequently achieving conversion efficiencies exceeding 98\%~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. \textcolor{red}{add refs}
+            The \textbf{boost converter} is a step-up DC-DC converter widely employed in \ac{mppt} controllers when the required output voltage is higher than the solar panel open circuit voltage. 
+            It uses an inductor to store energy when the transistor is in the on state and the diode is reverse biased. When the transistor is on the off state, the inductor releases the stored energy to the output through the diode, increasing the output voltage (Figure~\ref{fig:DC-DC_classic_topologys}b)~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
 
-            One downside of this topology is that it can not emulate a smaller impedance than the load impedance, and therefore, it does not reach values near the short circuit current of the PV module, so it can not be used with all \acs{mppt}algorithms~\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}. 
+            This topology has been extensively documented in the literature and is distinguished by its inherent simplicity, cost-effectiveness, and superior efficiency characteristics~\cite{shahira2022_electrical_design_solar_boat}\cite{Look-Up-Table_VS_PeO}\cite{Intelligent_PV_Module_2006}. Depending on the design variation used and constraints, it can achieve conversion efficiencies up to 98\%~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. 
 
-        \subsubsection{Buck converter}
-            The buck converter is a step-down DC-DC converter also widely use for applications where the solar panel voltage is higher than the battery or load voltage. 
+            One downside of this topology is that it can not emulate a smaller impedance than the load impedance, and therefore, it does not reach values near the short circuit current of the PV module, so it can not be used with all solar panels and \acs{mppt} algorithms~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}. 
 
-            Similar with the boost converter, the buck converter can not emulate smaller impedance than the load impedance, and therefore, it can not reach values near the open circuit voltage of the PV module~\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}.
+            The \textbf{buck converter} is a step-down DC-DC converter also widely use for applications where the solar panel voltage is higher than the battery or load voltage. Similar to the boost converter, it uses an inductor to store energy when the transistor is in the on state and the diode is reverse biased. However, in this case, the input is connected to the output when the transistor is in the on state. When the transistor is in the off state, the inductor releases the stored energy to the output through the diode, decreasing the output voltage (Figure~\ref{fig:DC-DC_classic_topologys}a)~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}.
 
-        \subsubsection{Buck-Boost converter}
-            Buck-Boost converters are step-up and step-down DC-DC converters that can operate in both modes. This makes them more versatile than the previous two topologies, but also more complex and less efficient~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. They are used in applications where the solar panel voltage can be both higher or lower than the battery or load voltage.
+            This converter also have a similar downside as the boost converter. The buck converter can not emulate smaller impedance than the load impedance, and therefore, it can not reach values near the open circuit voltage of the PV module~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}.
 
-            This type of converter has some variations. The most common variations are called the Zeta, Cuk and SEPIC converters.
+            \textbf{Buck-Boost converters} are step-up and step-down DC-DC converters that can operate in both modes. This makes them more versatile than the previous two topologies, but also more complex and less efficient~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. This converter uses an inductor to store energy when the transistor is in the on state and the diode is reverse biased. When the transistor is in the off state, the inductor releases the stored energy to the output through the diode, increasing or decreasing the output voltage (Figure~\ref{fig:DC-DC_classic_topologys}c)~\cite{Comparison_PV_Converter_Technologies_1989}.
 
-            The classic buck-boost and the Zeta topologies have an input current always working in discontinuous conduction mode, which produces high ripple current and harmonic distortion.  To solve this issue, the Cuk and SEPIC topologies are used, which have an input current working in continuous conduction mode (CCM), reducing the ripple current and harmonic distortion~\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}. Also, the classic buck-boost and Zeta have an inverted output voltage referred to the input voltage,which in most cases is undesired.
+            \begin{figure} [!h]
+                \centering
+                \includegraphics[width= \textwidth]{Images/Background/DC-DC_classic_topologys.pdf}
+                \qquad
+                \caption{Buck (a), Boost (b) and Buck-Boost (c) DC-DC converters.}
+                \label{fig:DC-DC_classic_topologys}
+            \end{figure}
+
+            The classic buck-boost converter has an inverted output voltage referred to the input voltage, So it is not suitable for the battery charging system~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}. 
+
+            An improved variant of the buck-boost converter is the CUK converter, shown in Fig.~\ref{fig:DC-DC_buck_bost}a. The main characteristic of the CUK converter is that the currents through inductors $L_1$ and $L_2$ are equal, allowing the use of a common magnetic core, which helps reduce current ripple. However, a major drawback of this topology is that the entire load current must pass through the coupling capacitor $C$. In addition, the converter produces an inverted output voltage~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
+
+            The issue of output voltage polarity inversion can be addressed by using a single-ended primary inductor converter (SEPIC), as shown in Fig.~\ref{fig:DC-DC_buck_bost}b. This makes the SEPIC converter suitable for battery charging applications. Nevertheless, its main drawbacks is the high output current and voltage ripple which increases losses and electromagnetic interference (EMI)~\cite{Comparative_Analysis_Non_Isolated_DC_DC_Converters_Solar_PV_2021}. These limitations are mitigated by the ZETA converter, shown in Fig.~\ref{fig:DC-DC_buck_bost}c, which provides improved output current characteristics while maintaining the same output voltage polarity as the SEPIC converter~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
+
+            \begin{figure} [!h]
+                \centering
+                \includegraphics[width= \textwidth]{Images/Background/DC-DC_buck_bost.pdf}
+                \qquad
+                \caption{CUK (a), SEPIC (b) and ZETA (c) DC-DC converters.}
+                \label{fig:DC-DC_buck_bost}
+            \end{figure}
+
+            Landsman converter is another alternative that provides low input current ripple and non-inverted output voltage while keeping a good efficiency. However it is has high voltage and current output ripple which is not ideal for battery charging applications~\cite{Comparative_Analysis_Non_Isolated_DC_DC_Converters_Solar_PV_2021}.
+
 
 
     \subsection{Comparison between Non-isolated DC-DC converters}
@@ -297,18 +318,18 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
                                         >{\centering\arraybackslash}X
                                         >{\centering\arraybackslash}X}
             \toprule
-            Topology & Boost & Buck & Buck-Boost & Zeta & Cuk & SEPIC \\
+            Topology & Boost & Buck & Buck-Boost & ZETA & CUK & SEPIC \\
             \midrule
             Price & \G Low & \G Low & \G Low & Medium & Medium & Medium \\
-            Circuit complexity & \G Low & \G Low & \G Low & Medium & High & Medium \\
-            Efficiency & \G High & \G High & Medium & Medium & \G High & Medium \\
+            Circuit complexity & \G Low & \G Low & \G Low & Medium & Medium & Medium \\
+            Efficiency & \G High & \G High & \G High & \G Medium/High &  Medium & Medium \\
             Size & \G Low & \G Low & \G Low & Medium & Medium & Medium \\
             Type & Step-Up & Step-Down & \G Step-Down/Up & \G Step-Down/Up & \G Step-Down/Up & \G Step-Down/Up \\
-            Versatility & Low & Low & Medium & \G High & \G High & \G High \\
-            Inverted output & \G No & \G No & Yes & Yes & \G No & \G No \\
-            Input current ripple & High & \G Low & High & \G Low & \G Very low & \G Low \\
-            Output current ripple & \G Low & High & High & \G Very low & \G Low & \G Low \\
-            Energy-storage elements & \G 1 inductor & \G 1 inductor & \G 1 inductor & 2 inductors, 2 caps & 2 inductors, 2 caps & 2 inductors, 2 caps \\
+            Versatility & Low & Low & Medium & \G High & Medium & \G High \\
+            Inverted output & \G No & \G No & Yes & \G No & Yes & \G No \\
+            Input current ripple & High & \G Low & High & \G Low & \G Very low & Medium \\
+            Output current ripple & \G Low & High & High & \G Very low & \G Low & Medium \\
+            Energy-storage elements & \G 1 inductor & \G 1 inductor & \G 1 inductor & 2 inductors, 1 caps & 2 inductors, 1 caps & 2 inductors, 1 caps \\
             Switch stress & No & Yes & No & Yes & Yes & Yes \\
             Continuous input current & No & Yes & No & Yes & Yes & Yes \\
             EMI & \G Low & \G Low & High & Medium & Medium & Medium \\
@@ -316,8 +337,18 @@ local maximum, but overall there is still only one true MPP~\cite{Comparison_PV_
             \end{tabularx}
         \end{adjustbox}
         \end{table}
-        
-        
+
+        For \acs{mppt} controllers, the choice is mainly governed by the possibility of operating at the \ac{mpp}, efficiency, cost, output voltage and current ripple and switching stress.
+
+        The buck converter can be excluded from this comparison since in this project the solar panel voltage is lower than the battery voltage, so a step-down converter is not suitable.
+        However, when choosing between the boost and the step-up/down converters, there is a trade-off. 
+        The boost converter is simpler, cheaper and more efficient. On the other hand the step-down/up converters are more versatile since they can operate in a wide range of input voltages, which is interesting since the size of the solar panels and battery voltage can change.
+
+        \textcolor{red}{Option1:} Considering that in this project the solar panel voltage is always lower than the battery voltage, the boost converter is the most suitable topology due to its simplicity, cost-effectiveness, and high efficiency. However, if versatility were to become a priority, the ZETA converter would be the preferred choice among the step-up/down topologies, owing to its non-inverted output voltage and low output current ripple, which are advantageous for battery charging applications.
+
+        \textcolor{red}{Option2:} Considering versatility as a key requirement, the Zeta converter emerges as the most efficient, non-inverted output option. Additionally, its low output current ripple makes it particularly well-suited for battery charging applications. Therefore, if versatility is prioritized, the ZETA converter would be the preferred choice among the step-up/down topologies. However, if efficiency were prioritized, the boost converter would be the most suitable topology.
+
+
 
 
 % \section{Switching circuit}
