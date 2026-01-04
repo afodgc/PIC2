@@ -1,4 +1,4 @@
-\fancychapter{Proposed Solucion}
+\fancychapter{Proposed Solution}
 \label{chap:Solucion_Proposal}
 
 \section{System architecture}
@@ -20,7 +20,7 @@
 
     The proposed system will use a step-down/up \acs{dc}-\acs{dc} converter to ensure output and input voltage flexibility, more specifically, a CUK converter. As for the \ac{mppt} algorithm, a \acs{peo} will be initially used to simplify the work and further improved to a \acs{incond}, however, the prototype needs to support other algorithms for further improvements. Thinking on the \acs{lut} algorithm, the proposed solution will be able to read both temperature and solar irradiance.
 
-    The communication with the system will be made by \acs{can} communication with 1~Mbit/s of bus speed to connect every \acs{pcb} to the same bus. \acs{can} is the standard communication protocol used by \acs{tsb}, however, when communicating with sensors there is more freedom and every other protocol can be used. The prototype will send messages to \acs{can} bus with the data measured (voltage, current, temperature and irradiance) as well as calculated data such as power and electrical efficiency. Also, some additional information can be sent, such as status (erro codes, charging, not charging, etc.) or warnings about solar panels health.
+    The communication with the system will be made by \acs{can} communication with 1~Mbit/s of bus speed to connect every \acs{pcb} to the same bus. \acs{can} is the standard communication protocol used by \acs{tsb}, however, when communicating with sensors there is more freedom and every other protocol can be used. The prototype will send messages to \acs{can} bus with the data measured (voltage, current, temperature and irradiance) as well as calculated data such as power and electrical efficiency. Also, some additional information can be sent, such as status (error codes, charging, not charging, etc.) or warnings about solar panels health.
 
     Within the \acs{can} bus architecture, the \acs{bms} is also connected. The \acs{bms} is the main safety system of the battery. It measures input and output currents, cells temperatures, and voltages and decides if the battery is safe to use or not. Therefore, the final product does not need to provide these features. However, battery safety remains a priority and will be addressed in the proposed solution through protection mechanisms against overcurrent, overvoltage, and reverse polarity. Additionally, a \acs{cc}-\acs{cv} charging mode will be employed to ensure the safe charging of lithium-ion batteries.
 
