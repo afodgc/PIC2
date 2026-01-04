@@ -65,7 +65,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
     \end{figure}
     
 
-    Both environmental conditions have a meaningful impact on the \acs{mpp} of the solar panel and therefore on the power output of the system. To maximize the power extracted by the solar panels, a classic power converter, like a buck converter with fixed duty cycle, will not be efficient since neither the current nor the voltage are constant for different conditions. Instead, a \acs{mppt} charger is used, which will find the \acs{mpp} and operate the solar panel at that point while sensing the changes caused by the environment.
+    Both environmental conditions have a meaningful impact on the \acs{mpp} of the solar panel and therefore on the power output of the system. To maximize the power extracted by the solar panels, a classic power converter, like a buck converter with fixed duty cycle, will not be efficient since neither the current nor the voltage are constant for different conditions. Instead, an \acs{mppt} charger is used, which will find the \acs{mpp} and operate the solar panel at that point while sensing the changes caused by the environment.
 
 \section{Maximum Power Point Tracker (MPPT)}
     A \acf{mppt} charger is a device that is used to optimize the power output from solar panels by continuously tracking and adjusting the operation point of the panels to ensure they operate at their \ac{mpp}. 
@@ -87,7 +87,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
     In this work, the aim is to extract the maximum energy possible of a solar panel installed in a moving boat, which will produce an I-V curve variation due to the quick changes in irradiance caused by changes of inclination, orientation and clouds, and also temperature changes due to waves and wind.
     For these reasons, tracking speed and accuracy are the most important factors to consider.
 
-    With that in mind, some of the most relevant algorithms will be briefly explained, so we can choose the most suitable one for this project.
+    With this in mind, the most relevant algorithms are briefly reviewed in order to identify the most suitable option for this project.
 
     \subsection{Constant Voltage (CV)}
         This is the simplest and most inefficient method. It works by operating the solar panel at a fixed voltage. This referenced voltage is used to calculate the duty cycle of the \acs{dc}-\acs{dc} converter that will maintain the operating point of the solar panel.
@@ -102,12 +102,12 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
     \subsection{Perturb and Observe (P\&O)}
         The \ac{peo} method is widely used in commercial products and is the basis of many advanced algorithms. Its popularity lies in its simplicity, low cost, and ease of implementation.
 
-        As its name indicates, it perturbs the voltage of a \acs{pv} array and observes the effect on the power output~\cite{chermitti2012improvement}.
-        This means that if the voltage is increased and the power output also increases, the algorithm is working in the direction of the \ac{mpp}, so it will continue increasing the voltage. In the opposite case, if the power output decreased, the algorithm is working away from the \ac{mpp}, so it will reverse the direction of the perturbation~\cite{PeO_and_Newton_Raphson_Comparison}\cite{Look-Up-Table_VS_PeO}. Figure~\ref{fig:PeO_flowchart} shows a flow chart of the algorithm.        
+        As its name indicates, the algorithm perturbs the voltage of a \acs{pv} array and observes the resulting effect on the output power~\cite{chermitti2012improvement}. If an increase in voltage leads to an increase in output power, the operating point is moving toward the \ac{mpp}, and the algorithm continues to increase the voltage. Conversely, if the output power decreases, the operating point is moving away from the \ac{mpp}, and the direction of the perturbation is reversed~\cite{PeO_and_Newton_Raphson_Comparison,Look-Up-Table_VS_PeO}. Figure~\ref{fig:PeO_flowchart} illustrates the flowchart of the algorithm.
+                
 
-        The biggest drawback of this algorithm is that it oscillates around the \ac{mpp}, which produces power losses. This oscillation can be reduced by decreasing the step size of the perturbation, but this will also reduce the tracking speed of the algorithm. So, there is a trade-off between tracking speed and accuracy~\cite{MPPT_Comparison_techniques}\cite{Comparison_PV_Array_MPPT_Techniques_2007}. 
+        The biggest drawback of this algorithm is that it oscillates around the \ac{mpp}, which produces power losses. This oscillation can be reduced by decreasing the step size of the perturbation, but this will also reduce the tracking speed of the algorithm. This results in an inherent trade-off between tracking speed and accuracy~\cite{MPPT_Comparison_techniques,Comparison_PV_Array_MPPT_Techniques_2007}.
 
-        To mitigate this issue, an adaptive step size can be used, where the step size is larger when the \ac{mpp} is far away and smaller when it is closer. In this way, the tracking speed is maximized while minimizing the oscillations around the \ac{mpp}. This can be achieved by measuring the power and voltage and calculating the P-V curve slope ($\frac{\Delta P}{\Delta V}$). In the \ac{mpp} this value must be zero, so the step size can be reduced. This variation of the algorithm is called "differential power-perturb and Observe (dP-\ac{peo})".
+        To mitigate this issue, an adaptive step size can be used, where the step size is larger when the \ac{mpp} is far away and smaller when it is closer. In this way, the tracking speed is maximized while minimizing the oscillations around the \ac{mpp}. This can be achieved by measuring the power and voltage and calculating the P-V curve slope ($\Delta P / \Delta V$). At the \ac{mpp}, this slope approaches zero, allowing the step size to be reduced accordingly. This adaptive variant is commonly referred to as the differential power perturb-and-observe(dP-\ac{peo})".
 
         Another weal-know issue of \ac{peo} is that it can get confused in rapidly changing environmental conditions, like fast irradiance changes caused by clouds. In this case, the algorithm can misinterpret the power change caused by the environmental variation as a result of its own perturbation, leading it to move away from the \ac{mpp} instead of towards it~\cite{Comparison_PV_Array_MPPT_Techniques_2007}. For example, if the perturbation was in the wrong direction, but the irradiance increased, the power output would increase, and the algorithm would continue perturbing in the wrong direction (Figure~\ref{fig:PeO_Divergence}).
 
@@ -138,14 +138,14 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
         
         This algorithm is based on the fact that at the \ac{mpp}, the derivative of power with respect to voltage is zero. By knowing the output voltage and current of the solar panel, the algorithm can calculate the conductance and the incremental conductance~\cite{Intelligent_PV_Module_2006}. 
         
-        The following formulas (Equation~\ref{eq:inc_cond_mpp}) show the equation on which this algorithm is based.
+        The following formulas, Equation~\ref{eq:inc_cond_mpp}, show the equation on which this algorithm is based. 
 
         \begin{equation}
             \frac{dP}{dV} = \frac{d(V \cdot I)}{dV} = I + V \frac{dI}{dV} \rightarrow \frac{1}{V} \times \frac{dP}{dV} = \frac{I}{V} + \frac{dI}{dV}
             \label{eq:inc_cond_mpp}
         \end{equation}
 
-        At the \ac{mpp} point, the slope of the P-V curve is zero, which means that the negative of the conductance, $-\frac{I}{V}$, is equal to the incremental conductance, $\frac{dI}{dV}$, (Figure~\ref{fig:IncCond_graph}). The algorithm compares these two values to determine if the operating point is at, to the left, or to the right of the \ac{mpp}~\cite{MPPT_Comparison_techniques}\cite{Comparison_PV_Array_MPPT_Techniques_2007}:
+        At the \ac{mpp} point, the slope of the P-V curve is zero, which means that the negative of the conductance, $-I / V$, is equal to the incremental conductance, $dI / dV$, (Figure~\ref{fig:IncCond_graph}). The algorithm compares these two values to determine if the operating point is at, to the left, or to the right of the \ac{mpp}~\cite{MPPT_Comparison_techniques}\cite{Comparison_PV_Array_MPPT_Techniques_2007}:
 
         \begin{equation}
             \begin{aligned}
@@ -156,7 +156,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
             \frac{dP}{dV}<0 \quad&\Longleftrightarrow\quad \frac{dI}{dV}<-\frac{I}{V}
             \qquad &&\text{right of MPP}
             \end{aligned}
-            \label{eq:inc_cond_mpp}
+            \label{eq:inc_cond}
         \end{equation}
 
 
@@ -211,7 +211,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
             The main advantage of this method is its speed since it can reach the \ac{mpp} in one clock cycle. This makes it suitable for applications where fast tracking is required, like in this project. Also, research shows less output ripple and higher output power at some levels of irradiance. However, it is not very accurate~\cite{Look-Up-Table_VS_PeO}.
 
-            To improve the accuracy, the \acs{lut} table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table would increase the accuracy, making it almost 100~\% accurate, but this would increase the size of the table exponentially. In extreme cases, the memory requirements became expensive and slow. There is a trade-off between size, speed, and accuracy that needs to be considered when using this method. Also, the \acs{lut} method does not adapt to the aging of the solar panel or changes in its characteristics over time, unless the table is updated periodically through new measurements.
+            To improve the accuracy, the \acs{lut} table needs to be larger, which increases the required memory resources. Also, by adding the temperature and/or irradiance to the table would increase the accuracy, making it almost 100\% accurate, but this would increase the size of the table exponentially. In extreme cases, the memory requirements became expensive and slow. There is a trade-off between size, speed, and accuracy that needs to be considered when using this method. Also, the \acs{lut} method does not adapt to the aging of the solar panel or changes in its characteristics over time, unless the table is updated periodically through new measurements.
             
 
 \section{Types of DC-DC Converters}
@@ -226,7 +226,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
         \begin{table}[htbp]
             \centering
-            \caption{Comparison between Non-isolated Converters and Galvanic Isolated Converters, where red, yellow and green represents bad, medium and good respectively.}
+            \caption{Comparison between Non-isolated and isolated converters (red, yellow and green represents bad, medium and good respectively).}
             \label{tab:switching-vs-isolated-converters}
             \scriptsize
             \setlength{\tabcolsep}{5pt}
@@ -262,7 +262,8 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
             This topology has been extensively documented in the literature and is distinguished by its inherent simplicity, cost-effectiveness, and superior efficiency characteristics~\cite{shahira2022_electrical_design_solar_boat}\cite{Look-Up-Table_VS_PeO}\cite{Intelligent_PV_Module_2006}. Depending on the design variation used and constraints, it can achieve conversion efficiencies up to 98\%~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}. 
 
-            One downside of this topology is that it can not emulate a smaller impedance than the load impedance, and therefore, it does not reach values near the short circuit current of the PV module, so it can not be used with all solar panels and \acs{mppt} algorithms~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}\cite{A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}. 
+            A limitation of this topology is that it cannot emulate an impedance lower than the load impedance, which prevents it from reaching values close to the short-circuit current of the \acs{pv} module. Consequently, it is not compatible with all solar panels or \acs{mppt} algorithms~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018,A_New_Application_Buck_Boost_Converters_IV_Curve_PV_Modules_2007}.
+
 
             The \textbf{buck converter} is a step-down \acs{dc}-\acs{dc} converter also widely used for applications where the solar panel voltage is higher than the battery or load voltage. Similar to the boost converter, it uses an inductor to store energy when the transistor is in the ON state and the diode is reverse-biased. However, in this case, the input is connected to the output when the transistor is in the ON state. When the transistor is in the OFF state, the inductor releases the stored energy to the output through the diode, decreasing the output voltage (Figure~\ref{fig:DC-DC_classic_topologys}a)~\cite{Review_Isolated_Non_isolated_DC_DC_Converter_PV_Application_2018}.
 
@@ -277,12 +278,13 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
                 \caption{Buck (a), Boost (b) and Buck-Boost (c) DC-DC converters.}
                 \label{fig:DC-DC_classic_topologys}
             \end{figure}
+ 
+            The conventional buck-boost converter produces an output voltage inverted with respect to the input, consequently, it is unsuitable for the battery charging system~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
 
-            The classic buck-boost converter has an inverted output voltage referred to the input voltage, so it is not suitable for the battery charging system~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}. 
 
-            An enhanced variant of the buck–boost converter is the CUK converter, illustrated in Fig.~\ref{fig:DC-DC_buck_bost}a. The main characteristic of the CUK converter is that the currents through inductors $L_1$ and $L_2$ are equal, allowing the use of a common magnetic core, which helps reduce current ripple. However, a major drawback of this topology is that the entire load current must pass through the coupling capacitor $C$. In addition, the converter produces an inverted output voltage~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
+            An enhanced variant of the buck–boost converter is the CUK converter, illustrated in Figure~\ref{fig:DC-DC_buck_bost}a. The main characteristic of the CUK converter is that the currents through inductors $L_1$ and $L_2$ are equal, allowing the use of a common magnetic core, which helps reduce current ripple. However, a major drawback of this topology is that the entire load current must pass through the coupling capacitor $C$. In addition, the converter produces an inverted output voltage~\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
 
-            The issue of output voltage polarity inversion can be addressed by using a single-ended primary inductor converter (SEPIC), as shown in Fig.~\ref{fig:DC-DC_buck_bost}b. This makes the SEPIC converter suitable for battery charging applications. Nevertheless, its main drawbacks are the high output current and voltage ripple which increases losses and electromagnetic interference (EMI)~\cite{Comparative_Analysis_Non_Isolated_DC_DC_Converters_Solar_PV_2021}. These limitations are mitigated by the ZETA converter, shown in Fig.~\ref{fig:DC-DC_buck_bost}c, which provides improved output current characteristics while maintaining the same output voltage polarity as the SEPIC converter~\cite{PeO_and_Newton_Raphson_Comparison}\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
+            The issue of output voltage polarity inversion can be addressed by using a single-ended primary inductor converter (SEPIC), as shown in Figure~\ref{fig:DC-DC_buck_bost}b. This makes the SEPIC converter suitable for battery charging applications. Nevertheless, its main drawbacks are the high output current and voltage ripple which increases losses and electromagnetic interference (EMI)~\cite{Comparative_Analysis_Non_Isolated_DC_DC_Converters_Solar_PV_2021}. These limitations are mitigated by the ZETA converter, shown in Figure~\ref{fig:DC-DC_buck_bost}c, which provides improved output current characteristics while maintaining the same output voltage polarity as the SEPIC converter~\cite{PeO_and_Newton_Raphson_Comparison}\cite{Non_Isolated_DC_DC_Converters_MPPT_Controller_2021}.
 
             \begin{figure} [!h]
                 \centering
@@ -301,7 +303,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
         \begin{table}[htbp]
         \centering
-        \caption{Comparison of non-isolated DC-DC topologies, where green represents good characteristics.}
+        \caption{Comparison of non-isolated DC-DC topologies (green represents good characteristics).}
         \label{tab:dc-dc-comparison}
         \scriptsize
         \setlength{\tabcolsep}{4pt}
@@ -337,13 +339,14 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
         For \acs{mppt} controllers, the choice is mainly governed by the possibility of operating at the \ac{mpp}, efficiency, cost, output voltage and current ripple and switching stress.
 
-        The buck converter can be excluded from this comparison since in this project the solar panel voltage is lower than the battery voltage, so a step-down converter is not suitable.
+        The buck converter can be excluded from this comparison since in this project the solar panel voltage is lower than the battery voltage, therefore, a step-down converter is not suitable.
         However, when choosing between the boost and the step-up/down converters, there is a trade-off. 
         The boost converter is simpler, cheaper and more efficient. On the other hand the step-down/up converters are more versatile since they can operate in a wide range of input voltages, which is interesting since the size of the solar panels and battery voltage can change.
 
-        \textcolor{red}{Option1:} Considering that in this project the solar panel voltage is always lower than the battery voltage, the boost converter is the most suitable topology due to its simplicity, cost-effectiveness, and high efficiency. However, if versatility were to become a priority, the ZETA converter would be the preferred choice among the step-up/down topologies, owing to its non-inverted output voltage and low output current ripple, which are advantageous for battery charging applications.
+        % \textcolor{red}{Option1:} Considering that in this project the solar panel voltage is always lower than the battery voltage, the boost converter is the most suitable topology due to its simplicity, cost-effectiveness, and high efficiency. However, if versatility were to become a priority, the ZETA converter would be the preferred choice among the step-up/down topologies, owing to its non-inverted output voltage and low output current ripple, which are advantageous for battery charging applications.
 
-        \textcolor{red}{Option2:} Considering versatility as a key requirement, the Zeta converter emerges as the most efficient, non-inverted output option. Additionally, its low output current ripple makes it particularly well-suited for battery charging applications. Therefore, if versatility is prioritized, the ZETA converter would be the preferred choice among the step-up/down topologies. However, if efficiency were prioritized, the boost converter would be the most suitable topology.
+        % \textcolor{red}{Option2:}
+         Considering versatility as a key requirement, the Zeta converter emerges as the most efficient, non-inverted output option. Additionally, its low output current ripple makes it particularly well-suited for battery charging applications. Therefore, if versatility is prioritized, the ZETA converter would be the preferred choice among the step-up/down topologies. However, if efficiency were prioritized, the boost converter would be the most suitable topology.
 
 
 
@@ -371,7 +374,7 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
     To charge these batteries properly, the \ac{mppt} algorithm can operate alone if an additional converter is used in series. But in most of \ac{mppt} chargers, the \ac{mppt} and the battery charging unit are integrated in the same converter. This way, the \ac{mppt} algorithm can adjust the operating point of the solar panel to extract the maximum power while the battery charging technique ensures that the battery is charged properly. A proper combination of both algorithms/techniques is essential to ensure both maximum energy extraction and battery safety.
 
     There are several techniques to charge lithium-ion batteries, the most relevant for this use case being the constant current-constant voltage (\acs{cc}-\acs{cv}) method~\cite{Charging_Algorithms_Nickel_Lithium_Battery_2011}. Also, it is widely used in commercial chargers due to its simplicity and effectiveness~\cite{Review_Different_Charging_Techniques_Lithium_Polymer_Battery_2015}. 
-     This method consists of two main phases (Figure~\ref{fig:CC-CV profile}). In the first phase, the battery is charged with a constant current until it reaches a predefined voltage limit (usually 4.2V per cell). In the second phase, the voltage is held constant at this limit while the current gradually decreases as the battery approaches full charge. Once the current drops below a certain threshold, the charging process is terminated to prevent overcharging~\cite{Review_Different_Charging_Techniques_Lithium_Polymer_Battery_2015}.
+     This method consists of two main phases (Figure~\ref{fig:CC-CV profile}). In the first phase, the battery is charged with a constant current until it reaches a predefined voltage limit (usually 4.2~V per cell). In the second phase, the voltage is held constant at this limit while the current gradually decreases as the battery approaches full charge. Once the current drops below a certain threshold, the charging process is terminated to prevent overcharging~\cite{Review_Different_Charging_Techniques_Lithium_Polymer_Battery_2015}.
 
      When employing the \acs{cc}-\acs{cv} charging technique with a \ac{mppt} controller, the initial \acs{cc} phase is regulated by the \ac{mppt} algorithm, which extracts the maximum available power from the solar panel. Once the constant-voltage phase is reached, the \ac{mppt} function is disabled, and the power converter increases the solar panel voltage to progressively reduce the charging current while keeping the output voltage constant.
 
@@ -466,7 +469,7 @@ The LT8491IUKJ\#PBF offers a wide input and output voltage range, buck-boost ope
 
         \begin{table}[htbp]
             \centering
-            \caption{Comparison of commercial MPPT controllers and specialized ICs, where red represents bad characteristics.}
+            \caption{Comparison of commercial specialized \acp{ic} (red represents bad characteristics).}
             \label{tab:commercial-ics-comparison}
             \scriptsize
             \setlength{\tabcolsep}{3pt}
@@ -480,11 +483,11 @@ The LT8491IUKJ\#PBF offers a wide input and output voltage range, buck-boost ope
                 \toprule
                 Model & BQ24650RVAT & MAX20801TPBA+ & SPV1040TTR & LT8491IUKJ\#PBF \\
                 \midrule
-                Input Voltage & \cellcolor[RGB]{255,200,200}5 to 28V & \cellcolor[RGB]{255,200,200}1.5 to 18V & \cellcolor[RGB]{255,200,200}0.3 to 5.5V & 6 to 80V \\
+                Input Voltage & \cellcolor[RGB]{255,200,200}5 to 28~V & \cellcolor[RGB]{255,200,200}1.5 to 18~V & \cellcolor[RGB]{255,200,200}0.3 to 5.5~V & 6 to 80~V \\
 
-                Output Voltage (BAT) & \cellcolor[RGB]{255,200,200}12 to 24V & \cellcolor[RGB]{255,200,200}12.4V & \cellcolor[RGB]{255,200,200}-0.3 to 5.5V & 1.3 to 80V \\
+                Output Voltage (BAT) & \cellcolor[RGB]{255,200,200}12 to 24~V & \cellcolor[RGB]{255,200,200}12.4~V & \cellcolor[RGB]{255,200,200}-0.3 to 5.5~V & 1.3 to 80~V \\
 
-                Max Output Current & Externally limited & 12A & \cellcolor[RGB]{255,200,200}1.8A & 10A \\
+                Max Output Current & Externally limited & 12~A & \cellcolor[RGB]{255,200,200}1.8~A & 10~A \\
 
                 Topology & Synchronous Buck & Synchronous Buck & Synchronous Boost & Buck-Boost \\
 
@@ -495,11 +498,11 @@ The LT8491IUKJ\#PBF offers a wide input and output voltage range, buck-boost ope
                 Tracking Speed & User dependent & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}1 to 2 seconds \\
 
                 Algorithm & User input & Unknown & Unknown & P\&O \\
-                Switching Frequency & 600kHz & Unknown & 100kHz & 100 to 400 kHz \\
+                Switching Frequency & 600kHz & Unknown & 100kHz & 100 to 400~kHz \\
                 Communication & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}I2C \\
                 Configurability & No & No & No & Yes \\
                 Charge Profile & CC-CV & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown & CC-CV \\
-                Price & 5.25€ & 4.50€ & 3.02€ & \cellcolor[RGB]{255,200,200}15-20€ \\
+                Price & 5.25~€ & 4.50~€ & 3.02~€ & \cellcolor[RGB]{255,200,200}15-20~€ \\
                 \bottomrule
                 \end{tabularx}
             \end{adjustbox}
@@ -522,7 +525,7 @@ Overall, none of the evaluated commercial \ac{mppt} chargers fully satisfy the t
 
     \begin{table}[htbp]
     \centering
-    \caption{Comparison of commercial MPPT controllers, , where red represents bad characteristics.}
+    \caption{Comparison of commercial MPPT controllers (red represents bad characteristics).}
     \label{tab:commercial-mppt-comparison}
     \scriptsize
     \setlength{\tabcolsep}{2pt}
@@ -543,15 +546,15 @@ Overall, none of the evaluated commercial \ac{mppt} chargers fully satisfy the t
         Configurable & \cellcolor[RGB]{255,200,200} No & Yes & Yes & Yes & Yes \\
         % Commutation frequency & ?? & Unknown & Programable & Unknown & Unknown \\
         Programable battery voltage & \cellcolor[RGB]{255,200,200}No & Yes & Yes & \cellcolor[RGB]{255,200,200}Yes (non-lithium batteries) & Yes \\
-        Tracking speed & 15Hz / 66.6(6)ms & \cellcolor[RGB]{255,200,200}Fast (Unknown value) & Programable & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown \\
+        Tracking speed & 15~Hz / 66.6(6)~ms & \cellcolor[RGB]{255,200,200}Fast (Unknown value) & Programable & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown \\
         Tracking efficiency & 99\%+ typical & \cellcolor[RGB]{255,200,200}Unknown & Programable & 99\% & \cellcolor[RGB]{255,200,200}Unknown \\
         Electrical efficiency & 96-99\% typical & 98\% peak & \cellcolor[RGB]{255,200,200}Unknown & 97\% & \cellcolor[RGB]{255,200,200}Unknown \\
         Charger profile & CC-CV & \cellcolor[RGB]{255,200,200}Unknown & Programable & \cellcolor[RGB]{255,200,200}Unknown & CC-CV \\
         GUI & No & Yes & Yes & Yes & Yes \\
         MCU & ATtiny461A-U & Unknown & STM32G474 & Unknown & Unknown \\
         Details & High Performance, Low Power AVR® 8-Bit Microcontroller (RISC) & - & 32-bit, Mainstream Arm Cortex-M4 MCU 170 MHz with  Math Accelerator & - & - \\
-        Transistor & FZT951 (BJT PNP 60V 5A) & Unknown & GS61008T (GaN FETs 100V 90A) & Unknown & Unknown \\
-        Price & \cellcolor[RGB]{255,200,200}240€ & \cellcolor[RGB]{255,200,200}100-200€ & \cellcolor[RGB]{255,200,200}Components: 250-280€ PCB:20-100€ Total:270-380€ & \cellcolor[RGB]{255,200,200}300-350€ & \cellcolor[RGB]{255,200,200}120-160€ \\
+        Transistor & FZT951 (BJT PNP 60~V 5~A) & Unknown & GS61008T (GaN FETs 100V 90A) & Unknown & Unknown \\
+        Price & \cellcolor[RGB]{255,200,200}240~€ & \cellcolor[RGB]{255,200,200}100-200~€ & \cellcolor[RGB]{255,200,200}Components: 250-280~€ PCB:20-100~€ Total:270-380~€ & \cellcolor[RGB]{255,200,200}300-350~€ & \cellcolor[RGB]{255,200,200}120-160~€ \\
         \bottomrule
         \end{tabularx}
     \end{adjustbox}
