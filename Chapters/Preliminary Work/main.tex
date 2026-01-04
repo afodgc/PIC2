@@ -2,13 +2,11 @@
     In order to get familiar with the tools needed for the development of the project, some basic tests were conducted. In this section, a brief introduction to simulation tools and Hardware tests are presented.
 
     \section{Simulations}
-        Nowadays, the most used tool to simulate the behavior of a \acs{mppt} is Matlab Simulink. With this software, a solar panel can be simulated by providing the environmental conditions (temperature and irradiance) at every simulation instance. The solar panel is set with the exact parameters of the real system (open circuit voltage, short circuit current, temperature coefficient, etc.). Then, using simscape electrical library, the DC-DC converter and battery can be described as well. All blocks of the system are highly configurable, allowing the user to set the exact parameters of the real system,
-    
-        By providing the correct parameters to every simulation block, the system behaves as the actual circuit. However, it is just a simulation tool, and by doing some approximations, simulation errors will be found. Therefore, the simulations need to be analyzed carefully and validated with real hardware.
+        MATLAB/Simulink is widely used for simulating the behavior of \acs{mppt} chargers. It enables \acs{pv} panel modeling by defining environmental conditions such as temperature and irradiance, as well as electrical parameters including open-circuit voltage, short-circuit current, and temperature coefficients. Using the Simscape Electrical library, the \acs{dc}-\acs{dc} converter and battery can also be modeled, allowing the simulation to closely approximate the behavior of the real system.
 
-        Figure~\ref{fig:Matlab_simulink} represents the model build in Matlab Simulink, using a boost converter and the P\&O method. As previously said, this model was built to understand how to use this simulation tool and how to overcome the problems that show up in the process. Therefore, everything can be changed later.
-        
-        
+        Despite this, simulations rely on simplifying assumptions, which may lead to discrepancies between simulated and real-world performance. Therefore, simulation results must be carefully analyzed and validated using experimental hardware.
+
+        Fig.~\ref{fig:Matlab_simulink} shows the MATLAB/Simulink model implemented with a boost converter and the \acs{peo} algorithm. This model was developed primarily to familiarize, with the simulation environment and identify modeling challenges, and its structure to further refinement.
 
 
         \begin{figure} [!h]
@@ -20,7 +18,7 @@
         \end{figure}
 
         
-        The objective was successfully accomplished, with good results. Figure~\ref{fig:Matlab_simulink_res},\ref{fig:Sim_voltage_m} and \ref{fig:Sim_Current_m} shows the results of the presented model with a solar irradiance step from 0~$\mathrm{w/m}^2$ to 1000~$\mathrm{w/m}^2$ at 0 seconds and from 1000~$\mathrm{w/m}^2$ to 500~$\mathrm{w/m}^2$ at 0.30 seconds. The temperature was kept constant at 25~ºC. 
+        The objective was successfully accomplished, with good results. Figure~\ref{fig:Matlab_simulink_res},\ref{fig:Sim_voltage_m} and \ref{fig:Sim_Current_m} show the results of the presented model with a solar irradiance step from 0~$\mathrm{w/m}^2$ to 1000~$\mathrm{w/m}^2$ at 0 seconds and from 1000~$\mathrm{w/m}^2$ to 500~$\mathrm{w/m}^2$ at 0.30 seconds. The temperature was kept constant at 25~ºC. 
 
         \begin{figure} [!h]
             \centering
@@ -32,14 +30,14 @@
 
         \begin{figure}[!h]
             \centering
-            \begin{minipage}[b]{0.49\textwidth}
+            \begin{minipage}[b]{0.45\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{Images/Preliminary Work/Sim_Voltage_m.png}
                 \caption{}
                 \label{fig:Sim_voltage_m}
             \end{minipage}
             \hfill
-            \begin{minipage}[b]{0.49\textwidth}
+            \begin{minipage}[b]{0.45\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{Images/Preliminary Work/Sim_Current_m.png}
                 \caption{}
@@ -47,10 +45,10 @@
             \end{minipage}
         \end{figure}
         
-        The \ac{mpp} of the given solar panel ($V_{mpp}=22.33$~V, $I_{mpp} = 6.038$~A and $P_{mpp} = 134.829$~W) was successfully tracked with a simple algorithm. The maximum tracking speed achieved was 156ms with the output capacitor unloaded at the first step, however a speed of 1ms was achieved in the second step. These results are acceptable for this initial stage but will be studied deeper in future work.
-    Also, the \acs{mppt} algorithm was able to achieve a high accuracy, close to 100\%, Figure~\ref{fig:Matlab_simulink_res} however the algorithm oscillates around the \ac{mpp} due to the perturb and observe method characteristics. In this case, the power output ripple is 3.3\%. 
+        The \ac{mpp} of the given solar panel ($V_{mpp}=22.33$~V, $I_{mpp} = 6.038$~A and $P_{mpp} = 134.829$~W) was successfully tracked with a simple algorithm. The maximum tracking speed achieved was 156ms with the output capacitor unloaded at the first step, however a speed of 1ms was achieved in the second step. These results are acceptable for this initial stage, but will be studied further in future work.
+        Also, the \acs{mppt} algorithm was able to achieve a high accuracy, close to 100\%, Figure~\ref{fig:Matlab_simulink_res} however, the algorithm oscillates around the \ac{mpp} due to the \acs{peo} method characteristics. This behavior was particularly evident during the second operating step, where a voltage oscillation of 15.6\% around the \acs{mpp} was measured (Figure~\ref{fig:Sim_voltage_m}).
         
-        As for the efficiency of the boost converter, it achieved a maximum of 97.34\% at full load, which is a high value for this kind of converter, however it is just a simulation and real values will be lower.
+        As for the efficiency of the boost converter, it achieved a maximum of 97.34\% at full load, which is a high value for this kind of converter, but it is just a simulation, and real values will be lower.
         
 
         
@@ -58,13 +56,13 @@
     
 
     \section{Hardware tests}
-        Since the use of an STM32 is one of the requirements of \acs{tsb} to comply their standards, some research and tests were also performed to get familiar with the software tools and the requirements of the \acs{mcu}.
+        Since the use of an STM32 is one of the requirements of \acs{tsb} to comply with their standards, some research and tests were also performed to get familiar with the software tools and the requirements of the \acs{mcu}.
 
-        The test were carried out with a cheap development board called Blue Pill witch accommodates a STM32F103C8T6 (Figure~\ref{fig:Blue_Pill}). As this is one of the cheapest boards on the marked, the specifications are not high-end. However, it was suitable for the aim of these tests.
+        The tests were carried out with a cheap development board called Blue Pill, which accommodates a STM32F103C8T6 (Figure~\ref{fig:Blue_Pill}). As this is one of the cheapest boards on the market, the specifications are not high-end. However, it was suitable for the aim of these tests.
 
         The STM32F103C8T6 has an ARM Cortex-M3 32-bit core running at up to 72~MHz, providing sufficient processing performance for real-time control and signal-processing tasks. It integrates two 12-bit ADCs with a maximum sampling rate of approximately 1 million samples per second and up to 16 multiplexed analog input channels, while no internal DAC is available. The device includes several general-purpose and advanced timers capable of generating PWM signals, with maximum PWM frequencies limited by the 72~MHz timer clock and the selected resolution. Housed in a 48-pin package, it offers up to around 37 configurable GPIO pins. In terms of communication interfaces, the \acs{mcu} supports multiple USARTs, SPI and I²C peripherals, as well as a Full-Speed USB 2.0 device interface, making it suitable for a wide range of embedded communication requirements.
 
-        The tests conducted were based on online examples, which allowed the evaluation of several functionalities of this \acs{mcu}, including timers, interrupts, basic GPIO operations, PWM generation, ADC usage, and communication interfaces such as USB, CAN, serial and I²C.
+        The tests conducted were based on online examples, which allowed the evaluation of several functionalities of this \acs{mcu}, including timers, interrupts, basic GPIO operations, PWM generation, ADC usage, and communication interfaces such as USB, \acs{can}, serial, and I²C.
 
         \begin{figure} [!h]
             \centering
