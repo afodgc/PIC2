@@ -12,7 +12,7 @@ In this chapter, the main State-of-the-Art concepts regarding the engineering be
     Moreover, power converters designed for high voltage and low current operation are generally less complex and more cost-effective than those operating at low voltage and high current. 
     However, series configurations are more sensitive to partial shading or panel failure, as the output current of the entire string is limited by the weakest module~\cite{Shading_Effect_PV_Modules_2011}. 
     In contrast, parallel configurations provide improved tolerance to shading and faults but result in higher current levels and increased conduction losses.
-    In this project, series/parallel configuration of the solar panels will not be changed, since it is already pre-defined by \ac{tsb}, but it is important to understand the implications of each configuration. \\
+    In this project, series/parallel configuration of the solar panels will not be changed, since it is already pre-defined by \ac{tsb}, but it is important to understand the implications of each configuration. 
 
     Each cell is made of semiconductor materials, usually silicon. This semiconductor is doped with phosphorus, a group V element, to create a negative type layer. On the other side, a layer is doped with boron, a group III element, to create a positive type layer. This creates a p-n junction, which is essential for the photovoltaic effect~\cite{photovoltaics_System_Design}.
 
@@ -31,7 +31,7 @@ In this chapter, the main State-of-the-Art concepts regarding the engineering be
 
     \begin{figure} [!h]
         \centering
-        \includegraphics[width=0.55 \textwidth]{Images/Background/i-v,p-v.pdf}
+        \includegraphics[width=0.50 \textwidth]{Images/Background/i-v,p-v.pdf}
         \qquad
         \caption{I-V and P-V curves of a solar panel~\cite{photovoltaics_System_Design}.}
         \label{fig:i-v,p-v}
@@ -74,9 +74,9 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
  
     \begin{figure} [!h]
         \centering
-        \includegraphics[width=0.55 \textwidth]{Images/Background/Block diagram.drawio.pdf}
+        \includegraphics[width=0.65 \textwidth]{Images/Background/Block diagram.drawio.pdf}
         \qquad
-        \caption{Top view of a basic \ac{mppt} system.}
+        \caption{Simplified structure of an \acs{mppt} charger.}
         \label{fig:block diagram mppt}
     \end{figure}
     
@@ -91,10 +91,10 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
     \subsection{Constant Voltage (CV)}
         This is the simplest and most inefficient method. It works by operating the solar panel at a fixed voltage. This referenced voltage is used to calculate the duty cycle of the \acs{dc}-\acs{dc} converter that will maintain the operating point of the solar panel.
+        
 
-         Some well-known variations of this method improve the performance by adjusting the reference voltage to a fraction of the open circuit voltage of the solar panel (usually between 71\% and 78\%)~\cite{Comparison_PV_Array_MPPT_Techniques_2007}. This open circuit voltage can be measured periodically by disconnecting the solar panel from the load for a short period of time. In this way, the reference voltage will be more accurate, and the efficiency will increase.
-
-        Another variation is based on the short circuit current of the solar panel, setting the reference current to a fraction of this value~\cite{MPPT_Comparison_techniques}. 
+         Well-known variants improve performance by setting the reference voltage to a fraction of the open-circuit voltage (typically 71–78\%)~\cite{Comparison_PV_Array_MPPT_Techniques_2007}. This voltage is obtained by briefly disconnecting the panel from the load, increasing reference accuracy and efficiency. Another variant uses a fraction of the short-circuit current as the reference~\cite{MPPT_Comparison_techniques}.
+         
 
         Although both methods are simple and cost-effective, they are inherently inefficient due to the necessity of interrupting energy production during measurement phases. However, alternative implementations address this limitation through proxy measurement techniques employing dummy cells or diodes, whose physical properties closely approximate those of standard solar cells, thereby enabling continuous power generation during measurement acquisition~\cite{Comparison_PV_Array_MPPT_Techniques_2007}~\cite{Optimum_Operating_Point_Tracker_2004}. Still, the \ac{mpp} is not always located at the same percentage of the open-circuit voltage or short circuit current, leading to a lack of accuracy and therefore lower efficiency~\cite{Comparative_study_MPPT_algorithms_2000}.
 
@@ -113,14 +113,14 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
         \begin{figure}[!h]
             \centering
-            \begin{minipage}[b]{0.45\textwidth}
+            \begin{minipage}[b]{0.49\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{Images/Background/PeO.pdf}
                 \caption{Flow chart of the classic version of Perturb and Observe algorithm~\cite{Look-Up-Table_VS_PeO}.}
                 \label{fig:PeO_flowchart}
             \end{minipage}
             \hfill
-            \begin{minipage}[b]{0.45\textwidth}
+            \begin{minipage}[b]{0.49\textwidth}
                 \centering
                 \includegraphics[width=\textwidth]{Images/Background/fast_change.pdf}
                 \caption{Divergence of \ac{peo} from MPP as shown in~\cite{4112312}}
@@ -226,32 +226,34 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
         \begin{table}[htbp]
             \centering
-            \caption{Comparison between Non-isolated and isolated converters (red, yellow and green represents bad, medium and good respectively).}
+            \caption{Comparison between Non-isolated and isolated converters (\fcolorbox{black}{light_red}{undesired}, \fcolorbox{black}{light_yellow}{medium} and \fcolorbox{black}{light_green}{good} characteristics are highlighted).}
             \label{tab:switching-vs-isolated-converters}
             \scriptsize
             \setlength{\tabcolsep}{5pt}
             \renewcommand{\arraystretch}{1.1}
             \begin{adjustbox}{max width=0.95\textwidth}
-                \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm}
+                \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4cm}
                                             >{\centering\arraybackslash}X
                                             >{\centering\arraybackslash}X}
                 \toprule
                 Type & Non-isolated Converters & Galvanic Isolated Converters \\
                 \midrule
-                Price & \cellcolor[RGB]{198,239,206}Cheaper & \cellcolor[RGB]{255,200,200}Expensive \\
-                Isolation & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{198,239,206}Yes \\
-                Circuit Complexity & \cellcolor[RGB]{198,239,206}Low & \cellcolor[RGB]{255,200,200}High \\
-                Efficiency & \cellcolor[RGB]{198,239,206}High & \cellcolor[RGB]{255,255,153}Medium \\
-                Size & \cellcolor[RGB]{198,239,206}Compact & \cellcolor[RGB]{255,200,200}Large \\
-                Electromagnetic Interference (EMI) & \cellcolor[RGB]{255,200,200}High & \cellcolor[RGB]{255,255,153}Medium/High \\
-                Switching Frequency & \cellcolor[RGB]{255,255,153}Low/Medium & \cellcolor[RGB]{255,255,153}Medium \\
-                Thermal Management & \cellcolor[RGB]{198,239,206}Easier & \cellcolor[RGB]{255,255,153}Moderate \\
-                Control Complexity & \cellcolor[RGB]{198,239,206}Simple & \cellcolor[RGB]{255,200,200}Complex \\
-                Cost & \cellcolor[RGB]{198,239,206}Low & \cellcolor[RGB]{255,200,200}High \\
+                Isolation & \R No & \G Yes \\
+                Circuit Complexity & \G Low & \R High \\
+                Efficiency & \G High & \Y Medium \\
+                Size & \G Compact & \R Large \\
+                Electromagnetic Interference (EMI) & \Y Medium/High &  \R High\\
+                Switching Frequency & \Y Medium & \Y Medium \\
+                Thermal Management & \G Easier & \Y Moderate \\
+                Control Complexity & \Y Moderate & \Y Moderate \\
+                Gain & \Y Near 1 & \G Very High/low \\
+                Cost & \G Low & \R High \\
                 \bottomrule
                 \end{tabularx}
             \end{adjustbox}
             \end{table}
+
+            
 
 
     \subsection{Non-isolated DC-DC converters}
@@ -303,13 +305,13 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
 
         \begin{table}[htbp]
         \centering
-        \caption{Comparison of non-isolated DC-DC topologies (green represents good characteristics).}
+        \caption{Comparison of non-isolated DC-DC topologies (\fcolorbox{black}{light_green}{good} and \fcolorbox{black}{dark_green}{important}  characteristics are highlighted).}
         \label{tab:dc-dc-comparison}
         \scriptsize
         \setlength{\tabcolsep}{4pt}
         \renewcommand{\arraystretch}{1.05}
         \begin{adjustbox}{max width=0.95\textwidth}
-            \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.2cm}
+            \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.7cm}
                                         >{\centering\arraybackslash}X
                                         >{\centering\arraybackslash}X
                                         >{\centering\arraybackslash}X
@@ -317,21 +319,28 @@ shading conditions, it is possible to have multiple local maxima, but overall, t
                                         >{\centering\arraybackslash}X
                                         >{\centering\arraybackslash}X}
             \toprule
-            Topology & Boost & Buck & Buck-Boost & ZETA & CUK & SEPIC \\
+            \textbf{Topology} & \textbf{Boost} & \textbf{Buck} & \textbf{Buck-Boost} & \textbf{ZETA} & \textbf{CUK} & \textbf{SEPIC} \\
             \midrule
-            Price & \G Low & \G Low & \G Low & Medium & Medium & Medium \\
+            \multicolumn{7}{l}{\textit{\textbf{Electrical performance}}} \\
+            Efficiency & \DG High & \DG High & \DG High & \DG Medium/High &  Medium & Medium \\
+            EMI & \G Low & \G Low & High & Medium & Medium & Medium \\
+            Input current ripple & \G Low  & High & High & \G Low & \G Very low & Medium \\
+            Output current ripple & High & \G Low & High & \G Very low & \G Low & Medium \\
+            \midrule
+            \multicolumn{7}{l}{\textit{\textbf{Structural characteristics}}} \\
             Circuit complexity & \G Low & \G Low & \G Low & Medium & Medium & Medium \\
-            Efficiency & \G High & \G High & \G High & \G Medium/High &  Medium & Medium \\
             Size & \G Low & \G Low & \G Low & Medium & Medium & Medium \\
-            Type & Step-Up & Step-Down & \G Step-Down/Up & \G Step-Down/Up & \G Step-Down/Up & \G Step-Down/Up \\
+            Storage elements & \DG 1 L & \DG 1 L & \DG 1 L & 2 L, 1 C & 2 L, 1 C & 2 L, 1 C \\
+            Switch stress & \G No & Yes & \G No & Yes & Yes & Yes \\
+            \midrule
+            \multicolumn{7}{l}{\textit{\textbf{Functional aspects}}} \\
+            Type & Step-Up & Step-Down & \DG Step-Down/Up & \DG Step-Down/Up & \DG Step-Down/Up & \DG Step-Down/Up \\
             Versatility & Low & Low & Medium & \G High & Medium & \G High \\
             Inverted output & \G No & \G No & Yes & \G No & Yes & \G No \\
-            Input current ripple & High & \G Low & High & \G Low & \G Very low & Medium \\
-            Output current ripple & \G Low & High & High & \G Very low & \G Low & Medium \\
-            Energy-storage elements & \G 1 inductor & \G 1 inductor & \G 1 inductor & 2 inductors, 1 caps & 2 inductors, 1 caps & 2 inductors, 1 caps \\
-            Switch stress & No & Yes & No & Yes & Yes & Yes \\
-            Continuous input current & No & Yes & No & Yes & Yes & Yes \\
-            EMI & \G Low & \G Low & High & Medium & Medium & Medium \\
+            Reliability & \G High & \G High & \G High & Medium & Medium & Medium \\
+            \midrule
+            \multicolumn{7}{l}{\textit{\textbf{Economic}}} \\
+            Cost & \DG Low & \DG Low & \DG Low & Medium & Medium & Medium \\
             \bottomrule
             \end{tabularx}
         \end{adjustbox}
@@ -395,20 +404,16 @@ Other charging techniques fall outside the scope of this work, however, some met
 
     
 \section{Processing unit}
-    \subsection{Types of processing units}
-Several types of processing units can be considered for this project, including \acp{mcu}, \acp{fpga}, and \acp{asic}.  
+    Several types of processing units can be considered for this project, including \acp{mcu}, \acp{fpga}, and \acp{asic}.  
 
-\acp{asic} are custom-designed integrated circuits optimized for specific applications, offering high efficiency and performance. However, they are typically expensive and time-consuming to design and manufacture. Although commercially available \acp{asic}, commonly referred to as \acp{ic}, mitigate these drawbacks, they are usually made for a specific application and therefore not suitable for the high performance and flexibility required in this project, as discussed in Section~\ref{sec:ICs}.  
+    \acp{asic} are custom-designed integrated circuits optimized for specific applications, offering high efficiency and performance. However, they are typically expensive and time-consuming to design and manufacture. Although commercially available \acp{asic}, commonly referred to as \acp{ic}, mitigate these drawbacks, they are usually made for a specific application and therefore not suitable for the high performance and flexibility required in this project, as discussed in Section~\ref{sec:ICs}.  
 
-\acp{fpga} are reconfigurable devices capable of implementing custom digital circuits through programmable logic blocks based on look-up tables (LUTs) and interconnections~\cite{231340}. Their main advantage lies in their inherent parallel processing capability, which enables high-performance operation. Nevertheless, \acp{fpga} generally present high costs, high design complexity, and volatile configuration memory, requiring reprogramming after power loss~\cite{ampheo_fpga_vs_microcontroller_2025,FPGA_Implementation_MPPT}.  
+        \acp{fpga} are reconfigurable devices capable of implementing custom digital circuits through programmable logic blocks based on look-up tables (LUTs) and interconnections~\cite{231340}. Their main advantage lies in their inherent parallel processing capability, which enables high-performance operation. Nevertheless, \acp{fpga} generally present high costs, high design complexity, and volatile configuration memory, requiring reprogramming after power loss~\cite{ampheo_fpga_vs_microcontroller_2025,FPGA_Implementation_MPPT}.  
 
-In contrast, \acp{mcu} are widely adopted in embedded systems due to their low cost, ease of use, and versatility. They integrate processing, memory, and peripherals in a single non-volatile device, simplifying hardware design and development. Although their sequential execution limits parallel processing performance compared to \acp{fpga}, modern \acp{mcu} provide sufficient computational capability for many control and signal-processing tasks~\cite{ampheo_fpga_vs_microcontroller_2025}.  
+        In contrast, \acp{mcu} are widely adopted in embedded systems due to their low cost, ease of use, and versatility. They integrate processing, memory, and peripherals in a single non-volatile device, simplifying hardware design and development. Although their sequential execution limits parallel processing performance compared to \acp{fpga}, modern \acp{mcu} provide sufficient computational capability for many control and signal-processing tasks~\cite{ampheo_fpga_vs_microcontroller_2025}.  
 
-Considering the emphasis on low cost, reduced development time, and implementation simplicity, a \ac{mcu} is selected for this application. Furthermore, the performance of current microcontrollers is adequate to meet the requirements of the \ac{mppt} algorithm and the battery charging strategy.
+        Considering the emphasis on low cost, reduced development time, and implementation simplicity, a \ac{mcu} is selected for this application. Furthermore, the performance of current \acp{mcu} is adequate to meet the requirements of the \ac{mppt} algorithm and the battery charging strategy.
 
-
-
-    \subsection{Microcontroller}
         A \acf{mcu} typically consists of three fundamental components: a central processing unit (CPU), memory, and peripheral modules. The CPU executes program instructions and performs arithmetic and logical operations. Memory is generally divided into non-volatile memory (e.g., Flash) for program storage and volatile memory (e.g., SRAM) for data and runtime variables. Peripheral modules provide interfaces to the external environment and may include analog-to-digital converters (ADCs), timers, pulse-width modulation (PWM) units, communication interfaces (such as UART, SPI, and I²C), and general-purpose input/output (GPIO) ports. The integration of these components enables standalone operation without the need for extensive external circuitry~\cite{ibm_microcontroller_2025}.
 
          When selecting a \acs{mcu} for a specific application, the first factor to consider is to use an 8, 16, or 32 bit \acs{mcu}. For this application, a 16-bit \acs{mcu} would probably be sufficient, however to ensure future-proof and compatibility with other \ac{tsb} systems, the choice is for a 32-bit \ac{mcu}. Besides, nowadays, 32-bit \acp{mcu} are considered the industry standard since most embedded system \ac{red} effort is focused on 32-bit cores, and thus both architectures can achieve similar power consumption~\cite{embedded_upgrading_mcu_designs_2025}.
@@ -466,47 +471,53 @@ The MAX20801TPBA+ and SPV1040TTR target low-power IoT applications with small ba
 
 The LT8491IUKJ\#PBF offers a wide input and output voltage range, buck-boost operation, high efficiency, communication capabilities, and \acs{cc}-\acs{cv} charging. Despite these advantages, its reported \acs{mppt} tracking speed of up to 2~s is insufficient for the dynamic conditions of this application. Additionally, its I\textsuperscript{2}C interface would require an additional microcontroller to provide \acs{can} communication, increasing system cost.
 
-
-        \begin{table}[htbp]
-            \centering
-            \caption{Comparison of commercial specialized \acp{ic} (red represents bad characteristics).}
-            \label{tab:commercial-ics-comparison}
-            \scriptsize
-            \setlength{\tabcolsep}{3pt}
-            \renewcommand{\arraystretch}{1.05}
-            \begin{adjustbox}{max width=0.95\textwidth}
-                \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.3cm}
+            \begin{table}[htbp]
+                \centering
+                \caption{Comparison of commercial specialized \acp{ic}
+                (\fcolorbox{black}{light_red}{unsuitable} characteristics are highlighted).}
+                \label{tab:commercial-ics-comparison}
+                \scriptsize
+                \setlength{\tabcolsep}{4pt}
+                \renewcommand{\arraystretch}{1.05}
+                \begin{adjustbox}{max width=0.95\textwidth}
+                \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.7cm}
                                             >{\centering\arraybackslash}X
                                             >{\centering\arraybackslash}X
                                             >{\centering\arraybackslash}X
                                             >{\centering\arraybackslash}X}
                 \toprule
-                Model & BQ24650RVAT & MAX20801TPBA+ & SPV1040TTR & LT8491IUKJ\#PBF \\
+                \textbf{Model} & \textbf{BQ24650RVAT} & \textbf{MAX20801TPBA+} & \textbf{SPV1040TTR} & \textbf{LT8491IUKJ\#PBF} \\
                 \midrule
-                Input Voltage & \cellcolor[RGB]{255,200,200}5 to 28~V & \cellcolor[RGB]{255,200,200}1.5 to 18~V & \cellcolor[RGB]{255,200,200}0.3 to 5.5~V & 6 to 80~V \\
 
-                Output Voltage (BAT) & \cellcolor[RGB]{255,200,200}12 to 24~V & \cellcolor[RGB]{255,200,200}12.4~V & \cellcolor[RGB]{255,200,200}-0.3 to 5.5~V & 1.3 to 80~V \\
+                \multicolumn{5}{l}{\textit{\textbf{Electrical specifications}}} \\
+                Input voltage & \R 5 to 28~V & \R 1.5 to 18~V & \R 0.3 to 5.5~V & 6 to 80~V \\
+                Output voltage & \R 12 to 24~V & \R 12.4~V & \R -0.3 to 5.5~V & 1.3 to 80~V \\
+                Max output current & Externally limited & 12~A & \R 1.8~A & 10~A \\
+                Switching frequency & 600~kHz & Unknown & 100~kHz & 100 to 400~kHz \\
+                Electrical efficiency & 95\% & 99.1\% (max) & \R 80 to 95\% & 95 to 99\% \\
 
-                Max Output Current & Externally limited & 12~A & \cellcolor[RGB]{255,200,200}1.8~A & 10~A \\
-
-                Topology & Synchronous Buck & Synchronous Buck & Synchronous Boost & Buck-Boost \\
-
-                Electrical Efficiency & 95\% & 99.1\% (max) & \cellcolor[RGB]{255,200,200}80 to 95\% & 95 to 99\% \\
-
-                Tracking accuracy & User dependent & 99.9\% (max) & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown \\
-
-                Tracking Speed & User dependent & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}1 to 2 seconds \\
-
+                \midrule
+                \multicolumn{5}{l}{\textit{\textbf{MPPT and control}}} \\
                 Algorithm & User input & Unknown & Unknown & P\&O \\
-                Switching Frequency & 600kHz & Unknown & 100kHz & 100 to 400~kHz \\
-                Communication & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}No & \cellcolor[RGB]{255,200,200}I2C \\
+                Tracking accuracy & User dependent & 99.9\% (max) & \R Unknown & \R Unknown \\
+                Tracking speed & User dependent & \R Unknown & \R Unknown & \R 1 to 2~s \\
+
+                \midrule
+                \multicolumn{5}{l}{\textit{\textbf{Functional aspects}}} \\
+                Topology & Synchronous Buck & Synchronous Buck & Synchronous Boost & Buck--Boost \\
+                Communication & \R No & \R No & \R No & \R I\textsuperscript{2}C \\
                 Configurability & No & No & No & Yes \\
-                Charge Profile & CC-CV & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown & CC-CV \\
-                Price & 5.25~€ & 4.50~€ & 3.02~€ & \cellcolor[RGB]{255,200,200}15-20~€ \\
+                Charge profile & CC--CV & \R Unknown & \R Unknown & CC--CV \\
+
+                \midrule
+                \multicolumn{5}{l}{\textit{\textbf{Economic}}} \\
+                Price & 5.25~€ & 4.50~€ & 3.02~€ & \R 15--20~€ \\
+
                 \bottomrule
                 \end{tabularx}
-            \end{adjustbox}
+                \end{adjustbox}
             \end{table}
+
 
 \subsection{Commercial MPPT chargers}
 Several commercial \ac{mppt} chargers are available that can address the problem under analysis without requiring additional hardware. However, each solution presents limitations when evaluated against the project requirements. Table~\ref{tab:commercial-mppt-comparison} summarizes selected commercial \acs{mppt} chargers, with red-marked characteristics indicating incompatibilities.
@@ -521,44 +532,102 @@ The Reboost V0.2.1 is an open source \ac{mppt} charger originally developed for 
 
 Overall, none of the evaluated commercial \ac{mppt} chargers fully satisfy the technical, economic, and configurability requirements of this project, motivating the development of a custom solution.
 
-    
-
     \begin{table}[htbp]
-    \centering
-    \caption{Comparison of commercial MPPT controllers (red represents bad characteristics).}
-    \label{tab:commercial-mppt-comparison}
-    \scriptsize
-    \setlength{\tabcolsep}{2pt}
-    \renewcommand{\arraystretch}{1.02}
-    \begin{adjustbox}{max width=0.95\textwidth}
-        \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{1.9cm}
+        \centering
+        \caption{Comparison of commercial MPPT controllers
+        (\fcolorbox{black}{light_red}{unsuitable} characteristics are highlighted).}
+        \label{tab:commercial-mppt-comparison}
+        \scriptsize
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{1.05}
+        \begin{adjustbox}{max width=0.95\textwidth}
+        \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm}
                                     >{\centering\arraybackslash}X
                                     >{\centering\arraybackslash}X
                                     >{\centering\arraybackslash}X
                                     >{\centering\arraybackslash}X
                                     >{\centering\arraybackslash}X}
         \toprule
-        Model & GVB-8-Li-CV (50.4V) & Smart Solar MPPT 100/20 & Reboost V0.2.1 & Rover Lite & MS4840N \\
+        \textbf{Model} & \textbf{GVB-8-Li-CV (50.4V)} & \textbf{Smart Solar MPPT 100/20} &
+        \textbf{Reboost V0.2.1} & \textbf{Rover Lite} & \textbf{MS4840N} \\
         \midrule
+
+        \multicolumn{6}{l}{\textit{\textbf{General information}}} \\
         Brand & Gensun & Victron Energy & TPEE & Renogy & BougeRV \\
-        Type & Boost & \cellcolor[RGB]{255,200,200}Buck & Synchronous Boost & Boost & Boost \\
-        Communication & \cellcolor[RGB]{255,200,200} No & \cellcolor[RGB]{255,200,200}Yes (VE.can/ Bluetooth) & Yes & \cellcolor[RGB]{255,200,200}Bluetooth and RS485 & \cellcolor[RGB]{255,200,200} Bluetooth \\
-        Configurable & \cellcolor[RGB]{255,200,200} No & Yes & Yes & Yes & Yes \\
-        % Commutation frequency & ?? & Unknown & Programmable & Unknown & Unknown \\
-        Programmable battery voltage & \cellcolor[RGB]{255,200,200}No & Yes & Yes & \cellcolor[RGB]{255,200,200}Yes (non-lithium batteries) & Yes \\
-        Tracking speed & 15~Hz / 66.6(6)~ms & \cellcolor[RGB]{255,200,200}Fast (Unknown value) & Programable & \cellcolor[RGB]{255,200,200}Unknown & \cellcolor[RGB]{255,200,200}Unknown \\
-        Tracking efficiency & 99\%+ typical & \cellcolor[RGB]{255,200,200}Unknown & Programable & 99\% & \cellcolor[RGB]{255,200,200}Unknown \\
-        Electrical efficiency & 96-99\% typical & 98\% peak & \cellcolor[RGB]{255,200,200}Unknown & 97\% & \cellcolor[RGB]{255,200,200}Unknown \\
-        Charger profile & CC-CV & \cellcolor[RGB]{255,200,200}Unknown & Programable & \cellcolor[RGB]{255,200,200}Unknown & CC-CV \\
+        Type & Boost & \R Buck & Synchronous Boost & Boost & Boost \\
+
+        \midrule
+        \multicolumn{6}{l}{\textit{\textbf{Control and communication}}} \\
+        Communication & \R No &
+        \R VE.can and Bluetooth &
+        Yes &
+        \R Bluetooth and RS485 &
+        \R Bluetooth \\
+        Configurable & \R No & Yes & Yes & Yes & Yes \\
         GUI & No & Yes & Yes & Yes & Yes \\
+
+        \midrule
+        \multicolumn{6}{l}{\textit{\textbf{MPPT and charging}}} \\
+        Prog. battery voltage &
+        \R No &
+        Yes &
+        Yes &
+        \R non-lithium batteries &
+        Yes \\
+        Tracking speed &
+        15~Hz / 66.6(6)~ms &
+        \R Fast (unknown) &
+        Programmable &
+        \R Unknown &
+        \R Unknown \\
+        Tracking efficiency &
+        99\%+ typical &
+        \R Unknown &
+        Programmable &
+        99\% &
+        \R Unknown \\
+        Electrical efficiency &
+        96--99\% typical &
+        98\% peak &
+        \R Unknown &
+        97\% &
+        \R Unknown \\
+        Charger profile &
+        CC-CV &
+        \R Unknown &
+        Programmable &
+        \R Unknown &
+        CC-CV \\
+
+        \midrule
+        \multicolumn{6}{l}{\textit{\textbf{Hardware implementation}}} \\
         MCU & ATtiny461A-U & Unknown & STM32G474 & Unknown & Unknown \\
-        Details & High Performance, Low Power AVR® 8-Bit Microcontroller (RISC) & - & 32-bit, Mainstream Arm Cortex-M4 MCU 170 MHz with  Math Accelerator & - & - \\
-        Transistor & FZT951 (BJT PNP 60~V 5~A) & Unknown & GS61008T (GaN FETs 100V 90A) & Unknown & Unknown \\
-        Price & \cellcolor[RGB]{255,200,200}240~€ & \cellcolor[RGB]{255,200,200}100-200~€ & \cellcolor[RGB]{255,200,200}Components: 250-280~€ PCB:20-100~€ Total:270-380~€ & \cellcolor[RGB]{255,200,200}300-350~€ & \cellcolor[RGB]{255,200,200}120-160~€ \\
+        MCU Details &
+        8-bit, RISC, 64~MHz &
+        -- &
+        32-bit, Arm, 170~MHz  &
+        -- &
+        -- \\
+        Transistor &
+        FZT951  &
+        Unknown &
+        GS61008T  &
+        Unknown &
+        Unknown \\
+        Transistor type & PNP BJT & Unknown & GaN FETs & Unknown & Unknown \\
+
+        \midrule
+        \multicolumn{6}{l}{\textit{\textbf{Economic}}} \\
+        Price &
+        \R 240~€ &
+        \R 100--200~€ &
+        \R Components: 250--280~€ \newline PCB: 20--100~€ \newline Total: 270--380~€ &
+        \R 300--350~€ &
+        \R 120--160~€ \\
+
         \bottomrule
         \end{tabularx}
-    \end{adjustbox}
-    \end{table}
-
+        \end{adjustbox}
+        \end{table}
 
     

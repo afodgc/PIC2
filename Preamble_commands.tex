@@ -67,12 +67,20 @@
 \usepackage{spreadtab}
 \usepackage{longtable}
 
-% ...existing code...
+%% Colors
 \usepackage{adjustbox}
 \usepackage{booktabs}
-\definecolor{cellgreen}{RGB}{198,239,206} % light green
-\newcommand{\G}{\cellcolor{cellgreen}}
-% ...existing code...
+\definecolor{light_green}{RGB}{198,239,206} % light green
+\definecolor{light_red}{RGB}{255,200,200} % light red
+\definecolor{light_yellow}{RGB}{255,255,153} % light yellow
+\definecolor{dark_green}{RGB}{0,200,0} % dark green
+
+\newcommand{\G}{\cellcolor{light_green}}
+\newcommand{\R}{\cellcolor{light_red}}
+\newcommand{\Y}{\cellcolor{light_yellow}}
+\newcommand{\DG}{\cellcolor{dark_green}}
+
+%%----------------------------------------------------------------------------%
 \usepackage{outlines}
 
 %\usepackage{minipage}

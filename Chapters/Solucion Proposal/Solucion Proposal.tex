@@ -8,7 +8,7 @@
         \centering
         \includegraphics[width=0.70 \textwidth]{Images/Solucional Proposal/System architecture.drawio.pdf}
         \qquad
-        \caption{Solar system architecture.}
+        \caption{MPPT charger architecture.}
         \label{fig:sys_architecture}
     \end{figure}
 
@@ -30,10 +30,11 @@
 
         \begin{itemize}[leftmargin=4em, itemsep=1pt, topsep=2pt]
             \item Work with a wide range of battery voltage: from 14.4~V to 50.4~V; 
-            \item Input maximum rating: 15~A and 50~V;
+            \item Input maximum rating: 300~W and 50~V;
+            \item Input target: 105,12~W with 35 cells in series;
             \item Electrical efficiency: at least 85\%;
             \item Fast tracking speed: less than 200~ms;
-            \item High track efficiency: close to 100\% (between 95\% and 100\%);   
+            \item High track accuracy: more than 95\%;   
             \item \acs{can} communication: 1~Mbit/s and send status, power produced, current, voltage, efficiency and temperature;
             \item Load limits: overcurrent and overvoltage;
             \item Charging technique: \acs{cc}-\acs{cv};
