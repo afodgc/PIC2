@@ -14,9 +14,9 @@ These challenges have directly motivated the development of the \ac{tsb} project
 
 In 2015, \ac{tsb} was created with the goal of designing and building a solar-powered boat to compete in international competitions. Since then, the project has grown, and several vessels have been built. It began with the construction of the first solar prototype, São Rafael 01, which still had a lot of room for improvement and was followed by São Rafael 02 and 03. The team then decided to approach the hydrogen energy and autonomous driving, and therefore São Miguel 01 and 02 and São Pedro 01 were built. More recently, a vessel was built to combine all the technologies used before and was named \ac{sg01}.   
 
-All these prototypes used solar energy to maximize their range and efficiency. In the first years the energy produced was small, and the whole system was built using commercial \ac{ots} components. In 2020, the team started to build its own solar panels for São Rafael 02. Many other systems were also designed and built in house, but there is still one system that is yet to be developed, the \ac{mppt} charger.
+All these prototypes used solar energy to maximize their range and efficiency. In the first years the energy produced was small, and the whole system was built using commercial \ac{ots} components. In 2020, the team started to build its own solar panels for São Rafael 03. Many other systems were also designed and built in house, but there is still one system that is yet to be developed, the \ac{mppt} charger.
 
-The \ac{mppt} charger is a fundamental subsystem in photovoltaic energy systems, responsible for maximizing the power extracted from solar panels by ensuring continuous operation at the \ac{mpp}. A \ac{mppt} charger is typically a power converter that continuously monitors the voltage and current produced by the photovoltaic modules and adjusts their electrical operating point accordingly. By dynamically regulating these operating parameters, the \ac{mppt} compensates for variations in environmental conditions such as solar irradiance, temperature, tilt and shading, which cause the \ac{mpp} to shift over time. As a result, the photovoltaic system can operate with improved efficiency and deliver maximum available power under changing conditions~\cite{Comparative_study_MPPT_algorithms_2000}.
+The \ac{mppt} charger is a fundamental subsystem in photovoltaic energy systems, responsible for maximizing the power extracted from solar panels by ensuring continuous operation at the \ac{mpp}. A \ac{mppt} charger is typically a power converter that continuously monitors the voltage and current produced by the photovoltaic modules and adjusts their electrical operating point accordingly. By dynamically regulating these operating parameters, the \ac{mppt} compensates for variations in environmental conditions such as solar irradiance and temperature, which cause the \ac{mpp} to shift over time. As a result, the photovoltaic system can operate with improved efficiency and deliver maximum available power under changing conditions~\cite{Comparative_study_MPPT_algorithms_2000}.
 
 
 
@@ -33,7 +33,7 @@ The main objectives of this project are:
     \item Design and simulate the hardware and software;
     \item Implement the system in hardware and develop a \ac{pcb};
     \item Test and validate the performance of the circuit;
-    \item Ensure the safety and reliability of the \ac{mppt} for its integration in the \ac{tsb} project;
+    \item Ensure the safety and reliability of the \ac{mppt} charger for its integration in the \ac{tsb} project;
     \item Provide performance data of the solar panel and the \ac{mppt} through a \ac{can} communication interface.
 \end{itemize}
 

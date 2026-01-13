@@ -1,6 +1,8 @@
 \fancychapter{Proposed Solution}
 \label{chap:Solucion_Proposal}
 
+This chapter presents the proposed solution developed to meet the technical, functional, and economic requirements identified in the previous chapters. It introduces the overall system architecture, detailing the interaction between the photovoltaic source, power conversion stage, control unit, and communication infrastructure. Additionally, the design methodology adopted for converter selection, control strategy, simulation, and experimental validation is described, providing a structured approach to the development and assessment of the proposed \ac{mppt} charger.
+
 \section{System architecture}
     The boat solar system is mainly composed of a battery, solar panels, and several \acp{mppt}. Additionally, the \ac{bms} and sensors are used to maintain safety, Figure~\ref{fig:sys_architecture}.
 
@@ -54,7 +56,7 @@
 
         With respect to the \acs{mppt} algorithm, the prototype will be designed to support multiple \acs{mppt} algorithms to allow future extensibility and comparative evaluation. In addition to conventional methods, a hybrid algorithm previously proposed by António Neves in his master's thesis will be investigated. This algorithm combines a \acs{lut} with the \acs{peo} method using voltage and current measurements. In this work, the algorithm will be extended to include additional parameters, such as temperature and irradiance, to improve tracking accuracy and dynamic response.
 
-        All selected \acs{mppt} algorithms will be implemented and initially validated through simulations in MATLAB/Simulink before hardware implementation~\cite{bendib_survey_mppt_methods}\cite{IncCond_MPPT_Cuk_2011}. The performance of each algorithm will be evaluated based on tracking speed and accuracy, which can be visualized by changing the environmental conditions in simulation and analyzing the power output~\cite{bendib_survey_mppt_methods}\cite{Look-Up-Table_VS_PeO}.
+        All selected \acs{mppt} algorithms will be implemented and initially validated through simulations in MATLAB/Simulink before firmware implementation~\cite{bendib_survey_mppt_methods}\cite{IncCond_MPPT_Cuk_2011}. The performance of each algorithm will be evaluated based on tracking speed and accuracy, which can be visualized by changing the environmental conditions in simulation and analyzing the power output~\cite{bendib_survey_mppt_methods}\cite{Look-Up-Table_VS_PeO}.
 
         Also, research about how to implement low-power consumption voltage and current sensors will be conducted to find a cheap and accurate solution. A few solutions can be simulated in LTspice for precise tuning.
 
@@ -73,7 +75,7 @@
 
         Finally, after laboratory validation of the prototype, real world testing will be conducted. The system will be connected to a photovoltaic panel and a battery and evaluated under varying environmental conditions. These tests aim to validate the laboratory results and to assess the overall performance of the proposed system under practical operating conditions. Then the robustness of the system can be tested by charging and discharging the battery several times, exposing the system to different temperatures and irradiance levels over a long period of time.
 
-        After all tests, the prototype will be installed in \acs{sg01} prototype boat alongside with the previous used \ac{mppt} controllers to compare the performance in real world conditions.
+        After all tests, the prototype will be installed in \acs{sg01} alongside with the previous used \ac{mppt} controllers to compare the performance in real world conditions.
 
 
 
